@@ -10,8 +10,13 @@ TODAY = "2026-11-16"
 SEARCH = "https://nazarorishchin.teamsteadyrealestate.com/listing"
 PAGES = []
 
-NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Commercial"),
-       ("/reviews/", "Reviews"), ("/blog/", "Blog"), ("/uk/", "Українською")]
+NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Invest"), ("/blog/", "Guides")]
+
+
+def lang_toggle(lang):
+    if lang == "uk":
+        return '<a class="lang" href="/" hreflang="en" aria-label="Switch to English"><span>EN</span><b>УК</b></a>'
+    return '<a class="lang" href="/uk/" hreflang="uk" aria-label="Українською"><b>EN</b><span>УК</span></a>'
 
 
 def nav_links(active):
@@ -50,8 +55,8 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <header class="site-header">
 <div class="wrap bar">
 <a class="wordmark" href="/">Nazar Orishchin</a>
-<nav class="nav" aria-label="Main">{nav_links(active)}<a class="call" href="tel:+19528469173">(952) 846-9173</a></nav>
-<details class="menu"><summary>Menu</summary><nav aria-label="Mobile">{nav_links(active)}<a href="/#contact">Contact</a><a href="tel:+19528469173">Call (952) 846-9173</a></nav></details>
+<nav class="nav" aria-label="Main">{nav_links(active)}{lang_toggle(lang)}<a class="call" href="tel:+19528469173">Call</a></nav>
+<div class="mobile-right">{lang_toggle(lang)}<details class="menu"><summary>Menu</summary><nav aria-label="Mobile">{nav_links(active)}<a href="/reviews/">Reviews</a><a href="tel:+19528469173">Call (952) 846-9173</a></nav></details></div>
 </div>
 </header>
 <main>
@@ -63,12 +68,13 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <a class="wordmark" href="/">Nazar Orishchin</a>
 <p>RE/MAX Results · Team Steady · Minnesota license #40776361</p>
 <p>11200 W 78th St, Eden Prairie, MN 55344</p>
+<p><a href="tel:+19528469173" style="display:inline">(952) 846-9173</a> · <a href="mailto:Nazar@ts-re.com" style="display:inline">Nazar@ts-re.com</a></p>
 <p>Each office independently owned and operated. Equal Housing Opportunity.</p>
 <p>© 2026 Nazar Orishchin</p>
 </div>
 <div>
 <h4>Site</h4>
-<a href="/buy/">Buy a home</a><a href="/sell/">Sell a home</a><a href="/commercial/">Commercial and investors</a><a href="/reviews/">Reviews</a><a href="/blog/">Blog</a><a href="/uk/">Українською</a>
+<a href="{SEARCH}">Search homes</a><a href="/buy/">Buy a home</a><a href="/sell/">Sell a home</a><a href="/commercial/">Invest and commercial</a><a href="/reviews/">Reviews</a><a href="/blog/">Guides</a><a href="/uk/">Українською</a>
 </div>
 <div>
 <h4>Elsewhere</h4>
@@ -76,6 +82,13 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 </div>
 </div>
 </footer>
+<script>
+(function(){{if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+var els=document.querySelectorAll("main .section h2, main .section .lead, main .section .chapter, main .card, main .quote, main .pull, main .steps li, main .stat, main .about-photo, main .towns, main .tags, main .faq details, main .band-grid > *, main .article > *, main .page-hero > *, main .page-hero .photo");
+document.documentElement.classList.add("js-reveal");
+var io=new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting){{var t=e.target;t.classList.add("in");io.unobserve(t);setTimeout(function(){{t.style.transitionDelay="";}},1200);}}}});}},{{rootMargin:"0px 0px -6% 0px"}});
+els.forEach(function(el){{el.classList.add("reveal");var i=Array.prototype.indexOf.call(el.parentElement.children,el);el.style.transitionDelay=Math.min(i,5)*80+"ms";io.observe(el);}});}})();
+</script>
 </body>
 </html>
 """
@@ -279,7 +292,6 @@ def build():
 <h1>Buy, sell or invest in the west metro with an agent who runs the numbers.</h1>
 <p class="lead">I'm Nazar Orishchin. I worked as an engineer for five years before real estate, so every price, offer and investment gets checked like a spec sheet before you sign.</p>
 <div class="cta"><a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a><a class="arrow" href="{SEARCH}" target="_blank" rel="noopener">Search homes for sale</a></div>
-<p class="small">English and Ukrainian. <a href="/uk/">Розмовляю українською.</a></p>
 </div>
 <div class="photo"><img src="/images/nazar-orishchin.jpg" alt="Nazar Orishchin, real estate agent, in a gray blazer" width="900" height="1350" fetchpriority="high"></div>
 </div>
@@ -347,17 +359,9 @@ def build():
 <a class="arrow" href="/blog/">All guides</a>
 </div></section>
 
+<div id="contact"></div>
 {next_step("Your next step is a short call.", "Tell me what you're trying to do. You'll leave with a plan, whether or not we work together.")}
 
-<section><div class="wrap section split contact" id="contact">
-<div class="stack" style="align-items:flex-start"><h2>Contact</h2><p class="soft">Call or text is fastest.</p></div>
-<dl>
-<div><dt>Phone</dt><dd>{PHONE}</dd></div>
-<div><dt>Email</dt><dd><a href="mailto:Nazar@ts-re.com">Nazar@ts-re.com</a></dd></div>
-<div><dt>Office</dt><dd>RE/MAX Results<br>11200 W 78th St<br>Eden Prairie, MN 55344</dd></div>
-<div><dt>Follow</dt><dd><a href="https://www.facebook.com/NazarOrishchinRealEstate">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a></dd></div>
-</dl>
-</div></section>
 
 {newsletter()}
 """
