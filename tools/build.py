@@ -11,18 +11,39 @@ SEARCH = "https://nazarorishchin.teamsteadyrealestate.com/listing"
 PAGES = []
 
 NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Invest"), ("/blog/", "Guides")]
+GLOBE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>'
 
 
-def lang_toggle(lang):
+def lang_link(lang):
     if lang == "uk":
-        return '<a class="lang" href="/" hreflang="en" aria-label="Switch to English"><span>EN</span><b>УК</b></a>'
-    return '<a class="lang" href="/uk/" hreflang="uk" aria-label="Українською"><b>EN</b><span>УК</span></a>'
+        return '<a class="lang" href="/" hreflang="en" lang="en">%sEnglish</a>' % GLOBE
+    return '<a class="lang" href="/uk/" hreflang="uk" lang="uk">%sУкраїнська</a>' % GLOBE
 
 
-def nav_links(active):
-    return '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>' % SEARCH + "".join(
-        '<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if u == active else "", t)
-        for u, t in NAV)
+def cur(u, active):
+    return ' aria-current="page"' if u == active else ""
+
+
+def desktop_nav(active, lang):
+    bs = ' class="on"' if active in ("/buy/", "/sell/") else ""
+    return ('<nav class="nav" aria-label="Main">'
+            '<div class="dd"><button type="button"%s aria-haspopup="true">Buy &amp; sell<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>'
+            '<div class="dd-menu"><a href="/buy/"%s><b>Buy a home</b><span>Process, costs and first steps</span></a>'
+            '<a href="/sell/"%s><b>Sell your home</b><span>Pricing, prep and marketing</span></a></div></div>'
+            '<a href="/commercial/"%s>Invest</a><a href="/blog/"%s>Guides</a>'
+            '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>%s</nav>') % (
+        bs, cur("/buy/", active), cur("/sell/", active), cur("/commercial/", active), cur("/blog/", active), SEARCH, lang_link(lang))
+
+
+def mobile_nav(active, lang):
+    links = "".join('<a href="%s"%s>%s</a>' % (u, cur(u, active), t) for u, t in NAV)
+    return ('<details class="menu"><summary aria-label="Open menu"><span></span><span></span><span></span></summary><nav aria-label="Mobile">'
+            '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>%s<a href="/reviews/"%s>Reviews</a>'
+            '<a href="tel:+19528469173">Call (952) 846-9173</a>%s</nav></details>') % (SEARCH, links, cur("/reviews/", active), lang_link(lang))
+
+
+import hashlib as _h
+CSSV = _h.md5(open("css/site.css","rb").read()).hexdigest()[:8]
 
 
 def page(path, title, desc, body, active="", lang="en", extra_head="", image="/images/share.jpg"):
@@ -49,14 +70,14 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="/css/site.css?v={CSSV}">
 {extra_head}</head>
 <body>
 <header class="site-header">
 <div class="wrap bar">
 <a class="wordmark" href="/">Nazar Orishchin</a>
-<nav class="nav" aria-label="Main">{nav_links(active)}{lang_toggle(lang)}<a class="call" href="tel:+19528469173">Call</a></nav>
-<div class="mobile-right">{lang_toggle(lang)}<details class="menu"><summary>Menu</summary><nav aria-label="Mobile">{nav_links(active)}<a href="/reviews/">Reviews</a><a href="tel:+19528469173">Call (952) 846-9173</a></nav></details></div>
+{desktop_nav(active, lang)}
+{mobile_nav(active, lang)}
 </div>
 </header>
 <main>
