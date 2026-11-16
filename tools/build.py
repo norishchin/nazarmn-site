@@ -5,7 +5,7 @@ import os, html, json
 SITE = "https://nazarmn.com"
 PHONE = '<a href="tel:+19528469173">(952) 846-9173</a>'
 TS = "https://nazarorishchin.teamsteadyrealestate.com"
-NOTE = "https://nazars-newsletter-73890a.beehiiv.com/subscribe"
+NOTE = "https://nazars-newsletter-73890a.beehiiv.com/"
 TODAY = "2026-11-13"
 PAGES = []
 
@@ -91,11 +91,10 @@ def newsletter(label="The Nazar Note", head="One short email every Friday."):
 <h2>{head}</h2>
 <p class="soft">West metro market numbers, new openings, and one thing worth doing this weekend. Short enough to read with your coffee.</p>
 </div>
-<form class="sub" action="{NOTE}" method="get" target="_blank">
-<label for="note-email">Email address</label>
-<div class="row"><input id="note-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"><button class="btn primary" type="submit">Subscribe</button></div>
-<small>Free. Unsubscribe anytime.</small>
-</form>
+<div class="sub">
+<a class="btn primary" href="{NOTE}" target="_blank" rel="noopener">Get the Friday note</a>
+<small>Opens the sign-up page for The Nazar Note. Free. Unsubscribe anytime.</small>
+</div>
 </div>
 </section>"""
 
