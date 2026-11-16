@@ -70,7 +70,7 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 </div>
 <div>
 <h4>Elsewhere</h4>
-<a href="{TS}">Team Steady site</a><a href="{NOTE}">The Nazar Note</a><a href="https://facebook.com/NazarO15">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a>
+<a href="{TS}">Team Steady site</a><a href="{NOTE}">The Nazar Note</a><a href="https://www.facebook.com/NazarOrishchinRealEstate">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a>
 </div>
 </div>
 </footer>
@@ -268,7 +268,7 @@ def build():
         "areaServed": ["Chaska", "Chanhassen", "Victoria", "Eden Prairie", "Hopkins", "Savage", "Shakopee",
                        "Burnsville", "Prior Lake", "Minnesota"],
         "parentOrganization": {"@type": "Organization", "name": "RE/MAX Results"},
-        "sameAs": ["https://facebook.com/NazarO15", "https://instagram.com/nazar_realtor_mn",
+        "sameAs": ["https://www.facebook.com/NazarOrishchinRealEstate", "https://instagram.com/nazar_realtor_mn",
                    "https://linkedin.com/in/nazar-orishchin", TS]}, ensure_ascii=False)
     home = f"""
 <div class="wrap hero" id="top">
@@ -353,7 +353,7 @@ def build():
 <div><dt>Phone</dt><dd>{PHONE}</dd></div>
 <div><dt>Email</dt><dd><a href="mailto:Nazar@ts-re.com">Nazar@ts-re.com</a></dd></div>
 <div><dt>Office</dt><dd>RE/MAX Results<br>11200 W 78th St<br>Eden Prairie, MN 55344</dd></div>
-<div><dt>Follow</dt><dd><a href="https://facebook.com/NazarO15">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a></dd></div>
+<div><dt>Follow</dt><dd><a href="https://www.facebook.com/NazarOrishchinRealEstate">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a></dd></div>
 </dl>
 </div></section>
 
