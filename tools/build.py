@@ -37,6 +37,7 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:image" content="{SITE}{image}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="msvalidate.01" content="B26ECEDAEC64C381F18F97C9D0D09028" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%230f1f33'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='40' font-weight='600' text-anchor='middle' fill='%23f7f3ec'%3EN%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
