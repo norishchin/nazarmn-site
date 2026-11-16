@@ -5,7 +5,7 @@ import os, html, json
 SITE = "https://nazarmn.com"
 PHONE = '<a href="tel:+19528469173">(952) 846-9173</a>'
 TS = "https://nazarorishchin.teamsteadyrealestate.com"
-NOTE = "https://nazars-newsletter-73890a.beehiiv.com/"
+NOTE = "https://news.nazarmn.com/"
 TODAY = "2026-11-16"
 SEARCH = "https://nazarorishchin.teamsteadyrealestate.com/listing"
 PAGES = []
