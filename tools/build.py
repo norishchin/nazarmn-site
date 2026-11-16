@@ -6,7 +6,8 @@ SITE = "https://nazarmn.com"
 PHONE = '<a href="tel:+19528469173">(952) 846-9173</a>'
 TS = "https://nazarorishchin.teamsteadyrealestate.com"
 NOTE = "https://nazars-newsletter-73890a.beehiiv.com/"
-TODAY = "2026-11-13"
+TODAY = "2026-11-16"
+SEARCH = "https://nazarorishchin.teamsteadyrealestate.com/listing"
 PAGES = []
 
 NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Commercial"),
@@ -14,7 +15,7 @@ NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Commercial"),
 
 
 def nav_links(active):
-    return "".join(
+    return '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>' % SEARCH + "".join(
         '<a href="%s"%s>%s</a>' % (u, ' aria-current="page"' if u == active else "", t)
         for u, t in NAV)
 
@@ -123,6 +124,8 @@ def pull(name, text):
 
 
 # ---------- blog posts ----------
+import sys; sys.path.insert(0, os.path.dirname(__file__))
+from posts_new import START_TO_FINISH, NEW_POSTS, FIRST_STEP, INVESTING, SELL_PREP
 POSTS = [
  dict(slug="what-i-look-for-in-an-inspection-report", title="What I look for first in a home inspection report",
       desc="An engineer turned real estate agent on how to read a home inspection report: what matters, what is normal, and what to ask the seller to fix.",
@@ -223,30 +226,35 @@ POSTS = [
 <p>An hour of yard work and a short visit from the photographer. In return, your listing goes live in March or April with the best-looking exterior in the neighborhood.</p>
 <p class="note">Thinking about listing in the west metro next spring? Call or text me at (952) 846-9173 in early fall and I'll get the photographer scheduled.</p>
 """),
- dict(slug="buying-your-first-home-in-minnesota", title="Buying your first home in Minnesota: the steps in order",
-      desc="A first-time home buyer's guide to the Minnesota purchase process, from pre-approval to closing day, in plain language.",
-      teaser="Pre-approval, showings, offer, inspection, appraisal, closing. What happens at each step and what you need to do.",
-      body="""
-<p>Buying a first home feels complicated because nobody explains the order. Here it is, start to finish.</p>
-<h2>1. Talk to a lender first</h2>
-<p>A pre-approval tells you what you can borrow and what the monthly payment looks like. Sellers expect one with every offer. Ask the lender about first-time buyer and down payment assistance programs while you're at it.</p>
-<h2>2. Decide what matters</h2>
-<p>Pick your must-haves, your nice-to-haves, and the towns you'd live in. Be honest about commute and schools. A clear list saves weekends.</p>
-<h2>3. See homes</h2>
-<p>I set up the showings and tell you what I see: the age of the roof and furnace, signs of water, how the price compares to recent sales. You don't need to love the first one.</p>
-<h2>4. Write the offer</h2>
-<p>Price is one part. Earnest money, closing date, inspection, and financing terms matter too. I pull the comparable sales so the number has a reason behind it.</p>
-<h2>5. Inspection</h2>
-<p>Once the seller accepts, you hire an inspector. We read the report together, sort the real problems from routine maintenance, and decide what to ask the seller to fix.</p>
-<h2>6. Appraisal and underwriting</h2>
-<p>The lender orders an appraisal and finishes reviewing your file. Your job is to send documents fast and not open new credit or change jobs.</p>
-<h2>7. Final walkthrough and closing</h2>
-<p>We walk the house one more time to confirm its condition. Then you sign at the title company and get the keys.</p>
-<h2>After closing</h2>
-<p>File for homestead with your county so you're taxed as an owner-occupant, change the locks, and keep my number. I answer questions long after the sale.</p>
-<p class="note">Розмовляю українською. If you or your family would rather go through these steps in Ukrainian, see <a href="/uk/">the Ukrainian page</a> or call (952) 846-9173.</p>
-"""),
+ START_TO_FINISH,
 ]
+
+
+CATS = {"what-i-look-for-in-an-inspection-report": "Buying", "contract-for-deed-minnesota": "Investing",
+        "how-off-market-commercial-deals-happen": "Investing", "selling-in-spring-take-photos-in-fall": "Selling"}
+POSTS = NEW_POSTS[:1] + [START_TO_FINISH] + NEW_POSTS[1:] + POSTS[:-1]
+for _p in POSTS:
+    _p.setdefault("date", "2026-11-13"); _p.setdefault("cat", CATS.get(_p["slug"], "Guide"))
+    _words = len(__import__("re").sub("<[^>]+>", " ", _p["body"]).split())
+    _p["mins"] = max(2, round(_words / 230))
+
+
+def fmt_date(d):
+    import datetime
+    return datetime.date.fromisoformat(d).strftime("%B %-d, %Y")
+
+
+def card(p):
+    return (f'<a class="card post-card" href="/blog/{p["slug"]}/"><p class="post-meta">{p["cat"]} · {p["mins"]} min read</p>'
+            f'<h3>{p["title"]}</h3><p class="soft grow">{p["teaser"]}</p><span class="arrow">Read it</span></a>')
+
+
+def next_step(head="Ready when you are.", text="Tell me what you're trying to do. One conversation, no pressure, and you'll leave with a plan."):
+    return f"""<section class="band"><div class="wrap section tight band-grid">
+<div class="stack"><p class="label">Next step</p><h2>{head}</h2><p class="soft">{text}</p></div>
+<div class="stack" style="align-items:flex-start"><a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a>
+<a class="arrow light" href="mailto:Nazar@ts-re.com">Or email Nazar@ts-re.com</a></div>
+</div></section>"""
 
 
 def build():
@@ -261,48 +269,65 @@ def build():
         "parentOrganization": {"@type": "Organization", "name": "RE/MAX Results"},
         "sameAs": ["https://facebook.com/NazarO15", "https://instagram.com/nazar_realtor_mn",
                    "https://linkedin.com/in/nazar-orishchin", TS]}, ensure_ascii=False)
-    posts_cards = "".join(
-        f'<a class="card post-card" href="/blog/{p["slug"]}/"><time datetime="{TODAY}">November 2026</time><h3>{p["title"]}</h3><p class="soft grow">{p["teaser"]}</p><span class="arrow">Read it</span></a>'
-        for p in POSTS[:3])
     home = f"""
 <div class="wrap hero" id="top">
 <div class="stack lg">
 <p class="label">RE/MAX Results · Team Steady · Licensed in Minnesota</p>
-<h1>Nazar Orishchin, real estate agent for Chaska, Chanhassen and the west metro.</h1>
-<p class="lead">Homes, investment property and commercial buildings across Minnesota. I worked as an engineer for five years before real estate, so I run the numbers before you sign anything.</p>
-<div class="cta"><a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a><span class="small">English and Ukrainian. <a href="/uk/">Розмовляю українською.</a></span></div>
+<h1>Buy, sell or invest in the west metro with an agent who runs the numbers.</h1>
+<p class="lead">I'm Nazar Orishchin. I worked as an engineer for five years before real estate, so every price, offer and investment gets checked like a spec sheet before you sign.</p>
+<div class="cta"><a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a><a class="arrow" href="{SEARCH}" target="_blank" rel="noopener">Search homes for sale</a></div>
+<p class="small">English and Ukrainian. <a href="/uk/">Розмовляю українською.</a></p>
 </div>
 <div class="photo"><img src="/images/nazar-orishchin.jpg" alt="Nazar Orishchin, real estate agent, in a gray blazer" width="900" height="1350" fetchpriority="high"></div>
 </div>
 
 <section class="rule" aria-label="At a glance"><div class="wrap section tight stats">
 <div class="stat"><b>100+</b><span>Transactions closed since 2022</span></div>
-<div class="stat"><b>5.0</b><span>Google rating, 26 reviews, Nov 2026</span></div>
+<div class="stat"><b>5.0</b><span>Google rating from 26 reviews</span></div>
 <div class="stat"><b>5 years</b><span>As an engineer before real estate</span></div>
 <div class="stat"><b>2</b><span>Languages: English and Ukrainian</span></div>
 </div></section>
 
+<section class="rule"><div class="wrap section split">
+<div class="stack"><p class="chapter">01 · The problem</p><h2>You do this a few times in your life. The other side does it every day.</h2></div>
+<div class="stack">
+<p class="lead">Buying or selling a home, or a building, is the biggest check most people ever write. The listing agent, the seller and the lender all do this weekly. You deserve someone on your side who does too, and who checks the math.</p>
+<p>That's my job: find what a property is really worth, what it will really cost you, and how to get the deal done without surprises. Then I tell you plainly, even when the answer is "walk away."</p>
+</div>
+</div></section>
+
 <section class="rule"><div class="wrap section stack lg" id="help">
-<div class="stack"><h2>How I help</h2><p class="soft">Pick the one that fits you.</p></div>
+<div class="stack"><p class="chapter">02 · How I help</p><h2>Pick where you are.</h2></div>
 <div class="grid g3">
-<a class="card" href="/buy/"><p class="label">Buying a home</p><h3>Find the right home and pay the right price.</h3><p class="soft grow">I check comps, condition and disclosures before we write an offer, and I tell you when a house isn't worth it.</p><span class="arrow">How buying works</span></a>
-<a class="card" href="/sell/"><p class="label">Selling a home</p><h3>Price it right, prep it right, sell it once.</h3><p class="soft grow">A price built on real comps, a short list of fixes worth doing, and clear updates from listing day to closing.</p><span class="arrow">How selling works</span></a>
-<a class="card" href="/commercial/"><p class="label">Investors and commercial</p><h3>Buildings that pencil out.</h3><p class="soft grow">Apartments, mixed use, retail, strip centers, warehouses, churches and special use. Off-market deals and creative terms.</p><span class="arrow">Commercial work</span></a>
+<a class="card" href="/buy/"><p class="label">Buying a home</p><h3>Find the right home and pay the right price.</h3><p class="soft grow">Comps, condition and disclosures checked before we write an offer. First home or fifth.</p><span class="arrow">How buying works</span></a>
+<a class="card" href="/sell/"><p class="label">Selling a home</p><h3>Price it right, prep it right, sell it once.</h3><p class="soft grow">A price built on real sales, a short prep list that pays for itself, and a launch built for the first week.</p><span class="arrow">How selling works</span></a>
+<a class="card" href="/commercial/"><p class="label">Investors and commercial</p><h3>Buildings that pencil out.</h3><p class="soft grow">Apartments, mixed use, retail, warehouses, churches and special use. Off-market deals and creative terms.</p><span class="arrow">Commercial work</span></a>
 </div>
 </div></section>
 
 <section class="rule"><div class="wrap section stack lg">
-<h2>What clients say</h2>
+<div class="stack"><p class="chapter">03 · Proof</p><h2>What clients say after closing.</h2></div>
+{pull("Alena Golovchuk", "He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.")}
 <div class="grid g3">
-{quote("Alena Golovchuk", "He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.")}
+{quote("Pavlo Fursyak", "His help didn’t stop after closing. Even after the deal was completed, he continued to check in, answer our questions, and guide us through the next steps.")}
 {quote("Heather Sinz", "He is creative, knowledgeable and personable. He helped us find the most house for our money.")}
 {quote("Sergey Timoshenko", "Any real estate purchases I make, I’m ALWAYS going with Nazar.")}
 </div>
 <a class="arrow" href="/reviews/">Read the full reviews</a>
 </div></section>
 
+<section class="rule"><div class="wrap section split">
+<div class="stack"><p class="chapter">04 · How we'll work</p><h2>From first call to keys, in four steps.</h2><p class="soft">Same process whether you're buying a starter home or a fourplex.</p></div>
+<ol class="steps">
+<li><div><h3>A short call</h3><p>What you want, your timeline and your budget. No pressure and no paperwork.</p></div></li>
+<li><div><h3>A written plan</h3><p>Price range, towns or property types, and what a "yes" looks like, so we can move fast when it shows up.</p></div></li>
+<li><div><h3>The work</h3><p>Showings, pricing, offers and negotiation, with the numbers behind every recommendation.</p></div></li>
+<li><div><h3>Closing and after</h3><p>Inspection, appraisal and closing handled. I'm still your call for contractors and questions after.</p></div></li>
+</ol>
+</div></section>
+
 <section class="rule"><div class="wrap section split" id="about">
-<div><h2>About Nazar</h2><img class="about-photo" src="/images/nazar-orishchin-about.jpg" alt="Nazar Orishchin smiling, seated" width="800" height="1200" loading="lazy"></div>
+<div><p class="chapter">05 · Who I am</p><h2 style="margin-top:12px">About Nazar</h2><img class="about-photo" src="/images/nazar-orishchin-about.jpg" alt="Nazar Orishchin smiling, seated" width="800" height="1200" loading="lazy"></div>
 <div class="stack">
 <p>I was born in Ukraine and came to Minnesota when I was three. I earned an engineering degree and worked as an engineer for about five years before going full time in real estate.</p>
 <p>That background shows up in how I work. I read the inspection report line by line, underwrite every investment deal, and give you the number plainly. I'm handy too, so I can give you a realistic read on what a repair takes.</p>
@@ -314,15 +339,15 @@ def build():
 </div></section>
 
 <section class="rule"><div class="wrap section stack lg">
-<div class="stack"><h2>From the blog</h2><p class="soft">Short, practical, written from deals I've worked.</p></div>
-<div class="grid g3">{posts_cards}</div>
-<a class="arrow" href="/blog/">All posts</a>
+<div class="stack"><p class="chapter">06 · Start here</p><h2>Not ready to call? Read these first.</h2><p class="soft">Plain guides written from deals I've worked.</p></div>
+<div class="grid g3">{card(FIRST_STEP)}{card(START_TO_FINISH)}{card(INVESTING)}</div>
+<a class="arrow" href="/blog/">All guides</a>
 </div></section>
 
-{newsletter()}
+{next_step("Your next step is a short call.", "Tell me what you're trying to do. You'll leave with a plan, whether or not we work together.")}
 
 <section><div class="wrap section split contact" id="contact">
-<div class="stack" style="align-items:flex-start"><h2>Let's talk</h2><p class="soft">Call or text is fastest. Email works too.</p><a class="btn ghost" href="mailto:Nazar@ts-re.com">Email Nazar</a></div>
+<div class="stack" style="align-items:flex-start"><h2>Contact</h2><p class="soft">Call or text is fastest.</p></div>
 <dl>
 <div><dt>Phone</dt><dd>{PHONE}</dd></div>
 <div><dt>Email</dt><dd><a href="mailto:Nazar@ts-re.com">Nazar@ts-re.com</a></dd></div>
@@ -330,6 +355,8 @@ def build():
 <div><dt>Follow</dt><dd><a href="https://facebook.com/NazarO15">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a></dd></div>
 </dl>
 </div></section>
+
+{newsletter()}
 """
     page("/", "Nazar Orishchin | Real Estate Agent for Chaska, Chanhassen and the West Metro",
          "Nazar Orishchin, RE/MAX Results real estate agent for Chaska, Chanhassen and the west metro. Homes, multifamily and commercial property across Minnesota. English and Ukrainian.",
@@ -340,7 +367,7 @@ def build():
 <div class="wrap page-hero split">
 <div class="stack lg"><p class="label">Buying a home</p><h1>Buy the right house at the right price.</h1>
 <p class="lead">You get an agent who reads the disclosures, checks the comps, and tells you when to walk away. First home or fifth, the process is the same and I explain each step.</p>
-<div><a class="btn primary" href="{TS}">Search homes on my Team Steady site</a></div></div>
+<div class="cta"><a class="btn primary" href="{SEARCH}" target="_blank" rel="noopener">Search homes for sale</a><a class="arrow" href="tel:+19528469173">Or call (952) 846-9173</a></div></div>
 <div class="photo"><img src="/images/nazar-smiling.jpg" alt="Nazar Orishchin standing by a window" width="800" height="1200"></div>
 </div>
 <section class="rule"><div class="wrap section split">
@@ -363,9 +390,9 @@ def build():
 <div class="card"><h3>Straight answers</h3><p class="soft">If a house is overpriced or has a problem, I say so, even when it means more showings.</p></div>
 </div>
 {pull("Pavlo Fursyak", "From day one, Nazar made everything feel simple, organized, and stress-free. He patiently answered every question, explained every step, and made sure we always knew what to expect.")}
-<a class="arrow" href="/blog/buying-your-first-home-in-minnesota/">Read the first-time buyer guide</a>
+<a class="arrow" href="/blog/buying-your-first-home-in-minnesota/">Read: buying a home, start to finish</a>
 </div></section>
-{newsletter("Not ready yet?", "Watch the market from your inbox.")}
+{next_step("Let's find your house.", "A short call to set your budget, towns and must-haves. Then I'll send you homes the day they list.")}
 """
     page("/buy/", "Buy a Home in the West Metro | Nazar Orishchin",
          "Buying a home in Chaska, Chanhassen, Eden Prairie or the west metro. An engineer-trained agent who checks comps, condition and disclosures before you offer.", buy, active="/buy/")
@@ -375,7 +402,7 @@ def build():
 <div class="wrap page-hero split">
 <div class="stack lg"><p class="label">Selling a home</p><h1>Price it right, prep it right, sell it once.</h1>
 <p class="lead">Homes that sit get discounted. The plan is to launch at a price the market agrees with, looking its best, and to keep you informed until closing.</p>
-<div><a class="btn primary" href="{TS}">See what your home is worth</a></div></div>
+<div><a class="btn primary" href="tel:+19528469173">Get a price range: (952) 846-9173</a></div></div>
 <div class="photo"><img src="/images/nazar-laughing.jpg" alt="Nazar Orishchin laughing, seated" width="800" height="1200"></div>
 </div>
 <section class="rule"><div class="wrap section split">
@@ -393,12 +420,9 @@ def build():
 <h2>Selling and buying at once</h2>
 <p class="lead">Most sellers also need somewhere to go. I plan both sides together so you're not carrying two houses or living out of boxes.</p>
 {pull("Heather Sinz", "Nazar went above and beyond for my husband and I, from start to finish, helping us balance selling and buying at the same time.")}
-<a class="arrow" href="/blog/selling-in-spring-take-photos-in-fall/">Planning a spring sale? Read this first</a>
+<a class="arrow" href="/blog/selling-your-home-what-the-first-30-days-look-like/">Read: the 30 days before you list</a>
 </div></section>
-<section class="rule"><div class="wrap section stack center">
-<h2>Want a number for your house?</h2>
-<p class="soft">Call or text {PHONE}. I'll look at it in person and give you a price range, no obligation.</p>
-</div></section>
+{next_step("Want a number for your house?", "I'll walk through it in person and give you a price range with the reasoning. No obligation.")}
 """
     page("/sell/", "Sell Your Home in the West Metro | Nazar Orishchin",
          "Selling a home in Chaska, Chanhassen, Eden Prairie or the west metro. Comp-based pricing, a short prep list, and clear updates from listing to closing.", sell, active="/sell/")
@@ -442,10 +466,7 @@ def build():
 <details><summary>I own a building. Can we talk without listing it?</summary><p>Yes. I'll give you a value range and walk through your options. Nothing is public unless you decide it should be.</p></details>
 </div>
 </div></section>
-<section class="rule"><div class="wrap section stack center">
-<h2>Have a building or a deal in mind?</h2>
-<p class="soft">Email <a href="mailto:Nazar@ts-re.com">Nazar@ts-re.com</a> with the address and what you know, or call {PHONE}.</p>
-</div></section>
+{next_step("Have a building or a deal in mind?", "Send the address and what you know to Nazar@ts-re.com, or call. I'll tell you if the numbers work.")}
 """
     page("/commercial/", "Commercial and Multifamily Real Estate in Minnesota | Nazar Orishchin",
          "Apartments, mixed use, retail, strip centers, warehouses, churches and special-use property in Minnesota. Off-market deals, underwriting and creative terms.", com, active="/commercial/")
@@ -461,13 +482,9 @@ def build():
 <div class="stat"><b>5.0</b><span>Average Google rating</span></div>
 <div class="stat"><b>26</b><span>Google reviews across two office profiles</span></div>
 <div class="stat"><b>100+</b><span>Transactions closed since 2022</span></div>
-<div class="stat"><b>Nov 2026</b><span>Rating and count as of Nov 12, 2026</span></div>
 </div></section>
 <section class="rule"><div class="wrap section"><div class="masonry">{allq}</div></div></section>
-<section class="rule"><div class="wrap section stack center">
-<h2>Want to be the next one?</h2>
-<p class="soft">Call or text {PHONE} and tell me what you're trying to do.</p>
-</div></section>
+{next_step("Want to be the next review?", "Tell me what you're trying to do and I'll tell you how I'd approach it.")}
 """
     page("/reviews/", "Client Reviews | Nazar Orishchin, Real Estate Agent",
          "Google reviews from buyers, sellers and investors who worked with Nazar Orishchin of RE/MAX Results. 5.0 average across 26 reviews as of November 2026.", rev, active="/reviews/")
@@ -509,40 +526,64 @@ def build():
          "Україномовний ріелтор у Міннесоті. Купівля, продаж та інвестиції в нерухомість: Chaska, Chanhassen, Eden Prairie та вся Міннесота.", uk, active="/uk/", lang="uk")
 
     # ---------- blog ----------
-    cards = "".join(
-        f'<a class="card post-card" href="/blog/{p["slug"]}/"><time datetime="{TODAY}">November 2026</time><h3>{p["title"]}</h3><p class="soft grow">{p["teaser"]}</p><span class="arrow">Read it</span></a>'
-        for p in POSTS)
+    start = [p for p in POSTS if p["cat"] == "Start here"]
+    rest = [p for p in POSTS if p["cat"] != "Start here"]
     blog = f"""
-<div class="wrap page-hero stack lg"><p class="label">Blog</p><h1>Practical notes on buying, selling and investing in Minnesota.</h1>
-<p class="lead">Short posts from deals I've worked. For weekly market numbers, get The Nazar Note.</p></div>
-<section class="rule"><div class="wrap section"><div class="grid g3">{cards}</div></div></section>
+<div class="wrap page-hero stack lg"><p class="label">Blog</p><h1>Plain guides to buying, selling and investing in Minnesota.</h1>
+<p class="lead">Written from deals I've worked. Start with the first three if you're new to this.</p></div>
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">Start here</p><div class="grid g3">{"".join(card(p) for p in start)}</div></div></section>
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">More guides</p><div class="grid g3">{"".join(card(p) for p in rest)}</div></div></section>
+{next_step()}
 {newsletter()}
 """
     page("/blog/", "Blog | Nazar Orishchin, Minnesota Real Estate",
          "Practical guides on buying, selling and investing in Minnesota real estate from agent Nazar Orishchin: inspections, contract for deed, off-market deals and more.", blog, active="/blog/")
     for p in POSTS:
         pld = json.dumps({"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"],
-                          "datePublished": TODAY, "author": {"@type": "Person", "name": "Nazar Orishchin", "url": SITE + "/"},
+                          "datePublished": p["date"], "author": {"@type": "Person", "name": "Nazar Orishchin", "url": SITE + "/"},
                           "mainEntityOfPage": f'{SITE}/blog/{p["slug"]}/'})
+        related = [q for q in POSTS if q is not p and q["cat"] == p["cat"]][:2] or [q for q in POSTS if q is not p][:2]
         body = f"""
 <article class="article">
-<a class="arrow" href="/blog/" style="padding:0">All posts</a>
-<p class="post-meta" style="margin-top:20px"><time datetime="{TODAY}">November 13, 2026</time> · Nazar Orishchin</p>
+<a class="arrow back" href="/blog/" style="padding:0">All guides</a>
+<p class="post-meta" style="margin-top:20px">{p["cat"]} · <time datetime="{p["date"]}">{fmt_date(p["date"])}</time> · {p["mins"]} min read</p>
 <h1>{p["title"]}</h1>
 <p class="lead">{p["teaser"]}</p>
 {p["body"]}
 <div class="byline"><img src="/images/nazar-orishchin-about.jpg" alt="" width="64" height="64" loading="lazy"><p><b>Nazar Orishchin</b><br>Real estate agent, RE/MAX Results, Team Steady. {PHONE}</p></div>
 </article>
-{newsletter()}
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">Keep reading</p><div class="grid g2">{"".join(card(q) for q in related)}</div></div></section>
+{next_step()}
 """
         page(f'/blog/{p["slug"]}/', f'{p["title"]} | Nazar Orishchin', p["desc"], body, active="/blog/",
              extra_head=f'<script type="application/ld+json">{pld}</script>\n')
+
+    # ---------- /search/ redirect to Lofty listings ----------
+    os.makedirs("search", exist_ok=True)
+    open("search/index.html", "w").write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Search homes | Nazar Orishchin</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={SEARCH}"><link rel="canonical" href="{SEARCH}"></head><body><p>Taking you to <a href="{SEARCH}">home search</a>.</p></body></html>')
+
+    # ---------- llms.txt: plain summary for AI assistants ----------
+    open("llms.txt", "w", encoding="utf-8").write(f"""# Nazar Orishchin, real estate agent (RE/MAX Results, Team Steady)
+
+> Minnesota real estate agent based in Eden Prairie serving Chaska, Chanhassen, Victoria, Eden Prairie, Hopkins, Savage, Shakopee, Burnsville, Prior Lake and the west metro. Homes, multifamily and commercial property statewide. Former engineer (about five years). 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English and Ukrainian. Minnesota license #40776361. Phone (952) 846-9173, email Nazar@ts-re.com.
+
+## Pages
+- [Home]({SITE}/): who Nazar is and how he works
+- [Buy a home]({SITE}/buy/): the buying process step by step
+- [Sell a home]({SITE}/sell/): pricing, prep and launch
+- [Commercial and investors]({SITE}/commercial/): apartments, mixed use, retail, strip centers, warehouses, churches, dealerships, special use; off-market deals; seller carry and contract for deed
+- [Reviews]({SITE}/reviews/): Google reviews in clients' own words
+- [Ukrainian]({SITE}/uk/): Ukrainian-language page
+- [Search homes for sale]({SEARCH})
+
+## Guides
+""" + "".join(f"- [{p['title']}]({SITE}/blog/{p['slug']}/): {p['desc']}\n" for p in POSTS))
 
     # ---------- 404, sitemap, robots ----------
     page("/404.html", "Page not found | Nazar Orishchin", "Page not found.",
          f'<div class="wrap section stack center"><h1>That page isn\'t here.</h1><p class="soft">Try the <a href="/">home page</a> or call {PHONE}.</p></div>')
     open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in PAGES) + "</urlset>\n")
+        + "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in PAGES if u != "/search/") + "</urlset>\n")
     open("robots.txt", "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     open(".nojekyll", "w").write("")
     print("built", len(PAGES), "pages")
