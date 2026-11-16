@@ -269,7 +269,7 @@ def build():
                        "Burnsville", "Prior Lake", "Minnesota"],
         "parentOrganization": {"@type": "Organization", "name": "RE/MAX Results"},
         "sameAs": ["https://www.facebook.com/NazarOrishchinRealEstate", "https://instagram.com/nazar_realtor_mn",
-                   "https://linkedin.com/in/nazar-orishchin", TS]}, ensure_ascii=False)
+                   "https://linkedin.com/in/nazar-orishchin", "https://www.zillow.com/profile/NazarOrishchin", TS]}, ensure_ascii=False)
     home = f"""
 <div class="wrap hero" id="top">
 <div class="stack lg">
