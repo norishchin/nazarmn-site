@@ -7,7 +7,7 @@ export const TEAM_STEADY = "https://nazarorishchin.teamsteadyrealestate.com";
 export const NOTE = "https://news.nazarmn.com/";
 export const EMAIL = "Nazar@ts-re.com";
 // Cloudflare Web Analytics (free, no cookies). Paste the site token here to turn it on. Empty = off.
-export const ANALYTICS_TOKEN = "";
+export const ANALYTICS_TOKEN = "db540cefe8bf46ccbb61d3dce5e93806";
 export const LICENSE = "40776361";
 export const OFFICE = {
   street: "11200 W 78th St",
