@@ -1,0 +1,93 @@
+---
+import Base from "../../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import laughingPhoto from "../../assets/photos/nazar-laughing.jpg";
+const jsonld = [
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "How do you price a house?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "From recent sales of similar homes nearby, adjusted for condition and updates, and checked against what's on the market now and what sat without selling. You get the reasoning in writing."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Should I remodel before I sell?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Usually not. Fix what an inspector will flag, paint where needed, declutter and clean. A big remodel right before listing rarely pays back, and buyers want to pick their own finishes."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "When should I list in Minnesota?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Spring is the busiest listing season. If you plan to list then, take the exterior photos the fall before, while the yard is green. Why fall photos matter."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I sell and buy at the same time?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. I plan both sides together so the timing works and you're not carrying two houses."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Is the highest offer always the best one?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No. A clean offer from a strong buyer can be worth more than a bigger one that falls apart at the appraisal. I lay out price, financing, contingencies and closing date side by side."
+    }
+   }
+  ]
+ }
+];
+---
+<Base title={"Sell Your Home in the West Metro | Nazar Orishchin"} description={"Selling a home in Chaska, Chanhassen, Eden Prairie or the west metro. Comp-based pricing, a short prep list, and clear updates from listing to closing."} lang="en" active="/sell/" jsonld={jsonld}>
+<div class="wrap page-hero split">
+<div class="stack lg"><p class="label">Selling a home</p><h1>Price it right, prep it right, sell it once.</h1>
+<p class="lead">Homes that sit get discounted. So we launch at a price the market agrees with, with the house ready for photos, and I keep you posted until closing.</p>
+<div><a class="btn primary" href="/book/">Book a 15-min call for a price range</a></div></div>
+<div class="photo"><Picture src={laughingPhoto} alt="Nazar Orishchin laughing, seated" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} loading="lazy" /></div>
+</div>
+<section class="rule"><div class="wrap section split">
+<div class="stack"><h2>How selling works</h2><p class="soft">Six steps from first walk-through to closing.</p></div>
+<ol class="steps">
+<li><div><h3>Walk-through</h3><p>I see the house, ask about updates, and learn your timeline.</p></div></li>
+<li><div><h3>Pricing</h3><p>You get recent sales, current competition and a recommended price with the reasoning.</p></div></li>
+<li><div><h3>Prep</h3><p>A short list of fixes that pay for themselves. I skip the ones that don't.</p></div></li>
+<li><div><h3>Photos and launch</h3><p>Professional photos, a listing written for your house, and a launch timed for the most showings.</p></div></li>
+<li><div><h3>Offers</h3><p>I lay out each offer side by side: price, financing, contingencies and risk.</p></div></li>
+<li><div><h3>Inspection to closing</h3><p>I handle the repair negotiation and keep title, lender and buyer's agent moving.</p></div></li>
+</ol>
+</div></section>
+<section class="rule"><div class="wrap section stack lg">
+<h2>Selling and buying at once</h2>
+<p class="lead">Most sellers also need somewhere to go. I plan both sides together so you're not carrying two houses or living out of boxes.</p>
+<figure class="pull"><blockquote>“Nazar went above and beyond for my husband and I, from start to finish, helping us balance selling and buying at the same time.”</blockquote><figcaption><b>Heather Sinz</b> · Google review</figcaption></figure>
+<a class="arrow" href="/blog/selling-your-home-what-the-first-30-days-look-like/">Read: the 30 days before you list</a>
+</div></section>
+<section class="rule"><div class="wrap section split faq">
+<h2>Common questions</h2>
+<div>
+<details><summary>How do you price a house?</summary><p>From recent sales of similar homes nearby, adjusted for condition and updates, and checked against what's on the market now and what sat without selling. You get the reasoning in writing.</p></details>
+<details><summary>Should I remodel before I sell?</summary><p>Usually not. Fix what an inspector will flag, paint where needed, declutter and clean. A big remodel right before listing rarely pays back, and buyers want to pick their own finishes.</p></details>
+<details><summary>When should I list in Minnesota?</summary><p>Spring is the busiest listing season. If you plan to list then, take the exterior photos the fall before, while the yard is green. <a href="/blog/selling-in-spring-take-photos-in-fall/">Why fall photos matter.</a></p></details>
+<details><summary>Can I sell and buy at the same time?</summary><p>Yes. I plan both sides together so the timing works and you're not carrying two houses.</p></details>
+<details><summary>Is the highest offer always the best one?</summary><p>No. A clean offer from a strong buyer can be worth more than a bigger one that falls apart at the appraisal. I lay out price, financing, contingencies and closing date side by side.</p></details>
+</div>
+</div></section>
+<section class="band"><div class="wrap section tight band-grid">
+<div class="stack"><p class="label">Next step</p><h2>Want a number for your house?</h2><p class="soft">I'll walk through it in person and give you a price range with the reasoning. No obligation.</p></div>
+<div class="stack" style="align-items:flex-start"><a class="btn primary" href="/book/">Book a 15-min call</a>
+<a class="arrow light" href="mailto:Nazar@ts-re.com">Or email Nazar@ts-re.com</a></div>
+</div></section>
+</Base>

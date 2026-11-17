@@ -1,0 +1,97 @@
+---
+import Base from "../../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import windowPhoto from "../../assets/photos/nazar-window.jpg";
+const jsonld = [
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "Where in Minnesota do you work?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Anywhere in the state for investment and commercial property. Most of my work is in the Twin Cities metro and the towns within a couple of hours of it."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What is an off-market deal?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "A sale that happens without a public listing. The owner and a buyer are introduced directly, usually through an agent who has done the research and made the call."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What are creative terms?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Anything beyond cash or a standard bank loan. The most common are seller carry and contract for deed, where the seller finances part or all of the price. Here is how contract for deed works."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Do you work with first-time investors?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. We start with what you can put down and what return you need, then look at real buildings against those numbers."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "I own a building. Can we talk without listing it?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. I'll give you a value range and walk through your options. Nothing is public unless you decide it should be."
+    }
+   }
+  ]
+ }
+];
+---
+<Base title={"Commercial and Multifamily Real Estate in Minnesota | Nazar Orishchin"} description={"Apartments, mixed use, retail, strip centers, warehouses, churches and special-use property in Minnesota. Off-market deals, underwriting and creative terms."} lang="en" active="/commercial/" jsonld={jsonld}>
+<div class="wrap page-hero split">
+<div class="stack lg"><p class="label">Investors and commercial</p><h1>Apartment and commercial buildings that pencil out.</h1>
+<p class="lead">I find, underwrite and close investment property across Minnesota, on and off the market. Engineer first, agent second: if the numbers don't work, I'll say so before you spend money on due diligence.</p>
+<div><a class="btn primary" href="mailto:Nazar@ts-re.com?subject=Deal%20to%20look%20at">Send me a deal to look at</a></div></div>
+<div class="photo"><Picture src={windowPhoto} alt="Nazar Orishchin looking out a window" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} loading="lazy" /></div>
+</div>
+<section class="rule"><div class="wrap section stack lg">
+<h2>Property types</h2>
+<ul class="tags"><li>Apartments</li><li>Mixed use</li><li>Retail</li><li>Strip centers</li><li>Warehouses</li><li>Churches</li><li>Dealerships</li><li>Special use</li></ul>
+</div></section>
+<section class="rule"><div class="wrap section stack lg">
+<h2>How I work</h2>
+<div class="grid g3">
+<div class="card"><p class="label">Sourcing</p><h3>Off-market first</h3><p class="soft">Many buildings sell without a listing. I research owners, make the calls, and bring you the ones worth a look.</p></div>
+<div class="card"><p class="label">Underwriting</p><h3>Numbers rebuilt from scratch</h3><p class="soft">Rent roll, real expenses, taxes, and what the roof and mechanicals have left. Then I stress the numbers. <a href="/calculator/">Run a quick version yourself.</a></p></div>
+<div class="card"><p class="label">Structure</p><h3>Creative terms</h3><p class="soft">Seller carry, contract for deed, and longer closes when a bank loan alone won't get it done.</p></div>
+</div>
+<figure class="pull"><blockquote>“When unexpected issues came up (as they always do in real estate), he never got rattled—he calmly found solutions and kept everything moving forward.”</blockquote><figcaption><b>jarred knapp</b> · Google review</figcaption></figure>
+</div></section>
+<section class="rule"><div class="wrap section split">
+<div class="stack"><h2>Who I work with</h2></div>
+<ol class="steps">
+<li><div><h3>Investors</h3><p>First rental or a growing portfolio. Tell me what you buy and I'll send what fits.</p></div></li>
+<li><div><h3>Owner-users</h3><p>Business owners buying their own building: shops, dealerships, warehouses, churches.</p></div></li>
+<li><div><h3>Owners thinking about selling</h3><p>A quiet conversation about value and options, with no sign and no pressure.</p></div></li>
+</ol>
+</div></section>
+<section class="rule"><div class="wrap section split faq">
+<h2>Common questions</h2>
+<div>
+<details><summary>Where in Minnesota do you work?</summary><p>Anywhere in the state for investment and commercial property. Most of my work is in the Twin Cities metro and the towns within a couple of hours of it.</p></details>
+<details><summary>What is an off-market deal?</summary><p>A sale that happens without a public listing. The owner and a buyer are introduced directly, usually through an agent who has done the research and made the call.</p></details>
+<details><summary>What are creative terms?</summary><p>Anything beyond cash or a standard bank loan. The most common are seller carry and contract for deed, where the seller finances part or all of the price. <a href="/blog/contract-for-deed-minnesota/">Here is how contract for deed works.</a></p></details>
+<details><summary>Do you work with first-time investors?</summary><p>Yes. We start with what you can put down and what return you need, then look at real buildings against those numbers.</p></details>
+<details><summary>I own a building. Can we talk without listing it?</summary><p>Yes. I'll give you a value range and walk through your options. Nothing is public unless you decide it should be.</p></details>
+</div>
+</div></section>
+<section class="band"><div class="wrap section tight band-grid">
+<div class="stack"><p class="label">Next step</p><h2>Have a building or a deal in mind?</h2><p class="soft">Send the address and what you know. I'll tell you if the numbers work.</p></div>
+<div class="stack" style="align-items:flex-start"><a class="btn primary" href="/book/">Book a 15-min call</a>
+<a class="arrow light" href="mailto:Nazar@ts-re.com">Or email Nazar@ts-re.com</a></div>
+</div></section>
+</Base>

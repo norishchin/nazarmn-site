@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+import PostCard from "./PostCard.astro";
+import { render } from "astro:content";
+import { getPosts, related, type Post } from "../lib/posts";
+import { SITE, UI, CAT_UK, fmtDate, type Lang } from "../lib/site";
+import aboutPhoto from "../assets/photos/nazar-orishchin-about.jpg";
+import { Image } from "astro:assets";
+
+interface Props { post: Post; lang: Lang }
+const { post, lang } = Astro.props;
+const t = UI[lang];
+const entry = lang === "uk" ? post.uk! : post;
+const d = entry.data;
+const mins = entry.mins;
+const { Content } = await render(entry);
+const all = await getPosts();
+const more = related(lang === "uk" ? all.filter((p) => p.uk) : all, post);
+const base = lang === "uk" ? "/uk/blog/" : "/blog/";
+const url = `${SITE}${base}${post.id}/`;
+const cat = lang === "uk" ? CAT_UK[post.data.category] : post.data.category;
+const jsonld = [{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: d.title,
+  description: d.description,
+  image: SITE + post.data.thumbnail,
+  inLanguage: lang,
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  dateModified: (post.data.updated ?? post.data.date).toISOString().slice(0, 10),
+  author: { "@type": "Person", name: "Nazar Orishchin", url: SITE + "/about/", jobTitle: "Real estate agent" },
+  publisher: { "@id": SITE + "/#agent" },
+  mainEntityOfPage: url,
+  ...(post.data.town ? { about: { "@type": "Place", name: `${post.data.town}, Minnesota` } } : {}),
+}];
+---
+<Base title={`${d.title} | ${lang === "uk" ? "Назар Оріщин" : "Nazar Orishchin"}`} description={d.description} lang={lang} active="/blog/" image={post.data.thumbnail} jsonld={jsonld} type="article">
+<article class="article">
+<a class="arrow back" href={base} style="padding:0">{t.all}</a>
+<p class="post-meta" style="margin-top:20px">{cat}{post.data.town && ` · ${post.data.town}`} · <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmtDate(post.data.date, lang)}</time> · {mins} {t.mins}</p>
+<h1>{d.title}</h1>
+<p class="lead">{d.teaser}</p>
+<img class="hero-thumb" src={post.data.thumbnail.replace(/\.png$/, "-1200.webp")} alt={post.data.thumbnailAlt} width="1200" height="630" fetchpriority="high" />
+{d.answer && <div class="answer"><p class="label">{t.short}</p><p>{d.answer}</p></div>}
+<Content />
+<div class="byline"><Image src={aboutPhoto} alt="Nazar Orishchin" width={64} height={96} loading="lazy" /><p><b>{lang === "uk" ? "Назар Оріщин" : "Nazar Orishchin"}</b><br>{t.byline} <a href={lang === "uk" ? "/uk/about/" : "/about/"}>{lang === "uk" ? "Про мене" : "About me"}</a></p></div>
+</article>
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">{t.keep}</p><div class="grid g2">{more.map((q) => <PostCard slug={q.id} lang={lang} />)}</div></div></section>
+</Base>

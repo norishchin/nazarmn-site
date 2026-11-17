@@ -1,0 +1,97 @@
+---
+import Base from "../../layouts/Base.astro";
+import NextStep from "../../components/NextStep.astro";
+import PostCard from "../../components/PostCard.astro";
+import { TOWNS, SOURCE, METRO, money, type Town } from "../../data/towns";
+import { SITE, SEARCH } from "../../lib/site";
+
+export function getStaticPaths() {
+  return TOWNS.map((town) => ({ params: { town: town.slug }, props: { town } }));
+}
+const { town } = Astro.props as { town: Town };
+const years = [2020, 2021, 2022, 2023, 2024];
+const latest = town.medians[4];
+const max = Math.max(...town.medians);
+const growth = Math.round(((latest - town.medians[0]) / town.medians[0]) * 100);
+const vsMetro = latest - METRO.median;
+const nearby = town.nearby.map((s) => TOWNS.find((t) => t.slug === s)!);
+const answer = `In ${SOURCE.period.replace("full year ", "")}, the median sale price in ${town.name} was ${money(latest)}, up ${growth}% from ${money(town.medians[0])} in 2020. Homes took ${town.days} days on average to sell and got ${town.pctOrig}% of their original list price.`;
+const faqs: [string, string][] = [
+  [`What is the median home price in ${town.name}, MN?`, `${money(latest)} for ${SOURCE.period}, according to the ${SOURCE.name}. That is ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region median of ${money(METRO.median)}.`],
+  [`How fast do homes sell in ${town.name}?`, `${town.days} cumulative days on market on average in 2024, compared with ${METRO.days} days across the Twin Cities region. Sellers received ${town.pctOrig}% of their original list price on average.`],
+  [`How many homes sold in ${town.name} in 2024?`, `${town.sales.toLocaleString("en-US")} closed sales, ${town.salesChange} from 2023. ${town.newConstruction}% were new construction and ${town.townhouseCondo}% were townhouses or condos.`],
+  [`Do you work in ${town.name}?`, `Yes. ${town.name} is one of my focus areas for buying and selling homes, and I work with investors anywhere in Minnesota.`],
+];
+const jsonld = [
+  {
+    "@context": "https://schema.org", "@type": "WebPage", name: `${town.name}, MN real estate`,
+    url: `${SITE}/${town.slug}/`, about: { "@type": "City", name: town.name, containedInPlace: { "@type": "State", name: "Minnesota" } },
+    author: { "@id": SITE + "/#agent" },
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+];
+---
+<Base title={`${town.name}, MN Real Estate: Prices and Market Data | Nazar Orishchin`}
+  description={`${town.name}, Minnesota home prices, sales and days on market from Minneapolis Area REALTORS data, plus what that means if you're buying or selling.`}
+  jsonld={jsonld}>
+<div class="wrap page-hero stack lg">
+  <p class="label">Town guide · {town.county}</p>
+  <h1>{town.name}, MN real estate: prices, sales and what to know</h1>
+  <p class="lead">{town.intro} It's one of the towns where I do the most work.</p>
+  <div class="answer"><p class="label">Short answer</p><p>{answer}</p></div>
+</div>
+
+<section class="rule" aria-label={`${town.name} at a glance`}><div class="wrap section tight stats">
+  <div class="stat"><b>{money(latest)}</b><span>Median sale price, 2024</span></div>
+  <div class="stat"><b>{town.sales.toLocaleString("en-US")}</b><span>Closed sales, {town.salesChange} from 2023</span></div>
+  <div class="stat"><b>{town.days} days</b><span>Average time on market</span></div>
+  <div class="stat"><b>{town.pctOrig}%</b><span>Of original list price received</span></div>
+</div></section>
+
+<section class="rule"><div class="wrap section split">
+  <div class="stack"><h2>Median price, 2020 to 2024</h2><p class="soft">Up {growth}% in four years.</p></div>
+  <div>
+    <table class="bars">
+      <caption class="sr-only">Median sale price in {town.name} by year</caption>
+      <thead><tr><th scope="col">Year</th><th scope="col">Median sale price</th></tr></thead>
+      <tbody>
+        {years.map((y, i) => (
+          <tr><th scope="row">{y}</th><td><span class="bar" style={`width:${Math.round((town.medians[i] / max) * 100)}%`}></span><span class="v">{money(town.medians[i])}</span></td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="source">Source: <a href={SOURCE.url}>{SOURCE.name}</a>, {SOURCE.period}, published {SOURCE.published}. Twin Cities region median for 2024: {money(METRO.median)}.</p>
+  </div>
+</div></section>
+
+<section class="rule"><div class="wrap section split">
+  <div class="stack"><h2>What the numbers mean</h2></div>
+  <div class="stack">
+    <p>{town.homes}</p>
+    <p><strong>If you're buying:</strong> at {town.pctOrig}% of list price on average, most homes here sell close to asking. Have your pre-approval in hand before you tour, and expect to decide within a few days on the good ones.</p>
+    <p><strong>If you're selling:</strong> the {town.days}-day average includes homes that were priced too high and sat. A house priced on recent sales and launched clean usually beats that number. I'll show you the comps behind the price.</p>
+  </div>
+</div></section>
+
+<section class="rule"><div class="wrap section stack lg">
+  <h2>Where to go next</h2>
+  <div class="grid g3">
+    <a class="card" href="/buy/"><p class="label">Buying</p><h3>How buying works</h3><p class="soft grow">Seven steps from pre-approval to keys.</p><span class="arrow">Read it</span></a>
+    <a class="card" href="/sell/"><p class="label">Selling</p><h3>How selling works</h3><p class="soft grow">Pricing, prep and the first week on the market.</p><span class="arrow">Read it</span></a>
+    <a class="card" href={SEARCH} target="_blank" rel="noopener"><p class="label">Listings</p><h3>Homes for sale in {town.name}</h3><p class="soft grow">Search current listings on my Team Steady site.</p><span class="arrow">Search homes</span></a>
+  </div>
+  <div class="grid g2">
+    <PostCard slug="your-first-step-before-buying-a-home" />
+    <PostCard slug="selling-your-home-what-the-first-30-days-look-like" />
+  </div>
+  <p>Nearby: {nearby.map((t, i) => <>{i > 0 && " · "}<a href={`/${t.slug}/`}>{t.name}</a></>)}</p>
+</div></section>
+
+<section class="rule"><div class="wrap section split faq">
+  <h2>Common questions</h2>
+  <div>{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+</div></section>
+
+<NextStep head={`Buying or selling in ${town.name}?`} text="Tell me your timeline and I'll tell you what the market looks like for your price range right now." />
+</Base>

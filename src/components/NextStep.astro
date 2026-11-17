@@ -1,0 +1,13 @@
+---
+import { UI, EMAIL, type Lang } from "../lib/site";
+interface Props { head?: string; text?: string; lang?: Lang }
+const { lang = "en" } = Astro.props;
+const t = UI[lang];
+const head = Astro.props.head ?? t.ns_head;
+const text = Astro.props.text ?? t.ns_text;
+---
+<section class="band"><div class="wrap section tight band-grid">
+<div class="stack"><p class="label">{t.next}</p><h2>{head}</h2><p class="soft">{text}</p></div>
+<div class="stack" style="align-items:flex-start"><a class="btn primary" href="/book/">{t.book_btn}</a>
+<a class="arrow light" href={`mailto:${EMAIL}`}>{t.email_or}</a></div>
+</div></section>

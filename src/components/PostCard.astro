@@ -1,0 +1,21 @@
+---
+import { getPosts } from "../lib/posts";
+import { UI, CAT_UK, type Lang } from "../lib/site";
+interface Props { slug: string; lang?: Lang; thumb?: boolean }
+const { slug, lang = "en", thumb = true } = Astro.props;
+const p = (await getPosts()).find((x) => x.id === slug);
+if (!p) throw new Error(`PostCard: no post called ${slug}`);
+const t = UI[lang];
+const d = lang === "uk" && p.uk ? p.uk.data : p.data;
+const mins = lang === "uk" && p.uk ? p.uk.mins : p.mins;
+const href = lang === "uk" && p.uk ? `/uk/blog/${slug}/` : `/blog/${slug}/`;
+const cat = lang === "uk" ? CAT_UK[p.data.category] : p.data.category;
+const small = p.data.thumbnail.replace(/\.png$/, "-600.webp");
+---
+<a class="card post-card" href={href}>
+  {thumb && <img class="thumb" src={small} alt={p.data.thumbnailAlt} width="600" height="315" loading="lazy" decoding="async" />}
+  <p class="post-meta">{cat}{p.data.town && ` · ${p.data.town}`} · {mins} {t.mins}</p>
+  <h3>{d.title}</h3>
+  <p class="soft grow">{d.teaser}</p>
+  <span class="arrow">{t.read}</span>
+</a>

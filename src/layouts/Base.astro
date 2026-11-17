@@ -1,0 +1,135 @@
+---
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "../styles/site.css";
+import { getCollection } from "astro:content";
+import { SITE, SEARCH, TEAM_STEADY, NOTE, EMAIL, OFFICE, SOCIAL, UI, L, ukPath, type Lang } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  active?: string;
+  image?: string;
+  jsonld?: object[];
+  noindex?: boolean;
+  type?: "website" | "article";
+}
+const { title, description, lang = "en", active = "", image = "/images/share.jpg", jsonld = [], noindex = false, type = "website" } = Astro.props;
+const path = Astro.url.pathname.endsWith("/") || Astro.url.pathname.endsWith(".html") ? Astro.url.pathname : Astro.url.pathname + "/";
+const t = UI[lang];
+const url = SITE + path;
+
+const ukSlugs = new Set((await getCollection("blogUk")).map((p) => p.id));
+const enPath = lang === "uk" ? path.slice(3) || "/" : path;
+const ukTwin = lang === "uk" ? path : ukPath(path, ukSlugs);
+const alt = lang === "uk" ? enPath : ukTwin ?? "/uk/";
+const showHreflang = !noindex && !!ukTwin;
+const cur = (u: string) => (u === active ? "page" : undefined);
+const bsOn = active === "/buy/" || active === "/sell/";
+const imageUrl = image.startsWith("http") ? image : SITE + image;
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+{noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={url}>}
+{showHreflang && (
+  <>
+    <link rel="alternate" hreflang="en" href={SITE + enPath}>
+    <link rel="alternate" hreflang="uk" href={SITE + ukTwin}>
+    <link rel="alternate" hreflang="x-default" href={SITE + enPath}>
+  </>
+)}
+<meta property="og:type" content={type}>
+<meta property="og:site_name" content="Nazar Orishchin">
+<meta property="og:locale" content={lang === "uk" ? "uk_UA" : "en_US"}>
+<meta property="og:url" content={url}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={imageUrl}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={imageUrl}>
+<meta name="msvalidate.01" content="B26ECEDAEC64C381F18F97C9D0D09028">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss+xml" title="Nazar Orishchin guides" href="/rss.xml">
+{jsonld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+<slot name="head" />
+</head>
+<body>
+<a class="skip" href="#main">{lang === "uk" ? "До змісту" : "Skip to content"}</a>
+<header class="site-header" id="site-header">
+<div class="wrap bar">
+<a class="wordmark" href={L(lang, "/")}>Nazar Orishchin</a>
+<nav class="nav" aria-label="Main">
+  <div class="dd">
+    <button type="button" class={bsOn ? "on" : undefined} aria-haspopup="true">{t.bs}<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    <div class="dd-menu">
+      <a href={L(lang, "/buy/")} aria-current={cur("/buy/")}><b>{t.buy}</b><span>{t.buy_s}</span></a>
+      <a href={L(lang, "/sell/")} aria-current={cur("/sell/")}><b>{t.sell}</b><span>{t.sell_s}</span></a>
+    </div>
+  </div>
+  <a href={L(lang, "/commercial/")} aria-current={cur("/commercial/")}>{t.invest}</a>
+  <a href={L(lang, "/blog/")} aria-current={cur("/blog/")}>{t.guides}</a>
+  <a href={L(lang, "/about/")} aria-current={cur("/about/")}>{t.about}</a>
+  <a class="out" href={SEARCH} target="_blank" rel="noopener">{t.search}</a>
+  <a class="book" href="/book/">{t.book}</a>
+  <a class="lang" href={alt} hreflang={lang === "uk" ? "en" : "uk"} lang={lang === "uk" ? "en" : "uk"}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>{t.other}</a>
+</nav>
+<details class="menu">
+  <summary aria-label={t.menu}><span></span><span></span><span></span></summary>
+  <nav aria-label="Mobile">
+    <a class="book" href="/book/">{t.book}</a>
+    <a href={L(lang, "/buy/")} aria-current={cur("/buy/")}>{lang === "uk" ? t.f_buy : "Buy"}</a>
+    <a href={L(lang, "/sell/")} aria-current={cur("/sell/")}>{lang === "uk" ? t.f_sell : "Sell"}</a>
+    <a href={L(lang, "/commercial/")} aria-current={cur("/commercial/")}>{t.invest}</a>
+    <a href={L(lang, "/blog/")} aria-current={cur("/blog/")}>{t.guides}</a>
+    <a href={L(lang, "/about/")} aria-current={cur("/about/")}>{t.about}</a>
+    <a href="/reviews/" aria-current={cur("/reviews/")}>{t.reviews}</a>
+    <a class="out" href={SEARCH} target="_blank" rel="noopener">{t.search}</a>
+    <a class="lang" href={alt} hreflang={lang === "uk" ? "en" : "uk"} lang={lang === "uk" ? "en" : "uk"}>{t.other}</a>
+  </nav>
+</details>
+</div>
+</header>
+<main id="main">
+<slot />
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<div>
+<a class="wordmark" href={L(lang, "/")}>Nazar Orishchin</a>
+<p>{t.f_lic}</p>
+<p>{OFFICE.street}, {OFFICE.city}, {OFFICE.region} {OFFICE.zip}</p>
+<p><a href={`mailto:${EMAIL}`} style="display:inline">{EMAIL}</a></p>
+<p class="eho"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 11h3v10h16V11h3L12 2zm5 17H7v-8.6l5-4.2 5 4.2V19zM8.5 12.5h7v1.6h-7zm0 3h7v1.6h-7z" fill="currentColor"/></svg>{t.f_rights}</p>
+<p>© {new Date().getFullYear()} Nazar Orishchin</p>
+</div>
+<div>
+<h2 class="f-head">{t.f_site}</h2>
+<a href={SEARCH}>{t.search}</a><a href={L(lang, "/buy/")}>{t.f_buy}</a><a href={L(lang, "/sell/")}>{t.f_sell}</a><a href={L(lang, "/commercial/")}>{t.f_inv}</a><a href={L(lang, "/about/")}>{t.about}</a><a href="/reviews/">{t.reviews}</a><a href={L(lang, "/blog/")}>{t.guides}</a><a href="/glossary/">{lang === "uk" ? "Словник термінів" : "Real estate glossary"}</a><a href="/calculator/">{lang === "uk" ? "Інвестиційний калькулятор" : "Investment calculator"}</a><a href={alt}>{lang === "uk" ? "English" : "Українською"}</a>
+</div>
+<div>
+<h2 class="f-head">{t.f_else}</h2>
+<a href={TEAM_STEADY}>{t.f_ts}</a><a href={NOTE}>The Nazar Note</a><a href={SOCIAL.facebook}>Facebook</a><a href={SOCIAL.instagram}>Instagram</a><a href={SOCIAL.linkedin}>LinkedIn</a>
+</div>
+</div>
+</footer>
+<script is:inline>
+(function(){var h=document.getElementById("site-header");var f=function(){h.classList.toggle("scrolled",window.scrollY>24)};f();addEventListener("scroll",f,{passive:true});
+if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+var els=document.querySelectorAll("main .section h2, main .section .lead, main .section .chapter, main .card, main .quote, main .pull, main .steps li, main .stat, main .about-photo, main .towns, main .tags, main .faq details, main .band-grid > *, main .article > *, main .page-hero > *, main .page-hero .photo");
+document.documentElement.classList.add("js-reveal");
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.add("in");io.unobserve(t);setTimeout(function(){t.style.transitionDelay="";},1200);}});},{rootMargin:"0px 0px -6% 0px"});
+els.forEach(function(el){el.classList.add("reveal");var i=Array.prototype.indexOf.call(el.parentElement.children,el);el.style.transitionDelay=Math.min(i,5)*80+"ms";io.observe(el);});})();
+</script>
+</body>
+</html>

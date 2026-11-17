@@ -1,0 +1,100 @@
+---
+import Base from "../../layouts/Base.astro";
+import NextStep from "../../components/NextStep.astro";
+import { SITE } from "../../lib/site";
+const fields = [
+  { id: "units", label: "Units", value: 4, step: 1, group: "Income" },
+  { id: "rent", label: "Rent per unit, monthly ($)", value: 1450, step: 25, group: "Income" },
+  { id: "vacancy", label: "Vacancy (% of rent)", value: 5, step: 0.5, group: "Expenses" },
+  { id: "taxes", label: "Property taxes, monthly ($)", value: 750, step: 10, group: "Expenses" },
+  { id: "insurance", label: "Insurance, monthly ($)", value: 350, step: 10, group: "Expenses" },
+  { id: "repairs", label: "Repairs and replacements (% of rent)", value: 10, step: 0.5, group: "Expenses" },
+  { id: "mgmt", label: "Management (% of rent)", value: 8, step: 0.5, group: "Expenses" },
+  { id: "other", label: "Owner-paid utilities and other, monthly ($)", value: 300, step: 10, group: "Expenses" },
+  { id: "price", label: "Purchase price ($)", value: 650000, step: 5000, group: "Loan" },
+  { id: "down", label: "Down payment (%)", value: 25, step: 1, group: "Loan" },
+  { id: "rate", label: "Interest rate (%)", value: 7, step: 0.125, group: "Loan" },
+  { id: "years", label: "Loan term (years)", value: 30, step: 1, group: "Loan" },
+];
+const groups = ["Income", "Expenses", "Loan"];
+const jsonld = [{
+  "@context": "https://schema.org", "@type": "WebApplication", name: "Investment property calculator",
+  url: SITE + "/calculator/", applicationCategory: "FinanceApplication", operatingSystem: "Any",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, author: { "@id": SITE + "/#agent" },
+}];
+---
+<Base title="Rental Property Calculator: Cash Flow, Cap Rate, DSCR | Nazar Orishchin"
+  description="Free rental property calculator. Enter rent, expenses, price and loan terms to see monthly cash flow, cap rate and debt coverage."
+  active="/commercial/" jsonld={jsonld}>
+<div class="wrap page-hero stack lg">
+  <p class="label">Investment calculator</p>
+  <h1>Does this rental property make money?</h1>
+  <p class="lead">Enter the rent, the real expenses and the loan. You'll see monthly cash flow, cap rate and debt coverage. It starts with the fourplex from my <a href="/blog/which-investment-properties-make-sense/">guide to which investment properties make sense</a>.</p>
+</div>
+<section class="rule"><div class="wrap section calc">
+  <form id="calc" class="calc-form" novalidate>
+    {groups.map((g) => (
+      <fieldset><legend>{g}</legend>
+        {fields.filter((f) => f.group === g).map((f) => (
+          <label for={f.id}><span>{f.label}</span><input id={f.id} name={f.id} type="number" inputmode="decimal" min="0" step={f.step} value={f.value} /></label>
+        ))}
+      </fieldset>
+    ))}
+    <button type="reset" class="btn">Reset to the example</button>
+  </form>
+  <div class="calc-out" aria-live="polite">
+    <div class="result big"><span>Monthly cash flow</span><b id="o-cf">…</b></div>
+    <div class="result"><span>Net operating income</span><b id="o-noi">…</b></div>
+    <div class="result"><span>Mortgage payment</span><b id="o-pmt">…</b></div>
+    <div class="result"><span>Cap rate</span><b id="o-cap">…</b></div>
+    <div class="result"><span>Debt coverage (DSCR)</span><b id="o-dscr">…</b></div>
+    <div class="result"><span>Cash-on-cash return</span><b id="o-coc">…</b></div>
+    <p class="verdict" id="o-verdict"></p>
+    <p class="soft small">Estimates only, for comparing deals. Not a loan quote or investment advice. Taxes, insurance and repairs vary a lot by building, so use real numbers when you have them.</p>
+  </div>
+</div></section>
+<section class="rule"><div class="wrap section split">
+  <div class="stack"><h2>What the numbers mean</h2></div>
+  <div class="stack">
+    <p><strong>Cash flow</strong> is what's left each month after every expense and the mortgage. Negative means you're paying to own it.</p>
+    <p><strong>Cap rate</strong> is a year of net operating income divided by the price. It ignores the loan, so you can compare buildings of different sizes.</p>
+    <p><strong>Debt coverage</strong> is net operating income divided by the loan payment. Under 1.0, the rent doesn't cover the loan. Lenders want room above 1.0, and so should you.</p>
+    <p><strong>Cash-on-cash</strong> is a year of cash flow divided by your down payment.</p>
+    <p>More terms in the <a href="/glossary/">glossary</a>. Have a real building to run? <a href="mailto:Nazar@ts-re.com?subject=Deal%20to%20look%20at">Send it to me</a> and I'll rebuild the numbers from the rent roll.</p>
+  </div>
+</div></section>
+<NextStep head="Want a second set of eyes on a deal?" text="Send the address, rent roll and asking price. I'll tell you what price or terms would make it work, or that it won't." />
+<script is:inline>
+(function () {
+  var f = document.getElementById("calc");
+  var $ = function (id) { return document.getElementById(id); };
+  var usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  function v(id) { var n = parseFloat($(id).value); return isFinite(n) ? n : 0; }
+  function run() {
+    var rent = v("units") * v("rent");
+    var exp = rent * (v("vacancy") + v("repairs") + v("mgmt")) / 100 + v("taxes") + v("insurance") + v("other");
+    var noi = rent - exp;
+    var loan = v("price") * (1 - v("down") / 100);
+    var r = v("rate") / 100 / 12, n = v("years") * 12;
+    var pmt = n > 0 ? (r > 0 ? loan * r / (1 - Math.pow(1 + r, -n)) : loan / n) : 0;
+    var cf = noi - pmt;
+    var cash = v("price") * v("down") / 100;
+    $("o-noi").textContent = usd.format(noi) + " / mo";
+    $("o-pmt").textContent = usd.format(pmt) + " / mo";
+    $("o-cf").textContent = (cf < 0 ? "−" : "") + usd.format(Math.abs(cf)) + " / mo";
+    $("o-cf").className = cf < 0 ? "neg" : "pos";
+    $("o-cap").textContent = v("price") > 0 ? (noi * 12 / v("price") * 100).toFixed(1) + "%" : "n/a";
+    $("o-dscr").textContent = pmt > 0 ? (noi / pmt).toFixed(2) : "n/a";
+    $("o-coc").textContent = cash > 0 ? (cf * 12 / cash * 100).toFixed(1) + "%" : "n/a";
+    var d = pmt > 0 ? noi / pmt : 99;
+    $("o-verdict").textContent = cf < 0
+      ? "At this price and loan, the building loses money each month. Try a lower price, a bigger down payment or seller financing at a lower rate."
+      : d < 1.2 ? "It covers the loan, but with a thin cushion. One empty unit or a big repair could flip it negative."
+      : "The rent covers expenses and the loan with room to spare. Now check those expense numbers against the real building.";
+  }
+  f.addEventListener("input", run);
+  f.addEventListener("reset", function () { setTimeout(run, 0); });
+  run();
+})();
+</script>
+</Base>

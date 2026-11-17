@@ -1,0 +1,94 @@
+---
+import Base from "../layouts/Base.astro";
+import PostCard from "../components/PostCard.astro";
+import { Picture } from "astro:assets";
+import aboutPhoto from "../assets/photos/nazar-orishchin-about.jpg";
+import heroPhoto from "../assets/photos/nazar-orishchin.jpg";
+import { agentSchema } from "../lib/site";
+const jsonld = [agentSchema({ inLanguage: "en" }), ...[]];
+---
+<Base title={"Nazar Orishchin | Real Estate Agent for Chaska, Chanhassen and the West Metro"} description={"Nazar Orishchin, RE/MAX Results agent for Chaska, Chanhassen and the west metro. Homes, multifamily and commercial property. English and Ukrainian."} lang="en" active="" jsonld={jsonld}>
+<div class="wrap hero" id="top">
+<div class="stack lg">
+<p class="label">RE/MAX Results · Team Steady · Licensed in Minnesota</p>
+<h1>Buy, sell or invest in the west metro with an agent who runs the numbers.</h1>
+<p class="lead">I'm Nazar Orishchin. I worked as an engineer for five years before real estate, so every price, offer and investment gets checked like a spec sheet before you sign.</p>
+<div class="cta"><a class="btn primary" href="/book/">Book a 15-min call</a><a class="arrow" href="https://nazarorishchin.teamsteadyrealestate.com/listing" target="_blank" rel="noopener">Search homes for sale</a></div>
+</div>
+<div class="photo"><Picture src={heroPhoto} alt="Nazar Orishchin, real estate agent, in a gray blazer" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} fetchpriority="high" loading="eager" /></div>
+</div>
+
+<section class="rule" aria-label="At a glance"><div class="wrap section tight stats">
+<div class="stat"><b>100+</b><span>Transactions closed since 2022</span></div>
+<div class="stat"><b>5.0</b><span>Google rating from 26 reviews</span></div>
+<div class="stat"><b>5 years</b><span>As an engineer before real estate</span></div>
+<div class="stat"><b>2</b><span>Languages: English and Ukrainian</span></div>
+</div></section>
+
+<section class="rule"><div class="wrap section split">
+<div class="stack"><p class="chapter">01 · The problem</p><h2>You do this a few times in your life. The other side does it every day.</h2></div>
+<div class="stack">
+<p class="lead">Buying or selling a home, or a building, is the biggest check most people ever write. The listing agent, the seller and the lender all do this weekly. It helps to have someone on your side who does too, and who checks the math.</p>
+<p>That's my job: find what a property is really worth, what it will really cost you, and how to get the deal done without surprises. Then I tell you plainly, even when the answer is "walk away."</p>
+</div>
+</div></section>
+
+<section class="rule"><div class="wrap section stack lg" id="help">
+<div class="stack"><p class="chapter">02 · How I help</p><h2>Pick where you are.</h2></div>
+<div class="grid g3">
+<a class="card" href="/buy/"><p class="label">Buying a home</p><h3>Find the right home and pay the right price.</h3><p class="soft grow">Comps, condition and disclosures checked before we write an offer. First home or fifth.</p><span class="arrow">How buying works</span></a>
+<a class="card" href="/sell/"><p class="label">Selling a home</p><h3>Sell it once, at the right price.</h3><p class="soft grow">A price built on real sales and a launch aimed at the first week, when the best offers come.</p><span class="arrow">How selling works</span></a>
+<a class="card" href="/commercial/"><p class="label">Investors and commercial</p><h3>Buildings that pencil out.</h3><p class="soft grow">Apartments, mixed use, retail, warehouses, churches and special use. Off-market deals and creative terms.</p><span class="arrow">Commercial work</span></a>
+</div>
+</div></section>
+
+<section class="rule"><div class="wrap section stack lg">
+<div class="stack"><p class="chapter">03 · Proof</p><h2>What clients say after closing.</h2></div>
+<figure class="pull"><blockquote>“He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.”</blockquote><figcaption><b>Alena Golovchuk</b> · Google review</figcaption></figure>
+<div class="grid g3">
+<figure class="quote"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote><p>His help didn’t stop after closing. Even after the deal was completed, he continued to check in, answer our questions, and guide us through the next steps.</p></blockquote><figcaption><b>Pavlo Fursyak</b> · Google review</figcaption></figure>
+<figure class="quote"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote><p>He is creative, knowledgeable and personable. He helped us find the most house for our money.</p></blockquote><figcaption><b>Heather Sinz</b> · Google review</figcaption></figure>
+<figure class="quote"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote><p>Any real estate purchases I make, I’m ALWAYS going with Nazar.</p></blockquote><figcaption><b>Sergey Timoshenko</b> · Google review</figcaption></figure>
+</div>
+<a class="arrow" href="/reviews/">Read the full reviews</a>
+</div></section>
+
+<section class="rule"><div class="wrap section split">
+<div class="stack"><p class="chapter">04 · How we'll work</p><h2>From first call to keys, in four steps.</h2><p class="soft">Same process whether you're buying a starter home or a fourplex.</p></div>
+<ol class="steps">
+<li><div><h3>A short call</h3><p>What you want, your timeline and your budget. No pressure and no paperwork.</p></div></li>
+<li><div><h3>A written plan</h3><p>Price range, towns or property types, and what a "yes" looks like, so we can move fast when it shows up.</p></div></li>
+<li><div><h3>The work</h3><p>Showings, pricing, offers and negotiation, with the numbers behind every recommendation.</p></div></li>
+<li><div><h3>Closing and after</h3><p>Inspection, appraisal and closing handled. I'm still your call for contractors and questions after.</p></div></li>
+</ol>
+</div></section>
+
+<section class="rule"><div class="wrap section split" id="about">
+<div><p class="chapter">05 · Who I am</p><h2 style="margin-top:12px">About Nazar</h2><Picture src={aboutPhoto} alt="Nazar Orishchin smiling, seated" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} class="about-photo" loading="lazy" /></div>
+<div class="stack">
+<p>I was born in Ukraine and came to Minnesota when I was three. I earned an engineering degree and worked as an engineer for about five years before going full time in real estate.</p>
+<p>That background shows up in how I work. I read the inspection report line by line, underwrite every investment deal, and give you the number straight. I'm handy too, so I can give you a realistic read on what a repair takes.</p>
+<p>I work out of the RE/MAX Results office in Eden Prairie as part of Team Steady. Outside of work, I'm a husband and a dad.</p>
+<h3 style="margin-top:16px">Where I work most</h3>
+<ul class="towns"><li><a href="/chaska/">Chaska</a></li><li><a href="/chanhassen/">Chanhassen</a></li><li>Victoria</li><li><a href="/eden-prairie/">Eden Prairie</a></li><li>Hopkins</li><li>Savage</li><li>Shakopee</li><li>Burnsville</li><li>Prior Lake</li><li>Plymouth</li><li>Maple Grove</li></ul>
+<p class="soft">Investment and commercial property anywhere in Minnesota.</p>
+<p><a class="arrow" href="/about/">More about me</a></p>
+</div>
+</div></section>
+
+<section class="rule"><div class="wrap section stack lg">
+<div class="stack"><p class="chapter">06 · Start here</p><h2>Not ready to call? Read these first.</h2><p class="soft">Plain guides written from deals I've worked.</p></div>
+<div class="grid g3"><PostCard slug="your-first-step-before-buying-a-home" lang="en" /><PostCard slug="buying-your-first-home-in-minnesota" lang="en" /><PostCard slug="which-investment-properties-make-sense" lang="en" /></div>
+<a class="arrow" href="/blog/">All guides</a>
+</div></section>
+
+<div id="contact"></div>
+<section class="band"><div class="wrap section tight band-grid">
+<div class="stack"><p class="label">Next step</p><h2>Start with a short call.</h2><p class="soft">Tell me what you're trying to do. You'll leave with a plan, whether or not we work together.</p></div>
+<div class="stack" style="align-items:flex-start"><a class="btn primary" href="/book/">Book a 15-min call</a>
+<a class="arrow light" href="mailto:Nazar@ts-re.com">Or email Nazar@ts-re.com</a></div>
+</div></section>
+
+
+<aside class="note-strip" id="note"><div class="wrap"><p><b>The Nazar Note</b> · one short email every Friday on the west metro market. <a href="https://news.nazarmn.com/" target="_blank" rel="noopener">Subscribe</a></p></div></aside>
+</Base>

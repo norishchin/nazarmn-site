@@ -1,0 +1,9 @@
+---
+import { NOTE, type Lang } from "../lib/site";
+const { lang = "en" } = Astro.props as { lang?: Lang };
+---
+<aside class="note-strip" id="note"><div class="wrap"><p>
+{lang === "uk"
+  ? <><b>The Nazar Note</b> · короткий лист щоп'ятниці про ринок західних передмість (англійською). <a href={NOTE} target="_blank" rel="noopener">Підписатися</a></>
+  : <><b>The Nazar Note</b> · one short email every Friday on the west metro market. <a href={NOTE} target="_blank" rel="noopener">Subscribe</a></>}
+</p></div></aside>

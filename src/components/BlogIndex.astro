@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import PostCard from "./PostCard.astro";
+import NextStep from "./NextStep.astro";
+import Newsletter from "./Newsletter.astro";
+import { getPosts } from "../lib/posts";
+import type { Lang } from "../lib/site";
+const { lang } = Astro.props as { lang: Lang };
+const all = (await getPosts()).filter((p) => lang === "en" || p.uk);
+const start = all.filter((p) => p.data.category === "Start here");
+const rest = all.filter((p) => p.data.category !== "Start here");
+const uk = lang === "uk";
+---
+<Base
+  title={uk ? "Поради з нерухомості в Міннесоті українською | Назар Оріщин" : "Guides | Nazar Orishchin, Minnesota Real Estate"}
+  description={uk ? "Практичні поради українською про купівлю, продаж та інвестиції в Міннесоті: інспекція, contract for deed, угоди off-market та інше." : "Plain guides to buying, selling and investing in Minnesota real estate: inspections, contract for deed, off-market deals and more."}
+  lang={lang} active="/blog/">
+<div class="wrap page-hero stack lg"><p class="label">{uk ? "Поради" : "Guides"}</p><h1>{uk ? "Прості поради про купівлю, продаж та інвестиції в Міннесоті." : "Plain guides to buying, selling and investing in Minnesota."}</h1>
+<p class="lead">{uk ? "Написані на основі угод, які я провів. Якщо ви тільки починаєте, прочитайте спершу перші три." : "Written from deals I've worked. Start with the first three if you're new to this."}</p></div>
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">{uk ? "З чого почати" : "Start here"}</p><div class="grid g3">{start.map((p) => <PostCard slug={p.id} lang={lang} />)}</div></div></section>
+<section class="rule"><div class="wrap section stack lg"><p class="chapter">{uk ? "Більше порад" : "More guides"}</p><div class="grid g3">{rest.map((p) => <PostCard slug={p.id} lang={lang} />)}</div></div></section>
+<section class="rule"><div class="wrap section stack"><p class="chapter">{uk ? "Інструменти" : "Tools"}</p><p><a class="arrow" href="/calculator/">{uk ? "Інвестиційний калькулятор (англійською)" : "Investment property calculator"}</a></p><p><a class="arrow" href="/glossary/">{uk ? "Словник термінів нерухомості, англійська й українська" : "Real estate glossary, English and Ukrainian"}</a></p></div></section>
+<NextStep lang={lang} />
+<Newsletter lang={lang} />
+</Base>
