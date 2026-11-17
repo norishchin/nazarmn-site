@@ -3,6 +3,7 @@
 import os, html, json
 
 SITE = "https://nazarmn.com"
+BOOK = ""  # Calendly 15-min call link; empty = phone buttons stay
 PHONE = '<a href="tel:+19528469173">(952) 846-9173</a>'
 TS = "https://nazarorishchin.teamsteadyrealestate.com"
 NOTE = "https://news.nazarmn.com/"
@@ -44,6 +45,26 @@ def mobile_nav(active, lang):
 
 import hashlib as _h
 CSSV = _h.md5(open("css/site.css","rb").read()).hexdigest()[:8]
+
+
+def book_swap(html, lang):
+    import re
+    b = '/book/'
+    uk = lang == "uk"
+    reps = [
+        ('<a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a>', f'<a class="btn primary" href="{b}">Book a 15-min call</a>'),
+        ('<a class="btn primary" href="tel:+19528469173">Get a price range: (952) 846-9173</a>', f'<a class="btn primary" href="{b}">Book a 15-min call for a price range</a>'),
+        ('<a class="btn primary" href="tel:+19528469173">Телефонуйте або пишіть: (952) 846-9173</a>', f'<a class="btn primary" href="{b}">Запишіться на 15-хвилинну розмову</a>'),
+        ('<a class="arrow" href="tel:+19528469173">Or call (952) 846-9173</a>', f'<a class="arrow" href="{b}">Or book a 15-min call</a>'),
+        ('<a href="tel:+19528469173">Call (952) 846-9173</a><a class="lang"', f'<a href="{b}">{"Запис на дзвінок" if uk else "Book a call"}</a><a class="lang"'),
+    ]
+    for a, c in reps:
+        html = html.replace(a, c)
+    link = f'<a href="{b}">book a 15-minute call</a>'
+    html = re.sub(r'Call or text (me at )?\(952\) 846-9173', link.replace('>book', '>Book'), html)
+    html = re.sub(r'call or text (me at )?\(952\) 846-9173', link, html)
+    html = re.sub(r'or call \(952\) 846-9173', 'or ' + link, html)
+    return html
 
 
 def page(path, title, desc, body, active="", lang="en", extra_head="", image="/images/share.jpg"):
@@ -113,6 +134,8 @@ els.forEach(function(el){{el.classList.add("reveal");var i=Array.prototype.index
 </body>
 </html>
 """
+    if BOOK:
+        out = book_swap(out, lang)
     fp = path.strip("/")
     fp = os.path.join(fp, "index.html") if fp and not fp.endswith(".html") else (fp or "index.html")
     os.makedirs(os.path.dirname(fp) or ".", exist_ok=True)
@@ -587,6 +610,9 @@ def build():
              extra_head=f'<script type="application/ld+json">{pld}</script>\n')
 
     # ---------- /search/ redirect to Lofty listings ----------
+    if BOOK:
+        os.makedirs("book", exist_ok=True)
+        open("book/index.html", "w").write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Book a call | Nazar Orishchin</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={BOOK}"><link rel="canonical" href="{BOOK}"></head><body><p>Taking you to <a href="{BOOK}">my calendar</a>.</p></body></html>')
     os.makedirs("search", exist_ok=True)
     open("search/index.html", "w").write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Search homes | Nazar Orishchin</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={SEARCH}"><link rel="canonical" href="{SEARCH}"></head><body><p>Taking you to <a href="{SEARCH}">home search</a>.</p></body></html>')
 
