@@ -63,9 +63,10 @@ START_TO_FINISH = dict(
 <ul>
 <li>File for homestead with your county so you're taxed as an owner-occupant.</li>
 <li>Change the locks and the garage code.</li>
-<li>Keep my number. Questions about contractors, property taxes or a strange noise in the furnace are part of the job.</li>
+<li>Save my email. Questions about contractors, property taxes or a strange noise in the furnace are part of the job.</li>
 </ul>
 <p class="note">Розмовляю українською. If you or your family would rather go through this in Ukrainian, see <a href="/uk/">the Ukrainian page</a>.</p>
+<p class="note">Want to map out your own timeline? <a href="/book/">Book a 15-minute call</a>.</p>
 """)
 
 INVESTING = dict(
@@ -73,7 +74,7 @@ INVESTING = dict(
     date="2026-11-16", cat="Investing",
     title="Which investment properties make sense, and which ones don't",
     desc="How to tell a good rental or small apartment building from a bad one: real expenses, cash flow, cap rate and debt coverage, with a worked fourplex example.",
-    teaser="A building that looks great on the listing can lose money every month. Here is how I separate the deals from the traps, with a worked example.",
+    teaser="A building that looks great on the listing can lose money every month. How I tell the deals from the traps, with a worked example.",
     body="""
 <p>I get sent a lot of "great deals." Most of them are great for the seller. The difference between a property that builds wealth and one that drains it usually comes down to a few honest numbers that the listing doesn't show you.</p>
 <h2>Start with what it really costs to own</h2>
@@ -126,7 +127,7 @@ SELL_PREP = dict(
     date="2026-11-16", cat="Start here",
     title="Selling your home: what the 30 days before you list look like",
     desc="What happens in the month before your Minnesota home hits the market: pricing, the prep list that pays, photos, and launch day, from a local listing agent.",
-    teaser="The month before the sign goes up decides most of the outcome. Here is how that month goes when it's done right.",
+    teaser="The month before the sign goes up decides most of the outcome. What I do in each of those four weeks.",
     body="""
 <p>Most of a sale is decided before the first showing. A house that launches at the right price, clean and well photographed, gets the most attention in its first week, which is when the best offers come. A house that launches wrong spends weeks being discounted. Here is how I run the month before.</p>
 <h2>Week 1: Walk-through and pricing</h2>

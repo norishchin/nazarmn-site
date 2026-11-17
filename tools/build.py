@@ -231,7 +231,7 @@ from posts_new import START_TO_FINISH, NEW_POSTS, FIRST_STEP, INVESTING, SELL_PR
 POSTS = [
  dict(slug="what-i-look-for-in-an-inspection-report", title="What I look for first in a home inspection report",
       desc="An engineer turned real estate agent on how to read a home inspection report: what matters, what is normal, and what to ask the seller to fix.",
-      teaser="A 60-page report looks scary. Most of it is routine. Here is how I sort the real problems from the noise.",
+      teaser="A 60-page report looks scary. Most of it is routine. I sort it into three piles before anyone panics.",
       body="""
 <p>I spent about five years as an engineer before I sold houses. The habit that carried over is simple: read the whole document, then sort it. An inspection report is long because inspectors write down everything they see. Long does not mean bad.</p>
 <h2>Sort every item into three piles</h2>
@@ -284,7 +284,7 @@ POSTS = [
 """),
  dict(slug="how-off-market-commercial-deals-happen", title="How off-market commercial deals actually happen",
       desc="How off-market apartment and commercial property deals come together in Minnesota: finding owners, earning the conversation, and structuring terms.",
-      teaser="Most small apartment buildings and commercial properties never get a sign in the yard. Here is how they change hands.",
+      teaser="Most small apartment buildings and commercial properties never get a sign in the yard. They change hands through research and phone calls.",
       body="""
 <p>Many apartment buildings, strip centers, and warehouses in Minnesota sell without ever being listed. The owner gets a call, has a conversation, and a deal comes together quietly. Here is what that looks like from the inside.</p>
 <h2>It starts with the owner, not the property</h2>
@@ -406,7 +406,7 @@ def build():
 <section class="rule"><div class="wrap section split">
 <div class="stack"><p class="chapter">01 · The problem</p><h2>You do this a few times in your life. The other side does it every day.</h2></div>
 <div class="stack">
-<p class="lead">Buying or selling a home, or a building, is the biggest check most people ever write. The listing agent, the seller and the lender all do this weekly. You deserve someone on your side who does too, and who checks the math.</p>
+<p class="lead">Buying or selling a home, or a building, is the biggest check most people ever write. The listing agent, the seller and the lender all do this weekly. It helps to have someone on your side who does too, and who checks the math.</p>
 <p>That's my job: find what a property is really worth, what it will really cost you, and how to get the deal done without surprises. Then I tell you plainly, even when the answer is "walk away."</p>
 </div>
 </div></section>
@@ -415,7 +415,7 @@ def build():
 <div class="stack"><p class="chapter">02 · How I help</p><h2>Pick where you are.</h2></div>
 <div class="grid g3">
 <a class="card" href="/buy/"><p class="label">Buying a home</p><h3>Find the right home and pay the right price.</h3><p class="soft grow">Comps, condition and disclosures checked before we write an offer. First home or fifth.</p><span class="arrow">How buying works</span></a>
-<a class="card" href="/sell/"><p class="label">Selling a home</p><h3>Price it right, prep it right, sell it once.</h3><p class="soft grow">A price built on real sales, a short prep list that pays for itself, and a launch built for the first week.</p><span class="arrow">How selling works</span></a>
+<a class="card" href="/sell/"><p class="label">Selling a home</p><h3>Sell it once, at the right price.</h3><p class="soft grow">A price built on real sales and a launch aimed at the first week, when the best offers come.</p><span class="arrow">How selling works</span></a>
 <a class="card" href="/commercial/"><p class="label">Investors and commercial</p><h3>Buildings that pencil out.</h3><p class="soft grow">Apartments, mixed use, retail, warehouses, churches and special use. Off-market deals and creative terms.</p><span class="arrow">Commercial work</span></a>
 </div>
 </div></section>
@@ -445,7 +445,7 @@ def build():
 <div><p class="chapter">05 · Who I am</p><h2 style="margin-top:12px">About Nazar</h2><img class="about-photo" src="/images/nazar-orishchin-about.jpg" alt="Nazar Orishchin smiling, seated" width="800" height="1200" loading="lazy"></div>
 <div class="stack">
 <p>I was born in Ukraine and came to Minnesota when I was three. I earned an engineering degree and worked as an engineer for about five years before going full time in real estate.</p>
-<p>That background shows up in how I work. I read the inspection report line by line, underwrite every investment deal, and give you the number plainly. I'm handy too, so I can give you a realistic read on what a repair takes.</p>
+<p>That background shows up in how I work. I read the inspection report line by line, underwrite every investment deal, and give you the number straight. I'm handy too, so I can give you a realistic read on what a repair takes.</p>
 <p>I work out of the RE/MAX Results office in Eden Prairie as part of Team Steady. Outside of work, I'm a husband and a dad.</p>
 <h3 style="margin-top:16px">Where I work most</h3>
 <ul class="towns"><li>Chaska</li><li>Chanhassen</li><li>Victoria</li><li>Eden Prairie</li><li>Hopkins</li><li>Savage</li><li>Shakopee</li><li>Burnsville</li><li>Prior Lake</li></ul>
@@ -460,7 +460,7 @@ def build():
 </div></section>
 
 <div id="contact"></div>
-{next_step("Your next step is a short call.", "Tell me what you're trying to do. You'll leave with a plan, whether or not we work together.")}
+{next_step("Start with a short call.", "Tell me what you're trying to do. You'll leave with a plan, whether or not we work together.")}
 
 
 {newsletter()}
@@ -508,7 +508,7 @@ def build():
     sell = f"""
 <div class="wrap page-hero split">
 <div class="stack lg"><p class="label">Selling a home</p><h1>Price it right, prep it right, sell it once.</h1>
-<p class="lead">Homes that sit get discounted. The plan is to launch at a price the market agrees with, looking its best, and to keep you informed until closing.</p>
+<p class="lead">Homes that sit get discounted. So we launch at a price the market agrees with, with the house ready for photos, and I keep you posted until closing.</p>
 <div><a class="btn primary" href="tel:+19528469173">Get a price range: (952) 846-9173</a></div></div>
 <div class="photo"><img src="/images/nazar-laughing.jpg" alt="Nazar Orishchin laughing, seated" width="800" height="1200"></div>
 </div>
@@ -573,7 +573,7 @@ def build():
 <details><summary>I own a building. Can we talk without listing it?</summary><p>Yes. I'll give you a value range and walk through your options. Nothing is public unless you decide it should be.</p></details>
 </div>
 </div></section>
-{next_step("Have a building or a deal in mind?", "Send the address and what you know to Nazar@ts-re.com, or call. I'll tell you if the numbers work.")}
+{next_step("Have a building or a deal in mind?", "Send the address and what you know. I'll tell you if the numbers work.")}
 """
     page("/commercial/", "Commercial and Multifamily Real Estate in Minnesota | Nazar Orishchin",
          "Apartments, mixed use, retail, strip centers, warehouses, churches and special-use property in Minnesota. Off-market deals, underwriting and creative terms.", com, active="/commercial/")
@@ -624,7 +624,6 @@ def build():
 <div class="byline"><img src="/images/nazar-orishchin-about.jpg" alt="" width="64" height="64" loading="lazy"><p><b>Nazar Orishchin</b><br>Real estate agent, RE/MAX Results, Team Steady.</p></div>
 </article>
 <section class="rule"><div class="wrap section stack lg"><p class="chapter">Keep reading</p><div class="grid g2">{"".join(card(q) for q in related)}</div></div></section>
-{next_step()}
 """
         page(f'/blog/{p["slug"]}/', f'{p["title"]} | Nazar Orishchin', p["desc"], body, active="/blog/",
              extra_head=f'<script type="application/ld+json">{pld}</script>\n')
