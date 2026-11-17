@@ -194,32 +194,10 @@ els.forEach(function(el){{el.classList.add("reveal");var i=Array.prototype.index
 
 def newsletter(label="The Nazar Note", head="One short email every Friday.", lang="en"):
     if lang == "uk":
-        return f"""<section class="band" id="note">
-<div class="wrap section tight band-grid">
-<div class="stack">
-<p class="label">{label}</p>
-<h2>Один короткий лист щоп'ятниці.</h2>
-<p class="soft">Цифри ринку західних передмість, нові місця поруч і одна ідея на вихідні. Розсилка англійською мовою.</p>
-</div>
-<div class="sub">
-<a class="btn primary" href="{NOTE}" target="_blank" rel="noopener">Підписатися на розсилку</a>
-<small>Безкоштовно. Відписатися можна будь-коли.</small>
-</div>
-</div>
-</section>"""
-    return f"""<section class="band" id="note">
-<div class="wrap section tight band-grid">
-<div class="stack">
-<p class="label">{label}</p>
-<h2>{head}</h2>
-<p class="soft">West metro market numbers, new openings, and one thing worth doing this weekend. Short enough to read with your coffee.</p>
-</div>
-<div class="sub">
-<a class="btn primary" href="{NOTE}" target="_blank" rel="noopener">Get the Friday note</a>
-<small>Opens the sign-up page for The Nazar Note. Free. Unsubscribe anytime.</small>
-</div>
-</div>
-</section>"""
+        txt, link = "<b>The Nazar Note</b> · короткий лист щоп'ятниці про ринок західних передмість (англійською).", "Підписатися"
+    else:
+        txt, link = "<b>The Nazar Note</b> · one short email every Friday on the west metro market.", "Subscribe"
+    return f'<aside class="note-strip" id="note"><div class="wrap"><p>{txt} <a href="{NOTE}" target="_blank" rel="noopener">{link}</a></p></div></aside>'
 
 
 # ---------- reviews (Google, clients' own words, captured Nov 12, 2026) ----------
