@@ -268,3 +268,13 @@ a.card:hover{border-color:var(--lake);transform:translateY(-2px)}
 .calc-out .soft{color:rgba(247,243,236,.6)}
 .small{font-size:13px}
 @media (max-width:900px){.calc{grid-template-columns:1fr}.calc-out{position:static;order:-1}}
+
+/* ---- data tables ---- */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.data{width:100%;border-collapse:collapse;font-size:15px;min-width:680px}
+.data caption{text-align:left;padding:14px 16px;font-weight:600;color:var(--soft);font-size:14px}
+.data th,.data td{padding:12px 16px;text-align:right;border-top:1px solid var(--line);white-space:nowrap}
+.data th[scope=row],.data thead th:first-child{text-align:left}
+.data thead th{font-size:13px;color:var(--soft);font-weight:600;background:var(--paper)}
+.data tbody tr:hover{background:var(--paper)}
+.data tr.metro{font-style:italic;color:var(--soft)}

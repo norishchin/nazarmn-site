@@ -54,7 +54,7 @@ const person = {
     <p>{uk ? "Купівля і продаж житла, багатоквартирні будинки і комерційні об'єкти: церкви, торгові приміщення, торгові центри, змішане призначення, склади, автосалони та об'єкти спеціального призначення. Угоди off-market і гнучкі умови, як-от seller carry і contract for deed." : "Buying and selling homes, plus multifamily and commercial property: apartments, churches, retail, strip centers, mixed use, warehouses, dealerships and special-use buildings. Off-market deals and creative terms like seller carry and contract for deed."}</p>
     <h3>{uk ? "Де я працюю найбільше" : "Where I work most"}</h3>
     <ul class="towns">{TOWNS.map((n) => { const t = townLink(n); return <li>{t ? <a href={`/${t.slug}/`}>{n}</a> : n}</li>; })}</ul>
-    <p class="soft">{uk ? "І будь-де в Міннесоті." : "And anywhere in Minnesota."}</p>
+    <p class="soft">{uk ? "І будь-де в Міннесоті." : "And anywhere in Minnesota."} <a href="/towns/">{uk ? "Порівняти ціни за містами" : "Compare home prices by town"}</a></p>
   </div>
 </div></section>
 

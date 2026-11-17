@@ -34,6 +34,11 @@ for (const f of pages) {
   const noQuotes = visible.replace(/<figure class="(quote|pull)[^"]*">[\s\S]*?<\/figure>/g, "");
   if (/[—–]|&mdash;|&ndash;/.test(noQuotes)) bad("em or en dash found");
 
+  // Structured data must be valid JSON.
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try { JSON.parse(m[1]); } catch { bad("invalid JSON-LD structured data"); }
+  }
+
   // One H1.
   const h1 = (visible.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1) bad(`${h1} H1 tags (need exactly 1)`);

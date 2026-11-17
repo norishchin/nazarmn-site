@@ -17,6 +17,8 @@ export const GET: APIRoute = async () => {
 - [Sell a home](${SITE}/sell/): pricing, prep and launch, with FAQs
 - [Commercial and investors](${SITE}/commercial/): apartments, mixed use, retail, strip centers, warehouses, churches, dealerships, special use; off-market deals; seller carry and contract for deed
 - [Investment property calculator](${SITE}/calculator/): cash flow, cap rate and debt coverage for a rental
+- [Home prices by town](${SITE}/towns/): 2024 median price, sales and days on market for all 11 focus towns in one table
+- [Ukrainian-speaking real estate agent in Minnesota](${SITE}/ukrainian-speaking-realtor/): working with Nazar in Ukrainian
 - [Real estate glossary](${SITE}/glossary/): plain definitions in English and Ukrainian
 - [Reviews](${SITE}/reviews/): Google reviews in clients' own words
 - [Українською](${SITE}/uk/): the full site in Ukrainian

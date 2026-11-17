@@ -28,6 +28,9 @@ const ICONS = {
     <path d="M345 105c-45 10-65 55-48 100 46-6 68-50 48-100zM297 205l48-100" stroke="${ACCENT}"/>`,
 };
 
+ICONS.duplex = `<path d="M50 330V170l150-100 150 100v160z"/><path d="M200 70v260"/><path d="M90 230h60v60H90zM250 230h60v60h-60z"/>
+    <circle cx="300" cy="120" r="22" stroke="${ACCENT}"/><path d="M322 120h40M348 120v18" stroke="${ACCENT}"/>`;
+
 const THUMBS = {
   "your-first-step-before-buying-a-home": "checklist",
   "buying-your-first-home-in-minnesota": "key",
@@ -37,6 +40,7 @@ const THUMBS = {
   "contract-for-deed-minnesota": "contract",
   "how-off-market-commercial-deals-happen": "phone",
   "selling-in-spring-take-photos-in-fall": "camera",
+  "buying-a-duplex-and-living-in-one-unit": "duplex",
 };
 
 function svg(category, icon) {

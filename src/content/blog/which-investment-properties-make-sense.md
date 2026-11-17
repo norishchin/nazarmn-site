@@ -50,7 +50,7 @@ Want to try your own numbers? Use the [investment property calculator](/calculat
 
 ## Deals that usually make sense
 
-- **Small multifamily you can live in.** Living in one unit of a duplex to fourplex while renting the others is one of the best ways to start.
+- **Small multifamily you can live in.** Living in one unit of a duplex to fourplex while renting the others is one of the best ways to start. ([Here's how that works](/blog/buying-a-duplex-and-living-in-one-unit/).)
 - **Value-add with a clear scope.** Rents below market for a reason you can fix and price: dated kitchens, poor management, units sitting empty.
 - **Good terms from a motivated seller.** Seller carry or contract for deed can turn a thin deal into a solid one. (See [how contract for deed works](/blog/contract-for-deed-minnesota/).)
 - **Boring locations with steady demand.** Close to jobs, transit and schools. Boring rents well.
