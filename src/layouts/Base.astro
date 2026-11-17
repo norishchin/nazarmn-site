@@ -4,7 +4,7 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import "../styles/site.css";
 import { getCollection } from "astro:content";
-import { SITE, SEARCH, TEAM_STEADY, NOTE, EMAIL, OFFICE, SOCIAL, UI, L, ukPath, type Lang } from "../lib/site";
+import { ANALYTICS_TOKEN, SITE, SEARCH, TEAM_STEADY, NOTE, EMAIL, OFFICE, SOCIAL, UI, L, ukPath, type Lang } from "../lib/site";
 
 interface Props {
   title: string;
@@ -63,6 +63,7 @@ const imageUrl = image.startsWith("http") ? image : SITE + image;
 <link rel="alternate" type="application/rss+xml" title="Nazar Orishchin guides" href="/rss.xml">
 {jsonld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
 <slot name="head" />
+{ANALYTICS_TOKEN && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: ANALYTICS_TOKEN })}></script>}
 </head>
 <body>
 <a class="skip" href="#main">{lang === "uk" ? "До змісту" : "Skip to content"}</a>

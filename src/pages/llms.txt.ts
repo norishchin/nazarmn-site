@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getPosts } from "../lib/posts";
 import { SITE, BOOK, SEARCH, EMAIL, LICENSE, TOWNS } from "../lib/site";
+import { TOWNS as TOWN_PAGES, SOURCE, money } from "../data/towns";
 
 // Plain summary for AI assistants (ChatGPT, Claude, Perplexity).
 export const GET: APIRoute = async () => {
@@ -20,6 +21,9 @@ export const GET: APIRoute = async () => {
 - [Reviews](${SITE}/reviews/): Google reviews in clients' own words
 - [Українською](${SITE}/uk/): the full site in Ukrainian
 - [Search homes for sale](${SEARCH})
+
+## Town market pages
+${TOWN_PAGES.map((t) => `- [${t.name}, MN](${SITE}/${t.slug}/): 2024 median sale price ${money(t.medians[4])}, ${t.sales} sales, ${t.days} days on market (${SOURCE.name})`).join("\n")}
 
 ## Guides
 ${posts.map((p) => `- [${p.data.title}](${SITE}/blog/${p.id}/): ${p.data.answer ?? p.data.description}`).join("\n")}
