@@ -15,32 +15,76 @@ NAV = [("/buy/", "Buy"), ("/sell/", "Sell"), ("/commercial/", "Invest"), ("/blog
 GLOBE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>'
 
 
-def lang_link(lang):
+UK_BASE = {"/", "/buy/", "/sell/", "/commercial/", "/blog/"}  # post paths added in build()
+
+
+def L(lang, u):
+    """Localize an internal English path."""
+    if lang != "uk" or not u.startswith("/"):
+        return u
+    if u in UK_BASE:
+        return "/uk" + u if u != "/" else "/uk/"
+    return u
+
+
+def counterpart(path, lang):
     if lang == "uk":
-        return '<a class="lang" href="/" hreflang="en" lang="en">%sEnglish</a>' % GLOBE
-    return '<a class="lang" href="/uk/" hreflang="uk" lang="uk">%sУкраїнська</a>' % GLOBE
+        return path[3:] or "/"
+    return L("uk", path) if path in UK_BASE else "/uk/"
+
+
+UI = {
+ "en": dict(bs="Buy &amp; sell", buy="Buy a home", buy_s="Process, costs and first steps", sell="Sell your home",
+            sell_s="Pricing, prep and marketing", invest="Invest", guides="Guides", search="Search homes", reviews="Reviews",
+            call="Call (952) 846-9173", f_site="Site", f_else="Elsewhere", f_buy="Buy a home", f_sell="Sell a home",
+            f_inv="Invest and commercial", f_ts="Team Steady site", f_rights="Each office independently owned and operated. Equal Housing Opportunity.",
+            f_lic="RE/MAX Results · Team Steady · Minnesota license #40776361", next="Next step", email_or="Or email Nazar@ts-re.com",
+            read="Read it", mins="min read", all="All guides", keep="Keep reading",
+            byline="Real estate agent, RE/MAX Results, Team Steady.",
+            ns_head="Ready when you are.", ns_text="Tell me what you're trying to do. One conversation, no pressure, and you'll leave with a plan.",
+            menu="Open menu"),
+ "uk": dict(bs="Купівля і продаж", buy="Купити будинок", buy_s="Процес, витрати, перші кроки", sell="Продати будинок",
+            sell_s="Ціна, підготовка, маркетинг", invest="Інвестиції", guides="Поради", search="Пошук будинків", reviews="Відгуки",
+            call="Запис на дзвінок", f_site="Сайт", f_else="Також", f_buy="Купівля", f_sell="Продаж",
+            f_inv="Інвестиції та комерційна нерухомість", f_ts="Сайт Team Steady", f_rights="Кожен офіс RE/MAX є незалежним. Equal Housing Opportunity.",
+            f_lic="RE/MAX Results · Team Steady · ліцензія Міннесоти #40776361", next="Наступний крок", email_or="Або напишіть на Nazar@ts-re.com",
+            read="Читати", mins="хв читання", all="Усі поради", keep="Читайте також",
+            byline="Агент з нерухомості, RE/MAX Results, Team Steady.",
+            ns_head="Коли будете готові.", ns_text="Розкажіть, що плануєте. Одна розмова без тиску, і ви матимете чіткий план.",
+            menu="Відкрити меню"),
+}
+
+
+def lang_link(lang, alt):
+    if lang == "uk":
+        return '<a class="lang" href="%s" hreflang="en" lang="en">%sEnglish</a>' % (alt, GLOBE)
+    return '<a class="lang" href="%s" hreflang="uk" lang="uk">%sУкраїнська</a>' % (alt, GLOBE)
 
 
 def cur(u, active):
     return ' aria-current="page"' if u == active else ""
 
 
-def desktop_nav(active, lang):
+def desktop_nav(active, lang, alt):
+    t = UI[lang]
     bs = ' class="on"' if active in ("/buy/", "/sell/") else ""
     return ('<nav class="nav" aria-label="Main">'
-            '<div class="dd"><button type="button"%s aria-haspopup="true">Buy &amp; sell<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>'
-            '<div class="dd-menu"><a href="/buy/"%s><b>Buy a home</b><span>Process, costs and first steps</span></a>'
-            '<a href="/sell/"%s><b>Sell your home</b><span>Pricing, prep and marketing</span></a></div></div>'
-            '<a href="/commercial/"%s>Invest</a><a href="/blog/"%s>Guides</a>'
-            '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>%s</nav>') % (
-        bs, cur("/buy/", active), cur("/sell/", active), cur("/commercial/", active), cur("/blog/", active), SEARCH, lang_link(lang))
+            '<div class="dd"><button type="button"%s aria-haspopup="true">' + t["bs"] + '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>'
+            f'<div class="dd-menu"><a href="{L(lang,"/buy/")}"%s><b>{t["buy"]}</b><span>{t["buy_s"]}</span></a>'
+            f'<a href="{L(lang,"/sell/")}"%s><b>{t["sell"]}</b><span>{t["sell_s"]}</span></a></div></div>'
+            f'<a href="{L(lang,"/commercial/")}"%s>{t["invest"]}</a><a href="{L(lang,"/blog/")}"%s>{t["guides"]}</a>'
+            f'<a class="search" href="%s" target="_blank" rel="noopener">{t["search"]}</a>%s</nav>') % (
+        bs, cur("/buy/", active), cur("/sell/", active), cur("/commercial/", active), cur("/blog/", active), SEARCH, lang_link(lang, alt))
 
 
-def mobile_nav(active, lang):
-    links = "".join('<a href="%s"%s>%s</a>' % (u, cur(u, active), t) for u, t in NAV)
-    return ('<details class="menu"><summary aria-label="Open menu"><span></span><span></span><span></span></summary><nav aria-label="Mobile">'
-            '<a class="search" href="%s" target="_blank" rel="noopener">Search homes</a>%s<a href="/reviews/"%s>Reviews</a>'
-            '<a href="tel:+19528469173">Call (952) 846-9173</a>%s</nav></details>') % (SEARCH, links, cur("/reviews/", active), lang_link(lang))
+def mobile_nav(active, lang, alt):
+    t = UI[lang]
+    names = {"/buy/": t["f_buy"], "/sell/": t["f_sell"], "/commercial/": t["invest"], "/blog/": t["guides"]} if lang == "uk" else dict(NAV)
+    links = "".join('<a href="%s"%s>%s</a>' % (L(lang, u), cur(u, active), names[u]) for u, _ in NAV)
+    callink = '<a href="tel:+19528469173">Call (952) 846-9173</a>' if lang == "en" else '<a href="/book/">Запис на дзвінок</a>'
+    return (f'<details class="menu"><summary aria-label="{t["menu"]}"><span></span><span></span><span></span></summary><nav aria-label="Mobile">'
+            f'<a class="search" href="%s" target="_blank" rel="noopener">{t["search"]}</a>%s<a href="/reviews/"%s>{t["reviews"]}</a>'
+            f'%s%s</nav></details>') % (SEARCH, links, cur("/reviews/", active), callink, lang_link(lang, alt))
 
 
 import hashlib as _h
@@ -69,6 +113,10 @@ def book_swap(html, lang):
 
 def page(path, title, desc, body, active="", lang="en", extra_head="", image="/images/share.jpg"):
     url = SITE + path
+    t = UI[lang]
+    alt = counterpart(path, lang)
+    en_p, uk_p = (path, alt) if lang == "en" else (alt, path)
+    hl = "" if path.endswith("404.html") or (lang == "en" and path not in UK_BASE) else f'<link rel="alternate" hreflang="en" href="{SITE}{en_p}">\n<link rel="alternate" hreflang="uk" href="{SITE}{uk_p}">\n<link rel="alternate" hreflang="x-default" href="{SITE}{en_p}">\n'
     out = f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -77,7 +125,7 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website">
+{hl}<meta property="og:type" content="website">
 <meta property="og:site_name" content="Nazar Orishchin">
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{html.escape(title)}">
@@ -96,9 +144,9 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <body>
 <header class="site-header">
 <div class="wrap bar">
-<a class="wordmark" href="/">Nazar Orishchin</a>
-{desktop_nav(active, lang)}
-{mobile_nav(active, lang)}
+<a class="wordmark" href="{L(lang, "/")}">Nazar Orishchin</a>
+{desktop_nav(active, lang, alt)}
+{mobile_nav(active, lang, alt)}
 </div>
 </header>
 <main>
@@ -107,20 +155,20 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <footer class="site-footer">
 <div class="wrap">
 <div>
-<a class="wordmark" href="/">Nazar Orishchin</a>
-<p>RE/MAX Results · Team Steady · Minnesota license #40776361</p>
+<a class="wordmark" href="{L(lang, "/")}">Nazar Orishchin</a>
+<p>{t["f_lic"]}</p>
 <p>11200 W 78th St, Eden Prairie, MN 55344</p>
 <p><a href="tel:+19528469173" style="display:inline">(952) 846-9173</a> · <a href="mailto:Nazar@ts-re.com" style="display:inline">Nazar@ts-re.com</a></p>
-<p>Each office independently owned and operated. Equal Housing Opportunity.</p>
+<p>{t["f_rights"]}</p>
 <p>© 2026 Nazar Orishchin</p>
 </div>
 <div>
-<h4>Site</h4>
-<a href="{SEARCH}">Search homes</a><a href="/buy/">Buy a home</a><a href="/sell/">Sell a home</a><a href="/commercial/">Invest and commercial</a><a href="/reviews/">Reviews</a><a href="/blog/">Guides</a><a href="/uk/">Українською</a>
+<h4>{t["f_site"]}</h4>
+<a href="{SEARCH}">{t["search"]}</a><a href="{L(lang,"/buy/")}">{t["f_buy"]}</a><a href="{L(lang,"/sell/")}">{t["f_sell"]}</a><a href="{L(lang,"/commercial/")}">{t["f_inv"]}</a><a href="/reviews/">{t["reviews"]}</a><a href="{L(lang,"/blog/")}">{t["guides"]}</a><a href="{alt}">{"English" if lang == "uk" else "Українською"}</a>
 </div>
 <div>
-<h4>Elsewhere</h4>
-<a href="{TS}">Team Steady site</a><a href="{NOTE}">The Nazar Note</a><a href="https://www.facebook.com/NazarOrishchinRealEstate">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a>
+<h4>{t["f_else"]}</h4>
+<a href="{TS}">{t["f_ts"]}</a><a href="{NOTE}">The Nazar Note</a><a href="https://www.facebook.com/NazarOrishchinRealEstate">Facebook</a><a href="https://instagram.com/nazar_realtor_mn">Instagram</a><a href="https://linkedin.com/in/nazar-orishchin">LinkedIn</a>
 </div>
 </div>
 </footer>
@@ -144,7 +192,21 @@ els.forEach(function(el){{el.classList.add("reveal");var i=Array.prototype.index
         PAGES.append(path)
 
 
-def newsletter(label="The Nazar Note", head="One short email every Friday."):
+def newsletter(label="The Nazar Note", head="One short email every Friday.", lang="en"):
+    if lang == "uk":
+        return f"""<section class="band" id="note">
+<div class="wrap section tight band-grid">
+<div class="stack">
+<p class="label">{label}</p>
+<h2>Один короткий лист щоп'ятниці.</h2>
+<p class="soft">Цифри ринку західних передмість, нові місця поруч і одна ідея на вихідні. Розсилка англійською мовою.</p>
+</div>
+<div class="sub">
+<a class="btn primary" href="{NOTE}" target="_blank" rel="noopener">Підписатися на розсилку</a>
+<small>Безкоштовно. Відписатися можна будь-коли.</small>
+</div>
+</div>
+</section>"""
     return f"""<section class="band" id="note">
 <div class="wrap section tight band-grid">
 <div class="stack">
@@ -304,20 +366,34 @@ def fmt_date(d):
     return datetime.date.fromisoformat(d).strftime("%B %-d, %Y")
 
 
-def card(p):
+CAT_UK = {"Start here": "З чого почати", "Buying": "Купівля", "Selling": "Продаж", "Investing": "Інвестиції", "Guide": "Поради"}
+
+
+def card(p, lang="en"):
+    t = UI[lang]
+    if lang == "uk":
+        u = p["uk"]
+        return (f'<a class="card post-card" href="/uk/blog/{p["slug"]}/"><p class="post-meta">{CAT_UK[p["cat"]]} · {u["mins"]} {t["mins"]}</p>'
+                f'<h3>{u["title"]}</h3><p class="soft grow">{u["teaser"]}</p><span class="arrow">{t["read"]}</span></a>')
     return (f'<a class="card post-card" href="/blog/{p["slug"]}/"><p class="post-meta">{p["cat"]} · {p["mins"]} min read</p>'
             f'<h3>{p["title"]}</h3><p class="soft grow">{p["teaser"]}</p><span class="arrow">Read it</span></a>')
 
 
-def next_step(head="Ready when you are.", text="Tell me what you're trying to do. One conversation, no pressure, and you'll leave with a plan."):
+def next_step(head=None, text=None, lang="en"):
+    t = UI[lang]
+    head = head or t["ns_head"]; text = text or t["ns_text"]
+    btn = ('<a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a>' if lang == "en"
+           else '<a class="btn primary" href="/book/">Запишіться на 15-хвилинну розмову</a>')
     return f"""<section class="band"><div class="wrap section tight band-grid">
-<div class="stack"><p class="label">Next step</p><h2>{head}</h2><p class="soft">{text}</p></div>
-<div class="stack" style="align-items:flex-start"><a class="btn primary" href="tel:+19528469173">Call or text (952) 846-9173</a>
-<a class="arrow light" href="mailto:Nazar@ts-re.com">Or email Nazar@ts-re.com</a></div>
+<div class="stack"><p class="label">{t["next"]}</p><h2>{head}</h2><p class="soft">{text}</p></div>
+<div class="stack" style="align-items:flex-start">{btn}
+<a class="arrow light" href="mailto:Nazar@ts-re.com">{t["email_or"]}</a></div>
 </div></section>"""
 
 
 def build():
+    for _p in POSTS:
+        UK_BASE.add(f'/blog/{_p["slug"]}/')
     # ---------- home ----------
     ld = json.dumps({"@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Nazar Orishchin",
         "url": SITE + "/", "image": SITE + "/images/nazar-orishchin.jpg", "telephone": "+1-952-846-9173",
@@ -540,42 +616,6 @@ def build():
     page("/reviews/", "Client Reviews | Nazar Orishchin, Real Estate Agent",
          "Google reviews from buyers, sellers and investors who worked with Nazar Orishchin of RE/MAX Results. 5.0 average across 26 reviews as of November 2026.", rev, active="/reviews/")
 
-    # ---------- ukrainian ----------
-    uk = f"""
-<div class="wrap page-hero split">
-<div class="stack lg"><p class="label">Українською</p><h1>Назар Оріщин, ріелтор у Міннесоті.</h1>
-<p class="lead">Допомагаю купити, продати та інвестувати в нерухомість у Міннесоті. Пояснюю кожен крок українською, без поспіху і без тиску.</p>
-<div><a class="btn primary" href="tel:+19528469173">Телефонуйте або пишіть: (952) 846-9173</a></div></div>
-<div class="photo"><img src="/images/nazar-smiling.jpg" alt="Назар Оріщин" width="800" height="1200"></div>
-</div>
-<section class="rule"><div class="wrap section split">
-<div class="stack"><h2>Як купити будинок у Міннесоті</h2><p class="soft">Шість кроків по порядку.</p></div>
-<ol class="steps">
-<li><div><h3>Розмова і план</h3><p>Обговорюємо ваш бюджет, міста, які вам підходять, і терміни.</p></div></li>
-<li><div><h3>Попереднє схвалення кредиту</h3><p>Кредитор (lender) рахує, яку суму ви можете позичити. Це називається pre-approval. Я поясню, які документи потрібні.</p></div></li>
-<li><div><h3>Пошук і покази</h3><p>Дивимося будинки разом. Я звертаю увагу на дах, опалення, сліди води та все, що коштуватиме грошей пізніше.</p></div></li>
-<li><div><h3>Пропозиція</h3><p>Готую пропозицію (offer) на основі реальних продажів поруч і пояснюю кожен пункт договору.</p></div></li>
-<li><div><h3>Інспекція</h3><p>Інспектор перевіряє будинок. Разом читаємо звіт і вирішуємо, що просити у продавця.</p></div></li>
-<li><div><h3>Закриття угоди</h3><p>Підписуєте документи в title company і отримуєте ключі. Я поруч і перекладаю.</p></div></li>
-</ol>
-</div></section>
-<section class="rule"><div class="wrap section stack lg">
-<h2>Чим я можу допомогти</h2>
-<div class="grid g3">
-<div class="card"><h3>Купівля</h3><p class="soft">Перший будинок чи наступний. Пояснюю процес, документи та витрати зрозумілою мовою.</p></div>
-<div class="card"><h3>Продаж</h3><p class="soft">Чесна ціна на основі ринку, підготовка будинку та професійні фото.</p></div>
-<div class="card"><h3>Інвестиції та бізнес</h3><p class="soft">Квартирні будинки, склади, приміщення для бізнесу, церкви. Працюю також з contract for deed.</p></div>
-</div>
-<p class="soft">Я народився в Україні й виріс у Міннесоті. За освітою інженер, тому уважно рахую цифри й перевіряю стан будинку.</p>
-</div></section>
-<section class="rule"><div class="wrap section stack center">
-<h2>Маєте запитання?</h2>
-<p class="soft">Телефон або SMS: {PHONE}. Email: <a href="mailto:Nazar@ts-re.com">Nazar@ts-re.com</a></p>
-</div></section>
-"""
-    page("/uk/", "Назар Оріщин | Україномовний ріелтор у Міннесоті",
-         "Україномовний ріелтор у Міннесоті. Купівля, продаж та інвестиції в нерухомість: Chaska, Chanhassen, Eden Prairie та вся Міннесота.", uk, active="/uk/", lang="uk")
-
     # ---------- blog ----------
     start = [p for p in POSTS if p["cat"] == "Start here"]
     rest = [p for p in POSTS if p["cat"] != "Start here"]
@@ -609,6 +649,10 @@ def build():
         page(f'/blog/{p["slug"]}/', f'{p["title"]} | Nazar Orishchin', p["desc"], body, active="/blog/",
              extra_head=f'<script type="application/ld+json">{pld}</script>\n')
 
+    # ---------- ukrainian ----------
+    from uk_content import build_uk
+    build_uk(globals())
+
     # ---------- /search/ redirect to Lofty listings ----------
     if BOOK:
         os.makedirs("book", exist_ok=True)
@@ -627,7 +671,7 @@ def build():
 - [Sell a home]({SITE}/sell/): pricing, prep and launch
 - [Commercial and investors]({SITE}/commercial/): apartments, mixed use, retail, strip centers, warehouses, churches, dealerships, special use; off-market deals; seller carry and contract for deed
 - [Reviews]({SITE}/reviews/): Google reviews in clients' own words
-- [Ukrainian]({SITE}/uk/): Ukrainian-language page
+- [Українською]({SITE}/uk/): the full site in Ukrainian (home, buying, selling, investing, guides)
 - [Search homes for sale]({SEARCH})
 
 ## Guides
