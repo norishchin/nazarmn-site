@@ -3,7 +3,7 @@
 import os, html, json
 
 SITE = "https://nazarmn.com"
-BOOK = ""  # Calendly 15-min call link; empty = phone buttons stay
+BOOK = "https://calendly.com/nazar-ts-re/call"  # Calendly 15-min call link; empty = phone buttons stay
 PHONE = '<a href="tel:+19528469173">(952) 846-9173</a>'
 TS = "https://nazarorishchin.teamsteadyrealestate.com"
 NOTE = "https://news.nazarmn.com/"
