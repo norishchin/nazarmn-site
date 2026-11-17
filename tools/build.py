@@ -158,7 +158,7 @@ def page(path, title, desc, body, active="", lang="en", extra_head="", image="/i
 <a class="wordmark" href="{L(lang, "/")}">Nazar Orishchin</a>
 <p>{t["f_lic"]}</p>
 <p>11200 W 78th St, Eden Prairie, MN 55344</p>
-<p><a href="tel:+19528469173" style="display:inline">(952) 846-9173</a> · <a href="mailto:Nazar@ts-re.com" style="display:inline">Nazar@ts-re.com</a></p>
+<p><a href="mailto:Nazar@ts-re.com" style="display:inline">Nazar@ts-re.com</a></p>
 <p>{t["f_rights"]}</p>
 <p>© 2026 Nazar Orishchin</p>
 </div>
@@ -187,6 +187,8 @@ els.forEach(function(el){{el.classList.add("reveal");var i=Array.prototype.index
     fp = path.strip("/")
     fp = os.path.join(fp, "index.html") if fp and not fp.endswith(".html") else (fp or "index.html")
     os.makedirs(os.path.dirname(fp) or ".", exist_ok=True)
+    if "846-9173" in out or "9528469173" in out:
+        raise SystemExit(f"Phone number found on {path}. Remove it before publishing.")
     open(fp, "w", encoding="utf-8").write(out)
     if not path.endswith("404.html"):
         PAGES.append(path)
@@ -374,7 +376,7 @@ def build():
         UK_BASE.add(f'/blog/{_p["slug"]}/')
     # ---------- home ----------
     ld = json.dumps({"@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Nazar Orishchin",
-        "url": SITE + "/", "image": SITE + "/images/nazar-orishchin.jpg", "telephone": "+1-952-846-9173",
+        "url": SITE + "/", "image": SITE + "/images/nazar-orishchin.jpg",
         "email": "Nazar@ts-re.com", "knowsLanguage": ["en", "uk"],
         "address": {"@type": "PostalAddress", "streetAddress": "11200 W 78th St", "addressLocality": "Eden Prairie",
                     "addressRegion": "MN", "postalCode": "55344", "addressCountry": "US"},
@@ -619,7 +621,7 @@ def build():
 <h1>{p["title"]}</h1>
 <p class="lead">{p["teaser"]}</p>
 {p["body"]}
-<div class="byline"><img src="/images/nazar-orishchin-about.jpg" alt="" width="64" height="64" loading="lazy"><p><b>Nazar Orishchin</b><br>Real estate agent, RE/MAX Results, Team Steady. {PHONE}</p></div>
+<div class="byline"><img src="/images/nazar-orishchin-about.jpg" alt="" width="64" height="64" loading="lazy"><p><b>Nazar Orishchin</b><br>Real estate agent, RE/MAX Results, Team Steady.</p></div>
 </article>
 <section class="rule"><div class="wrap section stack lg"><p class="chapter">Keep reading</p><div class="grid g2">{"".join(card(q) for q in related)}</div></div></section>
 {next_step()}
@@ -641,7 +643,7 @@ def build():
     # ---------- llms.txt: plain summary for AI assistants ----------
     open("llms.txt", "w", encoding="utf-8").write(f"""# Nazar Orishchin, real estate agent (RE/MAX Results, Team Steady)
 
-> Minnesota real estate agent based in Eden Prairie serving Chaska, Chanhassen, Victoria, Eden Prairie, Hopkins, Savage, Shakopee, Burnsville, Prior Lake and the west metro. Homes, multifamily and commercial property statewide. Former engineer (about five years). 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English and Ukrainian. Minnesota license #40776361. Phone (952) 846-9173, email Nazar@ts-re.com.
+> Minnesota real estate agent based in Eden Prairie serving Chaska, Chanhassen, Victoria, Eden Prairie, Hopkins, Savage, Shakopee, Burnsville, Prior Lake and the west metro. Homes, multifamily and commercial property statewide. Former engineer (about five years). 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English and Ukrainian. Minnesota license #40776361. Email Nazar@ts-re.com. Book a 15-minute call: {BOOK}
 
 ## Pages
 - [Home]({SITE}/): who Nazar is and how he works
@@ -657,7 +659,7 @@ def build():
 
     # ---------- 404, sitemap, robots ----------
     page("/404.html", "Page not found | Nazar Orishchin", "Page not found.",
-         f'<div class="wrap section stack center"><h1>That page isn\'t here.</h1><p class="soft">Try the <a href="/">home page</a> or call {PHONE}.</p></div>')
+         f'<div class="wrap section stack center"><h1>That page isn\'t here.</h1><p class="soft">Try the <a href="/">home page</a> or <a href="/book/">book a 15-minute call</a>.</p></div>')
     open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in PAGES if u != "/search/") + "</urlset>\n")
     open("robots.txt", "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
