@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import NextStep from "./NextStep.astro";
 import ProfileStrip from "./ProfileStrip.astro";
 import Experience from "./Experience.astro";
+import ClosingPhotos from "./ClosingPhotos.astro";
 import { Picture } from "astro:assets";
 import photo from "../assets/photos/nazar-smiling.jpg";
 import { SITE, EMAIL, LICENSE, OFFICE, SOCIAL, TOWNS, agentSchema, type Lang } from "../lib/site";
@@ -53,7 +54,7 @@ const person = {
 </div></section>
 
 <section class="rule"><div class="wrap section split">
-  <div class="stack"><p class="chapter">{uk ? "Що я роблю" : "What I do"}</p><h2>{uk ? "Житло, інвестиції і комерційна нерухомість" : "Homes, investment and commercial property"}</h2></div>
+  <div class="stack"><p class="chapter">{uk ? "Що я роблю" : "What I do"}</p><h2>{uk ? "Житло, інвестиції і комерційна нерухомість" : "Homes, investment and commercial property"}</h2><ClosingPhotos photos={[4]} lang={lang} caption={false} /></div>
   <div class="stack">
     <p>{uk ? "Купівля і продаж житла, багатоквартирні будинки і комерційні об'єкти: церкви, торгові приміщення, торгові центри, змішане призначення, склади, автосалони та об'єкти спеціального призначення. Угоди off-market і гнучкі умови, як-от seller carry і contract for deed." : "Buying and selling homes, plus multifamily and commercial property: apartments, churches, retail, strip centers, mixed use, warehouses, dealerships and special-use buildings. Off-market deals and creative terms like seller carry and contract for deed."}</p>
     <h3>{uk ? "Де я працюю найбільше" : "Where I work most"}</h3>

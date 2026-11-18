@@ -369,3 +369,12 @@ html[lang=uk] .nav>a,html[lang=uk] .dd>button{padding:10px 9px;font-size:13.5px}
 .guide-list a:hover{color:var(--lake)}
 .guide-list a::after{content:" \2192";color:var(--lake)}
 .next-links{display:flex;flex-wrap:wrap;gap:4px 28px}
+
+/* ---- closing-day photos ---- */
+.closings{margin:0}
+.closings-grid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}
+.closings.n5 .closings-grid{grid-template-columns:repeat(5,1fr)}
+.closings.n1 .closings-grid{grid-template-columns:1fr;max-width:420px}
+.closings img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 30%;border-radius:10px;display:block;background:var(--tint)}
+.closings figcaption{font-size:13px;color:var(--soft);margin-top:8px}
+@media (max-width:760px){.closings-grid,.closings.n5 .closings-grid{grid-template-columns:repeat(2,1fr)}.closings.n5 img:last-child{display:none}}

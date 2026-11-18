@@ -1,4 +1,5 @@
 ---
+import ClosingPhotos from "../components/ClosingPhotos.astro";
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
 import { Picture } from "astro:assets";
@@ -46,6 +47,7 @@ const jsonld = [agentSchema({ inLanguage: "en" }), { "@context": "https://schema
 <section class="rule" id="reviews"><div class="wrap section stack lg">
 <div class="stack"><p class="chapter">Proof</p><h2>From clients, after closing</h2></div>
 <figure class="pull"><blockquote>“He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.”</blockquote><figcaption><b>Alena Golovchuk</b> · Google review</figcaption></figure>
+<ClosingPhotos photos={[3, 4, 5, 1]} lang="en" />
 <div class="grid g2">
 <figure class="quote"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote><p>His help didn’t stop after closing. Even after the deal was completed, he continued to check in, answer our questions, and guide us through the next steps.</p></blockquote><figcaption><b>Pavlo Fursyak</b> · Google review</figcaption></figure>
 <figure class="quote"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote><p>He is creative, knowledgeable and personable. He helped us find the most house for our money.</p></blockquote><figcaption><b>Heather Sinz</b> · Google review</figcaption></figure>
