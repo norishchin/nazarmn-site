@@ -1,0 +1,27 @@
+---
+// Real closing-day photos with clients (shared by Nazar). No kids' faces on the site, ever.
+import { Picture } from "astro:assets";
+import c1 from "../assets/photos/closings/closing-1.jpg";
+import c2 from "../assets/photos/closings/closing-2.jpg";
+import c3 from "../assets/photos/closings/closing-3.jpg";
+import c4 from "../assets/photos/closings/closing-4.jpg";
+import c5 from "../assets/photos/closings/closing-5.jpg";
+import type { Lang } from "../lib/site";
+interface Props { photos: number[]; lang?: Lang; caption?: boolean }
+const { photos, lang = "en", caption = true } = Astro.props;
+const uk = lang === "uk";
+const ALL = [
+  { src: c1, en: "Nazar Orishchin and clients holding a Just Closed key at a title office", uk: "Назар Оріщин з клієнтами тримають ключ Just Closed у title-офісі" },
+  { src: c2, en: "Clients holding a Just Closed key with Nazar Orishchin and the closing team", uk: "Клієнти з ключем Just Closed разом із Назаром Оріщиним і командою закриття" },
+  { src: c3, en: "Nazar Orishchin with two clients after closing, holding a Just Closed key", uk: "Назар Оріщин з двома клієнтами після закриття угоди" },
+  { src: c4, en: "Nazar Orishchin in a Team Steady shirt with clients at closing", uk: "Назар Оріщин у футболці Team Steady з клієнтами на закритті" },
+  { src: c5, en: "Nazar Orishchin with clients holding a Just Closed key after closing", uk: "Назар Оріщин з клієнтами після закриття угоди" },
+];
+const list = photos.map((i) => ALL[i - 1]);
+---
+<figure class={`closings n${list.length}`}>
+  <div class="closings-grid">
+    {list.map((p) => <Picture src={p.src} alt={uk ? p.uk : p.en} widths={[320, 520, 760]} sizes={list.length === 1 ? "(max-width: 760px) 92vw, 420px" : "(max-width: 760px) 46vw, 280px"} formats={["avif", "webp"]} loading="lazy" />)}
+  </div>
+  {caption && <figcaption>{uk ? "Дні закриття угод" : "Closing days"}</figcaption>}
+</figure>

@@ -378,3 +378,4 @@ html[lang=uk] .nav>a,html[lang=uk] .dd>button{padding:10px 9px;font-size:13.5px}
 .closings img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 30%;border-radius:10px;display:block;background:var(--tint)}
 .closings figcaption{font-size:13px;color:var(--soft);margin-top:8px}
 @media (max-width:760px){.closings-grid,.closings.n5 .closings-grid{grid-template-columns:repeat(2,1fr)}.closings.n5 img:last-child{display:none}}
+.family-photo{width:100%;max-width:420px;height:auto;border-radius:12px;margin-top:16px;display:block}
