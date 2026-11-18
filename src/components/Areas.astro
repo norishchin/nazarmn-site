@@ -1,0 +1,20 @@
+---
+import { AREAS } from "../data/areas";
+import { TOWNS } from "../data/towns";
+import type { Lang } from "../lib/site";
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const uk = lang === "uk";
+const page = (c: string) => TOWNS.find((t) => t.name === c);
+---
+<section class="rule" id="areas"><div class="wrap section stack lg">
+  <div class="stack"><p class="chapter">{uk ? "Де я працюю" : "Where I work"}</p>
+    <h2>{uk ? "Західні та південні передмістя, і вся Міннесота для інвестицій." : "The west and south metro, and all of Minnesota for investment property."}</h2>
+    <p class="soft">{uk ? "Міста з посиланням мають сторінку з цінами, плюсами і мінусами." : "Linked towns have their own page with prices, pros and cons."} <a href="/towns/">{uk ? "Порівняти всі міста" : "Compare them side by side"}</a></p></div>
+  <div class="areas">
+    {AREAS.map((a) => (
+      <div><h3>{uk ? a.regionUk : a.region}</h3>
+        <ul>{a.cities.map((c) => { const t = page(c); return <li>{t ? <a href={`/${t.slug}/`}>{c}</a> : c}</li>; })}</ul>
+      </div>
+    ))}
+  </div>
+</div></section>

@@ -5,7 +5,11 @@ import { Picture } from "astro:assets";
 import aboutPhoto from "../../assets/photos/nazar-orishchin-about.jpg";
 import heroPhoto from "../../assets/photos/nazar-orishchin.jpg";
 import { agentSchema } from "../../lib/site";
-const jsonld = [agentSchema({ inLanguage: "uk" }), ...[]];
+import ProfileStrip from "../../components/ProfileStrip.astro";
+import Experience from "../../components/Experience.astro";
+import Areas from "../../components/Areas.astro";
+const faqs = [["Де ви працюєте?", "Переважно в західних і південних передмістях: Chaska, Chanhassen, Victoria, Eden Prairie, Hopkins, Savage, Shakopee, Burnsville, Prior Lake, Plymouth і Maple Grove. З інвесторами і комерційною нерухомістю працюю по всій Міннесоті."], ["Якими мовами ви розмовляєте?", "Українською, англійською та російською. Можна працювати будь-якою з них."], ["Чи можете допомогти продати і купити одночасно?", "Так. Я планую обидві угоди разом, щоб терміни збіглися і вам не довелося утримувати два будинки."], ["Ви працюєте з інвесторами і комерційною нерухомістю?", "Так. Багатоквартирні будинки, змішане призначення, торгівля, склади, церкви, автосалони і спеціальні об'єкти, зокрема угоди off-market і фінансування від продавця."], ["Як почати?", "Запишіться на 15-хвилинну розмову або напишіть на Nazar@ts-re.com. Розкажіть, що плануєте і в які терміни, і я скажу, як би я підійшов до цього."]];
+const jsonld = [agentSchema({ inLanguage: "uk" }), { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }];
 ---
 <Base title={"Назар Оріщин | Україномовний ріелтор у Міннесоті"} description={"Україномовний агент з нерухомості в Міннесоті. Купівля, продаж та інвестиції: Chaska, Chanhassen, Eden Prairie і вся Міннесота. Колишній інженер, 100+ угод."} lang="uk" active="/" jsonld={jsonld}>
 <div class="wrap hero" id="top">
@@ -18,12 +22,9 @@ const jsonld = [agentSchema({ inLanguage: "uk" }), ...[]];
 <div class="photo"><Picture src={heroPhoto} alt="Назар Оріщин, агент з нерухомості" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} fetchpriority="high" loading="eager" /></div>
 </div>
 
-<section class="rule" aria-label="Коротко"><div class="wrap section tight stats">
-<div class="stat"><b>100+</b><span>Угод закрито з 2022 року</span></div>
-<div class="stat"><b>5.0</b><span>Рейтинг у Google з 26 відгуків</span></div>
-<div class="stat"><b>5 років</b><span>Інженером до нерухомості</span></div>
-<div class="stat"><b>2</b><span>Мови: українська та англійська</span></div>
-</div></section>
+<ProfileStrip lang="uk" jumps={[["#experience", "Досвід"], ["#reviews", "Відгуки"], ["#areas", "Де я працюю"], ["#contact", "Поговорімо"]]} />
+
+<Experience lang="uk" />
 
 <section class="rule"><div class="wrap section split">
 <div class="stack"><p class="chapter">01 · Проблема</p><h2>Ви робите це кілька разів у житті. Інша сторона робить це щодня.</h2></div>
@@ -43,7 +44,7 @@ const jsonld = [agentSchema({ inLanguage: "uk" }), ...[]];
 </div>
 </div></section>
 
-<section class="rule"><div class="wrap section stack lg">
+<section class="rule" id="reviews"><div class="wrap section stack lg">
 <div class="stack"><p class="chapter">03 · Докази</p><h2>Що кажуть клієнти після закриття угоди.</h2><p class="soft" style="font-size:14px">Відгуки наведено мовою оригіналу, як їх написали клієнти в Google.</p></div>
 <figure class="pull"><blockquote>“He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.”</blockquote><figcaption><b>Alena Golovchuk</b> · Google review</figcaption></figure>
 <div class="grid g3">
@@ -84,6 +85,14 @@ const jsonld = [agentSchema({ inLanguage: "uk" }), ...[]];
 <a class="arrow" href="/uk/blog/">Усі поради</a>
 </div></section>
 
+<Areas lang="uk" />
+
+<section class="rule"><div class="wrap section split faq">
+<h2>Поширені запитання</h2>
+<div>{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+</div></section>
+
+<div id="contact"></div>
 <section class="band"><div class="wrap section tight band-grid">
 <div class="stack"><p class="label">Наступний крок</p><h2>Почніть із короткої розмови.</h2><p class="soft">Розкажіть, що плануєте. Ви матимете план, незалежно від того, чи працюватимемо ми разом.</p></div>
 <div class="stack" style="align-items:flex-start"><a class="btn primary" href="/book/">Запишіться на 15-хвилинну розмову</a>

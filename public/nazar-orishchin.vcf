@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Orishchin;Nazar;;;
+FN:Nazar Orishchin
+ORG:RE/MAX Results;Team Steady
+TITLE:Real Estate Agent
+EMAIL;TYPE=INTERNET,WORK:Nazar@ts-re.com
+URL:https://nazarmn.com/
+ADR;TYPE=WORK:;;11200 W 78th St;Eden Prairie;MN;55344;USA
+X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/nazar-orishchin
+X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/NazarOrishchinRealEstate
+X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/nazar_realtor_mn
+NOTE:Minnesota real estate license #40776361. English, Ukrainian, Russian. Book a 15-minute call: https://nazarmn.com/book/
+PHOTO;VALUE=URI:https://nazarmn.com/images/nazar-orishchin.jpg
+END:VCARD

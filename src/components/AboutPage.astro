@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import NextStep from "./NextStep.astro";
+import ProfileStrip from "./ProfileStrip.astro";
+import Experience from "./Experience.astro";
 import { Picture } from "astro:assets";
 import photo from "../assets/photos/nazar-smiling.jpg";
 import { SITE, EMAIL, LICENSE, OFFICE, SOCIAL, TOWNS, agentSchema, type Lang } from "../lib/site";
@@ -11,7 +13,7 @@ const townLink = (name: string) => TOWN_PAGES.find((t) => t.name === name);
 const person = {
   "@context": "https://schema.org", "@type": "Person", "@id": SITE + "/about/#person",
   name: "Nazar Orishchin", jobTitle: "Real estate agent", url: SITE + "/about/", image: SITE + "/images/nazar-smiling.jpg",
-  email: EMAIL, knowsLanguage: ["en", "uk"], birthPlace: { "@type": "Country", name: "Ukraine" },
+  email: EMAIL, knowsLanguage: ["en", "uk", "ru"], birthPlace: { "@type": "Country", name: "Ukraine" },
   worksFor: { "@type": "RealEstateAgent", "@id": SITE + "/#agent", name: "RE/MAX Results, Team Steady" },
   hasCredential: { "@type": "EducationalOccupationalCredential", credentialCategory: "license", name: `Minnesota real estate license #${LICENSE}` },
   sameAs: [SOCIAL.facebook, SOCIAL.instagram, SOCIAL.linkedin, SOCIAL.zillow],
@@ -26,22 +28,24 @@ const person = {
     <p class="label">{uk ? "Про мене" : "About"}</p>
     <h1>{uk ? "Інженер, який продає нерухомість." : "An engineer who sells real estate."}</h1>
     <p class="lead">{uk
-      ? "Я Назар Оріщин, агент з нерухомості в RE/MAX Results у складі Team Steady. З 2022 року закрив понад 100 угод: будинки, багатоквартирні та комерційні об'єкти по всій Міннесоті."
-      : "I'm Nazar Orishchin, a real estate agent with RE/MAX Results on Team Steady. I've closed 100+ transactions since 2022: homes, multifamily and commercial property across Minnesota."}</p>
+      ? "Я Назар Оріщин, агент з нерухомості в RE/MAX Results у складі Team Steady. Працюю з будинками, багатоквартирними та комерційними об'єктами по всій Міннесоті."
+      : "I'm Nazar Orishchin, a real estate agent with RE/MAX Results on Team Steady. I work with homes, multifamily and commercial property across Minnesota."}</p>
   </div>
   <div class="photo"><Picture src={photo} alt={uk ? "Назар Оріщин біля вікна" : "Nazar Orishchin standing by a window"} widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} fetchpriority="high" loading="eager" /></div>
 </div>
 
-<section class="rule"><div class="wrap section split">
+<ProfileStrip lang={lang} jumps={uk ? [["#background", "Історія"], ["#experience", "Досвід"], ["#details", "Ліцензія"], ["#contact", "Поговорімо"]] : [["#background", "Background"], ["#experience", "Experience"], ["#details", "License and office"], ["#contact", "Let's talk"]]} />
+
+<section class="rule" id="background"><div class="wrap section split">
   <div class="stack"><p class="chapter">{uk ? "01 · Історія" : "01 · Background"}</p><h2>{uk ? "З України до Міннесоти" : "From Ukraine to Minnesota"}</h2></div>
   <div class="stack">
     {/* TODO (Nazar): add one specific story in your own words, such as why you left engineering or a deal where checking the numbers saved a client. */}
     {uk ? <>
-      <p>Я народився в Україні і переїхав до Міннесоти у три роки. Розмовляю українською та англійською.</p>
+      <p>Я народився в Україні і переїхав до Міннесоти у три роки. Розмовляю українською, англійською та російською.</p>
       <p>Я здобув інженерну освіту і близько п'яти років працював інженером, перш ніж повністю перейти в нерухомість. Ця звичка лишилася: я читаю звіт інспекції рядок за рядком, перераховую кожну інвестиційну угоду з нуля і кажу вам цифру прямо.</p>
       <p>Поза роботою я чоловік і тато.</p>
     </> : <>
-      <p>I was born in Ukraine and came to Minnesota when I was three. I speak Ukrainian and English.</p>
+      <p>I was born in Ukraine and came to Minnesota when I was three. I speak English, Ukrainian and Russian.</p>
       <p>I earned an engineering degree and worked as an engineer for about five years before going full time in real estate. The habits came with me: I read the inspection report line by line, rebuild every investment deal's numbers from scratch, and give you the number straight.</p>
       <p>Outside of work, I'm a husband and a dad.</p>
     </>}
@@ -58,18 +62,20 @@ const person = {
   </div>
 </div></section>
 
-<section class="rule"><div class="wrap section split">
+<Experience lang={lang} />
+
+<section class="rule" id="details"><div class="wrap section split">
   <div class="stack"><p class="chapter">{uk ? "03 · Деталі" : "03 · The details"}</p><h2>{uk ? "Ліцензія та офіс" : "License and office"}</h2></div>
   <dl class="facts">
     <dt>{uk ? "Брокерська компанія" : "Brokerage"}</dt><dd>RE/MAX Results, Team Steady</dd>
     <dt>{uk ? "Офіс" : "Office"}</dt><dd>{OFFICE.street}, {OFFICE.city}, {OFFICE.region} {OFFICE.zip}</dd>
     <dt>{uk ? "Ліцензія" : "License"}</dt><dd>{uk ? "Міннесота" : "Minnesota"} #{LICENSE}</dd>
-    <dt>{uk ? "Мови" : "Languages"}</dt><dd>{uk ? "Українська, англійська" : "English, Ukrainian"}</dd>
-    <dt>{uk ? "Угоди" : "Track record"}</dt><dd>{uk ? "100+ угод закрито з 2022 року" : "100+ transactions closed since 2022"}</dd>
+    <dt>{uk ? "Мови" : "Languages"}</dt><dd>{uk ? "Українська, англійська, російська" : "English, Ukrainian, Russian"}</dd>
     <dt>Email</dt><dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
     <dt>{uk ? "Соцмережі" : "Social"}</dt><dd><a href={SOCIAL.linkedin}>LinkedIn</a> · <a href={SOCIAL.facebook}>Facebook</a> · <a href={SOCIAL.instagram}>Instagram</a></dd>
   </dl>
 </div></section>
 
+<div id="contact"></div>
 <NextStep lang={lang} head={uk ? "Познайомимося?" : "Want to talk it through?"} text={uk ? "Коротка розмова про те, що ви плануєте. Без тиску і без паперів." : "A short call about what you're planning. No pressure and no paperwork."} />
 </Base>

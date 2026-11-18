@@ -6,9 +6,10 @@ import { Picture } from "astro:assets";
 import photo from "../../assets/photos/nazar-laughing.jpg";
 import { SITE, agentSchema } from "../../lib/site";
 const faqs: [string, string][] = [
-  ["Is there a Ukrainian-speaking real estate agent in Minnesota?", "Yes. I'm Nazar Orishchin, a licensed Minnesota real estate agent with RE/MAX Results in Eden Prairie. I was born in Ukraine, speak Ukrainian and English, and help clients buy, sell and invest anywhere in Minnesota."],
+  ["Is there a Ukrainian-speaking real estate agent in Minnesota?", "Yes. I'm Nazar Orishchin, a licensed Minnesota real estate agent with RE/MAX Results in Eden Prairie. I was born in Ukraine, speak Ukrainian, English and Russian, and help clients buy, sell and invest anywhere in Minnesota."],
   ["Can you explain the purchase agreement and inspection report in Ukrainian?", "Yes. I walk you through the purchase agreement, the inspection report, the appraisal and the closing documents in Ukrainian, so you know what you're signing. The documents themselves are in English, and for legal questions you should also talk to an attorney."],
   ["Can family members who prefer Ukrainian be part of the process?", "Yes. Parents or relatives who are helping with the decision can join calls and showings, and I'll explain each step in whichever language works for them."],
+  ["Do you also work in Russian?", "Yes. I speak Russian as well, so you can work with me in Ukrainian, Russian or English, or mix them."],
   ["Do you work with investors and commercial property in Ukrainian too?", "Yes. Apartments, mixed use, retail, warehouses, churches and other commercial property, including off-market deals and seller financing, in either language."],
 ];
 const jsonld = [agentSchema(), { "@context": "https://schema.org", "@type": "FAQPage",
@@ -21,7 +22,7 @@ const jsonld = [agentSchema(), { "@context": "https://schema.org", "@type": "FAQ
   <div class="stack lg">
     <p class="label">Розмовляю українською</p>
     <h1>A Ukrainian-speaking real estate agent in Minnesota</h1>
-    <p class="lead">I'm Nazar Orishchin. I was born in Ukraine, came to Minnesota at three, and I'm a licensed agent with RE/MAX Results. You can buy, sell or invest with every step explained in Ukrainian.</p>
+    <p class="lead">I'm Nazar Orishchin. I was born in Ukraine, came to Minnesota at three, and I'm a licensed agent with RE/MAX Results. You can buy, sell or invest with every step explained in Ukrainian. I speak Russian too.</p>
     <div class="answer"><p class="label">Short answer</p><p>Yes, you can work with a licensed Minnesota agent entirely in Ukrainian. I explain the offer, inspection, loan and closing in Ukrainian, and the paperwork itself is in English.</p></div>
     <div class="cta"><a class="btn primary" href="/book/">Book a 15-min call</a><a class="arrow" href="/uk/">Сайт українською</a></div>
   </div>

@@ -5,7 +5,11 @@ import { Picture } from "astro:assets";
 import aboutPhoto from "../assets/photos/nazar-orishchin-about.jpg";
 import heroPhoto from "../assets/photos/nazar-orishchin.jpg";
 import { agentSchema } from "../lib/site";
-const jsonld = [agentSchema({ inLanguage: "en" }), ...[]];
+import ProfileStrip from "../components/ProfileStrip.astro";
+import Experience from "../components/Experience.astro";
+import Areas from "../components/Areas.astro";
+const faqs = [["Where do you work?", "Mostly the west and south metro: Chaska, Chanhassen, Victoria, Eden Prairie, Hopkins, Savage, Shakopee, Burnsville, Prior Lake, Plymouth and Maple Grove. I work with investors and commercial property anywhere in Minnesota."], ["Which languages do you speak?", "English, Ukrainian and Russian. You can work with me in any of them."], ["Can you help me sell and buy at the same time?", "Yes. I plan both sides together so the timing works and you're not carrying two houses."], ["Do you work with investors and commercial property?", "Yes. Apartments, mixed use, retail, strip centers, warehouses, churches, dealerships and special-use property, including off-market deals and seller financing."], ["How do I get started?", "Book a 15-minute call, or email Nazar@ts-re.com. Tell me what you're trying to do and your timeline, and I'll tell you how I'd approach it."]];
+const jsonld = [agentSchema({ inLanguage: "en" }), { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }];
 ---
 <Base title={"Nazar Orishchin | Real Estate Agent for Chaska, Chanhassen and the West Metro"} description={"Nazar Orishchin, RE/MAX Results agent for Chaska, Chanhassen and the west metro. Homes, multifamily and commercial property. English and Ukrainian."} lang="en" active="" jsonld={jsonld}>
 <div class="wrap hero" id="top">
@@ -18,12 +22,9 @@ const jsonld = [agentSchema({ inLanguage: "en" }), ...[]];
 <div class="photo"><Picture src={heroPhoto} alt="Nazar Orishchin, real estate agent, in a gray blazer" widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} fetchpriority="high" loading="eager" /></div>
 </div>
 
-<section class="rule" aria-label="At a glance"><div class="wrap section tight stats">
-<div class="stat"><b>100+</b><span>Transactions closed since 2022</span></div>
-<div class="stat"><b>5.0</b><span>Google rating from 26 reviews</span></div>
-<div class="stat"><b>5 years</b><span>As an engineer before real estate</span></div>
-<div class="stat"><b>2</b><span>Languages: English and Ukrainian</span></div>
-</div></section>
+<ProfileStrip lang="en" jumps={[["#experience", "Experience"], ["#reviews", "Client reviews"], ["#areas", "Where I work"], ["#contact", "Let's talk"]]} />
+
+<Experience lang="en" />
 
 <section class="rule"><div class="wrap section split">
 <div class="stack"><p class="chapter">01 · The problem</p><h2>You do this a few times in your life. The other side does it every day.</h2></div>
@@ -42,7 +43,7 @@ const jsonld = [agentSchema({ inLanguage: "en" }), ...[]];
 </div>
 </div></section>
 
-<section class="rule"><div class="wrap section stack lg">
+<section class="rule" id="reviews"><div class="wrap section stack lg">
 <div class="stack"><p class="chapter">03 · Proof</p><h2>What clients say after closing.</h2></div>
 <figure class="pull"><blockquote>“He was able to get our offer accepted within 2 days of the home going on market AND drop 15k from the asking price.”</blockquote><figcaption><b>Alena Golovchuk</b> · Google review</figcaption></figure>
 <div class="grid g3">
@@ -81,6 +82,13 @@ const jsonld = [agentSchema({ inLanguage: "en" }), ...[]];
 <div class="stack"><p class="chapter">06 · Start here</p><h2>Not ready to call? Read these first.</h2><p class="soft">Plain guides written from deals I've worked.</p></div>
 <div class="grid g3"><PostCard slug="your-first-step-before-buying-a-home" lang="en" /><PostCard slug="buying-your-first-home-in-minnesota" lang="en" /><PostCard slug="which-investment-properties-make-sense" lang="en" /></div>
 <a class="arrow" href="/blog/">All guides</a>
+</div></section>
+
+<Areas lang="en" />
+
+<section class="rule"><div class="wrap section split faq">
+<h2>Common questions</h2>
+<div>{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
 </div></section>
 
 <div id="contact"></div>

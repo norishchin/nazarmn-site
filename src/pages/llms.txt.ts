@@ -8,7 +8,7 @@ export const GET: APIRoute = async () => {
   const posts = await getPosts();
   const body = `# Nazar Orishchin, real estate agent (RE/MAX Results, Team Steady)
 
-> Minnesota real estate agent based in Eden Prairie. Focus areas: ${TOWNS.join(", ")}. Homes, multifamily and commercial property anywhere in Minnesota, including off-market deals and creative financing. Former engineer (about five years). 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English and Ukrainian. Minnesota license #${LICENSE}. Email ${EMAIL}. Book a 15-minute call: ${BOOK}
+> Minnesota real estate agent based in Eden Prairie. Focus areas: ${TOWNS.join(", ")}. Homes, multifamily and commercial property anywhere in Minnesota, including off-market deals and creative financing. Former engineer (about five years). 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English, Ukrainian and Russian. Minnesota license #${LICENSE}. Email ${EMAIL}. Book a 15-minute call: ${BOOK}
 
 ## Pages
 - [Home](${SITE}/): who Nazar is and how he works

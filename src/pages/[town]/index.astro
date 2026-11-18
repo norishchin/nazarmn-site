@@ -74,6 +74,16 @@ const jsonld = [
   </div>
 </div></section>
 
+{town.pros && (
+<section class="rule"><div class="wrap section stack lg">
+  <div class="stack"><h2>Pros and cons of buying or selling in {town.name}</h2><p class="soft">Based on the 2024 numbers above. About the homes and the market, not the people.</p></div>
+  <div class="grid g2 proscons">
+    <div class="card"><p class="label">Pros</p><ul>{town.pros.map((x) => <li>{x}</li>)}</ul></div>
+    <div class="card"><p class="label">Cons</p><ul>{town.cons?.map((x) => <li>{x}</li>)}</ul></div>
+  </div>
+</div></section>
+)}
+
 <section class="rule"><div class="wrap section stack lg">
   <h2>Where to go next</h2>
   <div class="grid g3">

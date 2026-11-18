@@ -1,0 +1,36 @@
+---
+import { TEAM, type Lang } from "../lib/site";
+import { getGoogleRating } from "../lib/google";
+const g = await getGoogleRating();
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const uk = lang === "uk";
+const rt = TEAM.realtrends, z = TEAM.zillow;
+---
+<section class="rule" id="experience"><div class="wrap section stack lg">
+  <div class="stack"><p class="chapter">{uk ? "Досвід" : "Experience"}</p><h2>{uk ? "Досвід, який можна перевірити." : "Experience you can check."}</h2>
+  <p class="soft">{uk ? "Мої угоди, плюс команда, яка стоїть за кожною з них." : "My own closings, plus the team behind every one of them."}</p></div>
+  <div class="exp">
+    <div class="exp-me">
+      <p class="label">{uk ? "Особисто" : "Me"}</p>
+      <p class="exp-big">100+</p>
+      <p>{uk ? "угод закрито з 2022 року" : "transactions closed since 2022"}</p>
+      <p class="exp-rating"><b>{g.rating.toFixed(1)}★</b> {uk ? <>рейтинг Google, {g.count} відгуків · <a href="/reviews/">читати</a></> : <>Google rating from {g.count} reviews · <a href="/reviews/">read them</a></>}</p>
+      <p class="soft">{uk ? "Плюс 5 років інженером до нерухомості." : "Plus 5 years as an engineer before real estate."}</p>
+    </div>
+    <div class="exp-team">
+      <p class="label">{uk ? "Моя команда: Team Steady, RE/MAX Results" : "My team: Team Steady, RE/MAX Results"}</p>
+      <div class="exp-grid">
+        <div><b>No. {rt.mnRank}</b><span>{uk ? `команда в Міннесоті за кількістю угод і обсягом (${rt.year})` : `team in Minnesota by sides and by volume (${rt.year} data)`}</span></div>
+        <div><b>{rt.sides}</b><span>{uk ? `угод (sides) у ${rt.year} році` : `transaction sides in ${rt.year}`}</span></div>
+        <div><b>{rt.volume}</b><span>{uk ? `обсяг продажів у ${rt.year} році` : `sales volume in ${rt.year}`}</span></div>
+        <div><b>{z.rating.toFixed(1)}★</b><span>{uk ? `на Zillow з ${z.reviews} відгуків про команду` : `on Zillow from ${z.reviews} team reviews`}</span></div>
+      </div>
+      <p class="soft small">{uk ? <>Також No. {rt.cityRank} у {rt.city} за обома показниками. Джерела: <a href={rt.url}>RealTrends Verified</a>, <a href={z.url}>Zillow</a>.</> : <>Also No. {rt.cityRank} in {rt.city} on both. Sources: <a href={rt.url}>RealTrends Verified</a>, <a href={z.url}>Zillow</a>.</>}</p>
+    </div>
+  </div>
+  <details class="exp-note">
+    <summary>{uk ? "Що входить у ці цифри" : "What these numbers include"}</summary>
+    {uk ? <p>«100+ угод» це угоди, які я особисто закрив з 2022 року. Цифри команди стосуються всієї Team Steady в RE/MAX Results під керівництвом Sam Steadman, частиною якої я є, а не лише моїх угод. RealTrends Verified: рейтинги на основі даних про продажі за {rt.year} рік, перевірено {rt.checked}. Zillow: профіль команди, {z.totalSales.toLocaleString("en-US")} продажів загалом і {z.last12} за останні 12 місяців, перевірено 18 листопада 2026 року. Минулі результати не гарантують майбутніх.</p>
+       : <p>"100+ transactions" is deals I've personally closed since 2022. The team numbers cover all of Team Steady at RE/MAX Results, led by Sam Steadman, which I'm part of. They are not my individual production. RealTrends Verified: rankings based on {rt.year} sales data, checked {rt.checked}. Zillow: team profile showing {z.totalSales.toLocaleString("en-US")} total sales and {z.last12} in the last 12 months, checked {z.checked}. Past results don't guarantee future outcomes.</p>}
+  </details>
+</div></section>

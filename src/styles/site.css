@@ -278,3 +278,49 @@ a.card:hover{border-color:var(--lake);transform:translateY(-2px)}
 .data thead th{font-size:13px;color:var(--soft);font-weight:600;background:var(--paper)}
 .data tbody tr:hover{background:var(--paper)}
 .data tr.metro{font-style:italic;color:var(--soft)}
+
+/* ---- profile strip (home, About) ---- */
+.profile-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.ps-row{display:flex;justify-content:space-between;align-items:center;gap:16px 32px;flex-wrap:wrap;padding:18px 0 12px}
+.ps-facts{margin:0;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.ps-langs{color:var(--soft);font-size:14px}
+.ps-actions{display:flex;align-items:center;gap:8px}
+.ps-social{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;color:var(--ink)}
+.ps-social:hover{border-color:var(--lake);color:var(--lake)}
+.ps-save{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border:1px solid var(--ink);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14px;margin-left:4px}
+.ps-save:hover{background:var(--ink);color:var(--paper)}
+.ps-jumps{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 16px}
+.ps-jumps a{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;padding:7px 12px;border-radius:999px;background:var(--paper);display:inline-flex;gap:6px}
+.ps-jumps a span{color:var(--lake)}
+.ps-jumps a:hover{background:var(--tint)}
+[id]{scroll-margin-top:72px}
+
+/* ---- experience ---- */
+.exp{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+.exp-me,.exp-team{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
+.exp-me{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.exp-me .label{color:var(--tint)}
+.exp-me .soft{color:rgba(247,243,236,.7)}
+.exp-big{font-family:var(--serif);font-size:64px;line-height:1;margin:8px 0 4px;font-weight:600}
+.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 24px;margin:12px 0 16px}
+.exp-grid b{display:block;font-family:var(--serif);font-size:30px;font-weight:600;color:var(--lake)}
+.exp-grid span{font-size:14px;color:var(--soft)}
+.exp-note{border-top:1px solid var(--line);padding-top:12px}
+.exp-note summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none}
+.exp-note summary::after{content:" +";color:var(--lake)}
+.exp-note[open] summary::after{content:" −"}
+.exp-note p{font-size:14px;color:var(--soft);max-width:760px}
+@media (max-width:800px){.exp{grid-template-columns:1fr}}
+
+/* ---- areas directory, pros and cons ---- */
+.areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px 32px}
+.areas h3{font-size:16px;margin:0 0 10px}
+.areas ul{list-style:none;margin:0;padding:0;columns:2;column-gap:16px;font-size:15px}
+.areas li{padding:3px 0;break-inside:avoid;color:var(--soft)}
+.areas li a{color:var(--ink);font-weight:600}
+.proscons ul{margin:8px 0 0;padding-left:20px}
+.proscons li{margin-bottom:8px}
+
+.exp-rating{margin:14px 0 6px;padding-top:14px;border-top:1px solid rgba(220,235,239,.2)}
+.exp-rating b{font-family:var(--serif);font-size:22px;margin-right:4px}
+.exp-me a{color:var(--tint)}

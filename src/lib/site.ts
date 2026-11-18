@@ -26,6 +26,21 @@ export const TOWNS = [
   "Shakopee", "Burnsville", "Prior Lake", "Plymouth", "Maple Grove",
 ];
 
+// Team record. Always shown as TEAM results, with source and date. Nazar's own line stays "100+ transactions closed since 2022".
+export const TEAM = {
+  realtrends: {
+    url: "https://www.realtrends.com/team-profile/team-steady-minnesota-remax-results/",
+    year: 2025, sides: 364, volume: "$166.63M", mnRank: 2, cityRank: 1, city: "Minneapolis", checked: "November 2026",
+  },
+  zillow: {
+    url: "https://www.zillow.com/profile/TeamSteady",
+    rating: 5.0, reviews: 698, totalSales: 2907, last12: 341, checked: "November 18, 2026",
+  },
+};
+
+// Nazar's own Google rating. Replaced automatically at build time when Google Places is set up (see src/lib/google.ts).
+export const GOOGLE_RATING = { rating: 5.0, count: 26, checked: "November 2026", url: "" };
+
 export type Lang = "en" | "uk";
 
 export const UI = {
@@ -103,7 +118,7 @@ export const agentSchema = (extra: Record<string, unknown> = {}) => ({
   url: SITE + "/",
   image: SITE + "/images/nazar-orishchin.jpg",
   email: EMAIL,
-  knowsLanguage: ["en", "uk"],
+  knowsLanguage: ["en", "uk", "ru"],
   address: {
     "@type": "PostalAddress", streetAddress: OFFICE.street, addressLocality: OFFICE.city,
     addressRegion: OFFICE.region, postalCode: OFFICE.zip, addressCountry: "US",

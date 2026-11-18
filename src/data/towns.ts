@@ -24,6 +24,8 @@ export interface Town {
   intro: string;
   homes: string;
   nearby: string[];
+  pros?: string[]; // about homes and the market only, never about the people who live there (fair housing)
+  cons?: string[];
 }
 
 export const TOWNS: Town[] = [
@@ -34,6 +36,8 @@ export const TOWNS: Town[] = [
     intro: "Chaska is the Carver County seat, on the Minnesota River southwest of Minneapolis.",
     homes: "Nearly a quarter of Chaska's 2024 sales were new construction, which is high for the west metro. That means resale sellers often compete with builders, and buyers can weigh a new build against an existing home.",
     nearby: ["chanhassen", "victoria", "shakopee"],
+    pros: ["Lots of new construction to choose from (24.3% of 2024 sales)", "Median price below Chanhassen and Victoria next door", "Sales grew 14.3% in 2024, so there's plenty of activity"],
+    cons: ["Resale sellers compete with builders", "41 days on market on average, a bit slower than Chanhassen"],
   },
   {
     slug: "chanhassen", name: "Chanhassen", county: "Carver County",
@@ -42,6 +46,8 @@ export const TOWNS: Town[] = [
     intro: "Chanhassen sits between Chaska and Eden Prairie, with lakes on its west side and Highway 5 and 212 running through it.",
     homes: "Chanhassen had the second-highest median price of the towns on this site in 2024, after Victoria, and homes sold quickly: 35 days on average, at 99.1% of the original list price. Very little of it was new construction, so most buyers here are choosing between existing homes.",
     nearby: ["chaska", "victoria", "eden-prairie"],
+    pros: ["Homes sold quickly: 35 days on average", "Sellers got 99.1% of original list price, tied for the highest here"],
+    cons: ["Second-highest median price of the 11 towns ($538,500)", "Very little new construction (3.6%), so fewer brand-new options", "Sales fell 6.4% in 2024, so fewer homes to choose from"],
   },
   {
     slug: "eden-prairie", name: "Eden Prairie", county: "Hennepin County",
@@ -50,6 +56,8 @@ export const TOWNS: Town[] = [
     intro: "Eden Prairie is in southwest Hennepin County. My office, RE/MAX Results, is on West 78th Street here.",
     homes: "Eden Prairie had 754 sales in 2024. Townhouses and condos made up 42% of them, so it is one of the better places in the west metro to find a first home or a smaller place after selling a bigger one.",
     nearby: ["chanhassen", "hopkins", "chaska"],
+    pros: ["Large market with 754 sales, so lots of choice and good comps", "42% townhouses and condos, good for a first home or downsizing"],
+    cons: ["Little new construction (2.1%)", "43 days on market on average"],
   },
   {
     slug: "victoria", name: "Victoria", county: "Carver County",
@@ -58,6 +66,8 @@ export const TOWNS: Town[] = [
     intro: "Victoria is in Carver County, just west of Chanhassen.",
     homes: "Victoria had the highest median price of any town on this site in 2024, and the highest share of new construction: 42.9% of sales. Resale sellers here are pricing against builders, who can offer incentives a homeowner can't. Homes also took longer to sell than in most nearby towns, at 52 days.",
     nearby: ["chanhassen", "chaska"],
+    pros: ["Most new construction of the 11 towns (42.9% of sales)", "Buyers have a bit more time: 52 days on market on average"],
+    cons: ["Highest median price here ($600,400)", "Smaller market: 219 sales, down 9.9% from 2023", "Resale sellers price against builders' incentives"],
   },
   {
     slug: "hopkins", name: "Hopkins", county: "Hennepin County",
@@ -66,6 +76,8 @@ export const TOWNS: Town[] = [
     intro: "Hopkins is a small city in Hennepin County, next to Minnetonka, St. Louis Park and Edina, with a walkable Mainstreet downtown.",
     homes: "Hopkins is the smallest market on this site, with 185 sales in 2024, and the fastest: 33 days on average. Townhouses and condos made up 46.5% of sales, the highest share of any town here. The median jumped from $325,000 in 2023 to $371,000 in 2024, so recent sales matter more than older ones when pricing.",
     nearby: ["eden-prairie", "plymouth"],
+    pros: ["Lowest median price of the 11 towns ($371,000)", "Fastest market here: 33 days on average", "Most townhouses and condos (46.5% of sales)"],
+    cons: ["Smallest market: only 185 sales in 2024", "Almost no new construction (0.5%)", "Median jumped 14% in one year, so older comps can mislead"],
   },
   {
     slug: "savage", name: "Savage", county: "Scott County",
@@ -74,6 +86,8 @@ export const TOWNS: Town[] = [
     intro: "Savage is in Scott County, south of the Minnesota River across from Bloomington.",
     homes: "Savage was steady in 2024: the same number of sales as 2023 and a median up about 2%. About a third of sales were townhouses or condos. At 43 days and 98.8% of list price, a well-priced home here sells close to asking without a bidding war.",
     nearby: ["prior-lake", "burnsville", "shakopee"],
+    pros: ["Steady market: same number of sales as 2023", "Median $425,000, between the cheaper and pricier towns here"],
+    cons: ["Prices rose only about 2% in 2024", "43 days on market on average"],
   },
   {
     slug: "shakopee", name: "Shakopee", county: "Scott County",
@@ -82,6 +96,8 @@ export const TOWNS: Town[] = [
     intro: "Shakopee is the Scott County seat, on the south bank of the Minnesota River.",
     homes: "Shakopee sales grew 8.8% in 2024, and 28.5% of them were new construction, second only to Victoria among the towns on this site. The median of $400,000 is right at the 2022 level, so prices here have held flat for two years while sales picked up.",
     nearby: ["savage", "prior-lake", "chaska"],
+    pros: ["Median $400,000, among the lower prices here", "Sales up 8.8% in 2024", "Lots of new construction (28.5% of sales)"],
+    cons: ["Median flat since 2022", "Resale sellers compete with builders"],
   },
   {
     slug: "burnsville", name: "Burnsville", county: "Dakota County",
@@ -90,6 +106,8 @@ export const TOWNS: Town[] = [
     intro: "Burnsville is in Dakota County, south of the Minnesota River where I-35W and I-35E meet.",
     homes: "Burnsville's 2024 median of $375,000 sat just under the Twin Cities region median, and homes sold in 36 days on average. Townhouses and condos were 41.8% of sales, and almost nothing was new construction, so buyers are choosing among existing homes and the condition of each one matters.",
     nearby: ["savage", "prior-lake"],
+    pros: ["Median $375,000, just under the Twin Cities region", "Homes sold in 36 days on average", "41.8% townhouses and condos"],
+    cons: ["Almost no new construction (2.1%)", "Sales down 4.2% in 2024"],
   },
   {
     slug: "prior-lake", name: "Prior Lake", county: "Scott County",
@@ -98,6 +116,8 @@ export const TOWNS: Town[] = [
     intro: "Prior Lake is in Scott County, built around Upper and Lower Prior Lake.",
     homes: "Prior Lake homes took the longest to sell of any town on this site in 2024, 59 days on average, and sellers got the lowest share of their original price, 97.4%. That's where pricing right at launch pays off most. Buyers here usually have more room to negotiate than in the faster towns.",
     nearby: ["savage", "shakopee"],
+    pros: ["Buyers have the most room to negotiate here: 97.4% of list price on average", "Some new construction (10.4% of sales)"],
+    cons: ["Slowest market here: 59 days on average", "Median $495,000, on the higher side", "Overpriced listings tend to sit"],
   },
   {
     slug: "plymouth", name: "Plymouth", county: "Hennepin County",
@@ -106,6 +126,8 @@ export const TOWNS: Town[] = [
     intro: "Plymouth is in Hennepin County, northwest of Minneapolis, and wraps around most of Medicine Lake.",
     homes: "Plymouth was the busiest market on this site in 2024, with 1,094 sales, and the median crossed $500,000 for the first time in this five-year span. With that many sales, there are plenty of recent comps, so pricing can be precise down to the neighborhood.",
     nearby: ["maple-grove", "hopkins"],
+    pros: ["Busiest market here: 1,094 sales, so lots of choice and solid comps", "Mix of homes: 36.1% townhouses and condos, 7.8% new construction"],
+    cons: ["Median passed $500,000 in 2024", "44 days on market on average"],
   },
   {
     slug: "maple-grove", name: "Maple Grove", county: "Hennepin County",
@@ -114,6 +136,8 @@ export const TOWNS: Town[] = [
     intro: "Maple Grove is in northwest Hennepin County, along I-94 and Highway 610.",
     homes: "Maple Grove had 1,030 sales in 2024, second only to Plymouth among the towns on this site, and sellers got 99.1% of their original list price, tied with Chanhassen for the highest. Townhouses and condos were 40.4% of sales.",
     nearby: ["plymouth"],
+    pros: ["Big market: 1,030 sales in 2024, up 5.7%", "Median $403,700, lower than Plymouth next door", "Sellers got 99.1% of list price, tied for the highest here"],
+    cons: ["Prices rose only about 4% in 2024 after dipping in 2023", "Homes priced right go fast, so buyers need to be ready"],
   },
 ];
 
