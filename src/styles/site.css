@@ -361,3 +361,11 @@ html[lang=uk] .nav>a,html[lang=uk] .dd>button{padding:10px 9px;font-size:13.5px}
 .ps-jumps a:hover{background:none;color:var(--ink);border-bottom-color:var(--lake)}
 .ps-jumps a span{color:var(--lake);opacity:.8}
 .hero{padding-bottom:clamp(28px,4vw,48px)}
+
+/* ---- simple guide list, next links ---- */
+.guide-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.guide-list li{border-bottom:1px solid var(--line)}
+.guide-list a{display:block;padding:14px 0;font-weight:600;text-decoration:none;color:var(--ink)}
+.guide-list a:hover{color:var(--lake)}
+.guide-list a::after{content:" \2192";color:var(--lake)}
+.next-links{display:flex;flex-wrap:wrap;gap:4px 28px}

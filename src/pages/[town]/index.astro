@@ -6,16 +6,69 @@ import { TOWNS, SOURCE, METRO, money, type Town } from "../../data/towns";
 import { SITE, SEARCH } from "../../lib/site";
 
 export function getStaticPaths() {
-  return TOWNS.map((town) => ({ params: { town: town.slug }, props: { town } }));
+  return TOWNS.map((town, i) => ({ params: { town: town.slug }, props: { town, v: i % 3, w: Math.floor(i / 3) % 3 } }));
 }
-const { town } = Astro.props as { town: Town };
+// v (0, 1 or 2) varies the order, headings and wording so the 11 town pages don't read as one template.
+const { town, v, w } = Astro.props as { town: Town; v: number; w: number };
+const pick = <T,>(xs: T[]) => xs[v % xs.length]; // order, title, guides
+const say = <T,>(xs: T[]) => xs[w % xs.length]; // headings and wording
 const years = [2020, 2021, 2022, 2023, 2024];
 const latest = town.medians[4];
 const max = Math.max(...town.medians);
 const growth = Math.round(((latest - town.medians[0]) / town.medians[0]) * 100);
 const vsMetro = latest - METRO.median;
 const nearby = town.nearby.map((s) => TOWNS.find((t) => t.slug === s)!);
-const answer = `In ${SOURCE.period.replace("full year ", "")}, the median sale price in ${town.name} was ${money(latest)}, up ${growth}% from ${money(town.medians[0])} in 2020. Homes took ${town.days} days on average to sell and got ${town.pctOrig}% of their original list price.`;
+const fast = town.days <= 40, slow = town.days >= 50, tight = town.pctOrig >= 98.8;
+
+const answer = say([
+  `In 2024, the median sale price in ${town.name} was ${money(latest)}, up ${growth}% from ${money(town.medians[0])} in 2020. Homes took ${town.days} days on average to sell and got ${town.pctOrig}% of their original list price.`,
+  `${town.name}'s median sale price was ${money(latest)} in 2024, ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region. ${town.sales.toLocaleString("en-US")} homes sold, taking ${town.days} days on average.`,
+  `A typical ${town.name} home sold for ${money(latest)} in 2024 after ${town.days} days on the market, at ${town.pctOrig}% of its original list price. Prices are up ${growth}% since 2020.`,
+]);
+const lead = say([
+  "It's one of the towns where I do the most work.",
+  "I help buyers and sellers here regularly.",
+  "It's part of the area I cover most often.",
+]);
+const h = {
+  chart: say(["Median price, 2020 to 2024", `How ${town.name} prices moved since 2020`, "Five years of prices"]),
+  meaning: say(["What the numbers mean", "If you're buying or selling here", "Reading the 2024 numbers"]),
+  pc: say([`Pros and cons of buying or selling in ${town.name}`, `${town.name}: what works and what to watch`, "The upside and the trade-offs"]),
+  next: say(["Where to go next", "Keep going", `More for ${town.name} buyers and sellers`]),
+};
+const buying = fast || tight
+  ? say([
+      `at ${town.pctOrig}% of list price and ${town.days} days on average, good homes here don't wait. Have your pre-approval in hand before you tour.`,
+      `homes sell close to asking here, so decide your top price before the house you want lists, not after.`,
+      `expect competition on the well-priced ones. A clean offer with strong financing often beats a slightly higher one.`,
+    ])
+  : say([
+      `with ${town.days} days on market on average, there's usually time to think, and room to negotiate on homes that have sat.`,
+      `homes that have been listed a few weeks are where buyers find leverage here. I'll tell you which ones.`,
+      `you'll often have more than a weekend to decide. Use it to get the inspection and the comps right.`,
+    ]);
+const selling = slow
+  ? say([
+      `the ${town.days}-day average is pulled up by homes priced too high. Price on recent sales from day one and you'll usually beat it.`,
+      `buyers here have time to compare, so the first two weeks matter most. Launch clean, at the right price.`,
+      `overpriced homes sit here longer than in nearby towns. I'll show you the comps behind the price before you list.`,
+    ])
+  : say([
+      `a house priced on recent sales and launched clean usually beats the ${town.days}-day average. I'll show you the comps behind the price.`,
+      `the market rewards being ready on day one: photos, small fixes and the right price, all before the sign goes up.`,
+      `most of the result is decided before your first showing. Getting the price and prep right matters more than the season.`,
+    ]);
+const guides = pick([
+  ["your-first-step-before-buying-a-home", "selling-your-home-what-the-first-30-days-look-like"],
+  ["how-to-win-a-multiple-offer-situation", "cost-to-sell-a-house-in-minnesota"],
+  ["buying-your-first-home-in-minnesota", "what-i-look-for-in-an-inspection-report"],
+]);
+const order = pick([
+  ["chart", "meaning", "pc", "next", "faq"],
+  ["pc", "chart", "next", "meaning", "faq"],
+  ["meaning", "pc", "chart", "faq", "next"],
+]);
+
 const faqs: [string, string][] = [
   [`What is the median home price in ${town.name}, MN?`, `${money(latest)} for ${SOURCE.period}, according to the ${SOURCE.name}. That is ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region median of ${money(METRO.median)}.`],
   [`How fast do homes sell in ${town.name}?`, `${town.days} cumulative days on market on average in 2024, compared with ${METRO.days} days across the Twin Cities region. Sellers received ${town.pctOrig}% of their original list price on average.`],
@@ -31,14 +84,19 @@ const jsonld = [
   { "@context": "https://schema.org", "@type": "FAQPage",
     mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
 ];
+const title = pick([
+  `${town.name}, MN real estate: prices, sales and what to know`,
+  `Buying or selling in ${town.name}, MN`,
+  `${town.name} home prices and market, 2024`,
+]);
 ---
 <Base title={`${town.name}, MN Real Estate: Prices and Market Data | Nazar Orishchin`}
   description={`${town.name}, Minnesota home prices, sales and days on market from Minneapolis Area REALTORS data, plus what that means if you're buying or selling.`}
   jsonld={jsonld}>
 <div class="wrap page-hero stack lg">
-  <p class="label">Town guide · {town.county}</p>
-  <h1>{town.name}, MN real estate: prices, sales and what to know</h1>
-  <p class="lead">{town.intro} It's one of the towns where I do the most work.</p>
+  <p class="label">{town.name} · {town.county}</p>
+  <h1>{title}</h1>
+  <p class="lead">{town.intro} {lead}</p>
   <div class="answer"><p class="label">Short answer</p><p>{answer}</p></div>
 </div>
 
@@ -49,8 +107,9 @@ const jsonld = [
   <div class="stat"><b>{town.pctOrig}%</b><span>Of original list price received</span></div>
 </div></section>
 
+{order.map((k) => k === "chart" ? (
 <section class="rule"><div class="wrap section split">
-  <div class="stack"><h2>Median price, 2020 to 2024</h2><p class="soft">Up {growth}% in four years.</p></div>
+  <div class="stack"><h2>{h.chart}</h2><p class="soft">Up {growth}% in four years.</p></div>
   <div>
     <table class="bars">
       <caption class="sr-only">Median sale price in {town.name} by year</caption>
@@ -64,44 +123,36 @@ const jsonld = [
     <p class="source">Source: <a href={SOURCE.url}>{SOURCE.name}</a>, {SOURCE.period}, published {SOURCE.published}. Twin Cities region median for 2024: {money(METRO.median)}.</p>
   </div>
 </div></section>
-
+) : k === "meaning" ? (
 <section class="rule"><div class="wrap section split">
-  <div class="stack"><h2>What the numbers mean</h2></div>
+  <div class="stack"><h2>{h.meaning}</h2></div>
   <div class="stack">
     <p>{town.homes}</p>
-    <p><strong>If you're buying:</strong> at {town.pctOrig}% of list price on average, most homes here sell close to asking. Have your pre-approval in hand before you tour, and expect to decide within a few days on the good ones.</p>
-    <p><strong>If you're selling:</strong> the {town.days}-day average includes homes that were priced too high and sat. A house priced on recent sales and launched clean usually beats that number. I'll show you the comps behind the price.</p>
+    <p><strong>Buying:</strong> {buying}</p>
+    <p><strong>Selling:</strong> {selling}</p>
   </div>
 </div></section>
-
-{town.pros && (
+) : k === "pc" ? (town.pros && (
 <section class="rule"><div class="wrap section stack lg">
-  <div class="stack"><h2>Pros and cons of buying or selling in {town.name}</h2><p class="soft">Based on the 2024 numbers above. About the homes and the market, not the people.</p></div>
+  <div class="stack"><h2>{h.pc}</h2><p class="soft">From the 2024 numbers. About the homes and the market, not the people.</p></div>
   <div class="grid g2 proscons">
     <div class="card"><p class="label">Pros</p><ul>{town.pros.map((x) => <li>{x}</li>)}</ul></div>
     <div class="card"><p class="label">Cons</p><ul>{town.cons?.map((x) => <li>{x}</li>)}</ul></div>
   </div>
 </div></section>
-)}
-
+)) : k === "next" ? (
 <section class="rule"><div class="wrap section stack lg">
-  <h2>Where to go next</h2>
-  <div class="grid g3">
-    <a class="card" href="/buy/"><p class="label">Buying</p><h3>How buying works</h3><p class="soft grow">Seven steps from pre-approval to keys.</p><span class="arrow">Read it</span></a>
-    <a class="card" href="/sell/"><p class="label">Selling</p><h3>How selling works</h3><p class="soft grow">Pricing, prep and the first week on the market.</p><span class="arrow">Read it</span></a>
-    <a class="card" href={SEARCH} target="_blank" rel="noopener"><p class="label">Listings</p><h3>Homes for sale in {town.name}</h3><p class="soft grow">Search current listings on my Team Steady site.</p><span class="arrow">Search homes</span></a>
-  </div>
-  <div class="grid g2">
-    <PostCard slug="your-first-step-before-buying-a-home" />
-    <PostCard slug="selling-your-home-what-the-first-30-days-look-like" />
-  </div>
+  <h2>{h.next}</h2>
+  <div class="grid g2">{guides.map((g) => <PostCard slug={g} />)}</div>
+  <p class="next-links"><a class="arrow" href={SEARCH} target="_blank" rel="noopener">Homes for sale in {town.name}</a> <a class="arrow" href="/buy/">How buying works</a> <a class="arrow" href="/sell/">How selling works</a></p>
   <p>Nearby: {nearby.map((t, i) => <>{i > 0 && " · "}<a href={`/${t.slug}/`}>{t.name}</a></>)} · <a href="/towns/">Compare all 11 towns</a></p>
 </div></section>
-
+) : (
 <section class="rule"><div class="wrap section split faq">
   <h2>Common questions</h2>
   <div>{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
 </div></section>
+))}
 
-<NextStep head={`Buying or selling in ${town.name}?`} text="Tell me your timeline and I'll tell you what the market looks like for your price range right now." />
+<NextStep head={say([`Buying or selling in ${town.name}?`, `Thinking about a move in ${town.name}?`, `Want the numbers for your ${town.name} street?`])} text={pick(["Tell me your timeline and I'll tell you what the market looks like for your price range right now.", "Tell me what you're planning. I'll pull the recent sales that actually compare.", "Town-wide numbers only go so far. I'll pull the sales that match your house or your budget."])} />
 </Base>
