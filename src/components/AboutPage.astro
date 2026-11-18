@@ -16,6 +16,8 @@ const person = {
   "@context": "https://schema.org", "@type": "Person", "@id": SITE + "/about/#person",
   name: "Nazar Orishchin", jobTitle: "Real estate agent", url: SITE + "/about/", image: SITE + "/images/nazar-smiling.jpg",
   email: EMAIL, knowsLanguage: ["en", "uk", "ru"], birthPlace: { "@type": "Country", name: "Ukraine" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Minnesota State University, Mankato" },
+  knowsAbout: ["Residential real estate", "Multifamily investment property", "Commercial real estate", "Off-market sales", "Creative financing", "Contract for deed", "Home renovation and permits"],
   worksFor: { "@type": "RealEstateAgent", "@id": SITE + "/#agent", name: "RE/MAX Results, Team Steady" },
   hasCredential: { "@type": "EducationalOccupationalCredential", credentialCategory: "license", name: `Minnesota real estate license #${LICENSE}` },
   sameAs: [SOCIAL.facebook, SOCIAL.instagram, SOCIAL.linkedin, SOCIAL.zillow],
@@ -42,14 +44,17 @@ const person = {
   <div class="stack"><p class="chapter">{uk ? "Історія" : "Background"}</p><h2>{uk ? "З України до Міннесоти" : "From Ukraine to Minnesota"}</h2>
     <Picture class="family-photo" src={family} alt={uk ? "Назар Оріщин з дружиною та дітьми восени" : "Nazar Orishchin with his wife and kids in the fall"} widths={[360, 540, 714]} sizes="(max-width: 900px) 92vw, 420px" formats={["avif", "webp"]} loading="lazy" /></div>
   <div class="stack">
-    {/* TODO (Nazar): add one specific story in your own words, such as why you left engineering or a deal where checking the numbers saved a client. */}
     {uk ? <>
       <p>Я народився в Україні і переїхав до Міннесоти у три роки. Розмовляю українською, англійською та російською.</p>
-      <p>Я здобув інженерну освіту і близько п'яти років працював інженером, перш ніж повністю перейти в нерухомість. Ця звичка лишилася: я читаю звіт інспекції рядок за рядком, перераховую кожну інвестиційну угоду з нуля і кажу вам цифру прямо.</p>
+      <p>Моя родина працює в будівництві відтоді, як ми сюди приїхали. Тато тесляр, маляр і майстер на всі руки, і чимало літ я провів з ним на об'єктах. Досі багато роботи у своїх будинках роблю сам, а дозволи на сантехніку й електрику оформлював власноруч. Тож коли ми оглядаємо будинок, я можу сказати, скільки займе ремонт і скільки він коштуватиме, якщо робити самому або наймати майстрів.</p>
+      <p>Я маю ступінь бакалавра з машинобудування (mechanical engineering) Minnesota State University, Mankato. П'ять років працював у напівпровідниковій галузі: три роки в стартапі, потім в applications engineering у великій компанії, де поєднувалися технічні продажі, демонстрації обладнання і багато презентацій. Там я навчився уважно ставитися до деталей і просто пояснювати складне. Обидві звички я переніс у нерухомість.</p>
+      <p>Я власник житла понад десять років і маю орендну нерухомість. В одному зі своїх будинків я додав спальню і ванну кімнату та обладнав підвал, керуючи всім проєктом як власник. За ці роки зібрав перевірених підрядників і майстрів, яких рекомендую клієнтам.</p>
       <p>Поза роботою я чоловік і тато.</p>
     </> : <>
       <p>I was born in Ukraine and came to Minnesota when I was three. I speak English, Ukrainian and Russian.</p>
-      <p>I earned an engineering degree and worked as an engineer for about five years before going full time in real estate. The habits came with me: I read the inspection report line by line, rebuild every investment deal's numbers from scratch, and give you the number straight.</p>
+      <p>My family has worked in construction since we got here. My dad is a carpenter, painter and all-around handyman, and I spent a lot of summers on jobs with him. I still do much of the work on my own houses, and I've pulled my own plumbing and electrical permits. So when we walk a house together, I can tell you what a repair really takes, and what it costs to do it yourself versus hiring it out.</p>
+      <p>I have a bachelor's degree in mechanical engineering from Minnesota State University, Mankato. I spent five years in the semiconductor industry: three at a startup, then in applications engineering at a larger company, a role that mixed technical sales, equipment demos and a lot of presentations. That's where I learned to sweat the details and to explain complicated things in plain words. Both habits came with me into real estate.</p>
+      <p>I've owned a home for more than ten years, and I own rental property. On one of my own houses, I added a bedroom and a bathroom and finished the basement, managing the whole project as the owner. Along the way I've built a list of contractors and trades I trust, and I pass them along to clients.</p>
       <p>Outside of work, I'm a husband and a dad.</p>
     </>}
   </div>
@@ -59,6 +64,8 @@ const person = {
   <div class="stack"><p class="chapter">{uk ? "Що я роблю" : "What I do"}</p><h2>{uk ? "Житло, інвестиції і комерційна нерухомість" : "Homes, investment and commercial property"}</h2><ClosingPhotos photos={[2]} lang={lang} caption={false} /></div>
   <div class="stack">
     <p>{uk ? "Купівля і продаж житла, багатоквартирні будинки і комерційні об'єкти: церкви, торгові приміщення, торгові центри, змішане призначення, склади, автосалони та об'єкти спеціального призначення. Угоди off-market і гнучкі умови, як-от seller carry і contract for deed." : "Buying and selling homes, plus multifamily and commercial property: apartments, churches, retail, strip centers, mixed use, warehouses, dealerships and special-use buildings. Off-market deals and creative terms like seller carry and contract for deed."}</p>
+    <p>{uk ? "У комерційній нерухомості я допоміг автосалону купити ділянку, підрядникам купувати й орендувати будівлі, а продуктовому магазину орендувати приміщення, яке вони потім повністю облаштували під себе. Закрив кілька угод з багатоквартирними будинками, багато з них із гнучким фінансуванням." : "On the commercial side, I've helped a dealership buy its site, helped contractors buy and lease buildings, and helped a grocery store lease space that they then built out from scratch. I've closed several multifamily deals, many of them with creative financing."}</p>
+    <p>{uk ? "Велика частина цієї роботи це дзвінки власникам. Якщо покупець знає, який будинок і в якому районі шукає, я знаходжу власників і питаю, чи продадуть. Деякі продавці хочуть тихого продажу без оголошення, інші хочуть максимального охоплення. Часто найкраще поєднати обидва підходи." : "A big part of that work is calling owners directly. If a buyer knows the type of building and the area they want, I find the owners and ask if they'd sell. Some sellers want a quiet sale with no listing. Others want the widest exposure. Often the best result is a mix of both."}</p>
     <h3>{uk ? "Де я працюю найбільше" : "Where I work most"}</h3>
     <ul class="towns">{TOWNS.map((n) => { const t = townLink(n); return <li>{t ? <a href={`/${t.slug}/`}>{n}</a> : n}</li>; })}</ul>
     <p class="soft">{uk ? "І будь-де в Міннесоті." : "And anywhere in Minnesota."} <a href="/towns/">{uk ? "Порівняти ціни за містами" : "Compare home prices by town"}</a></p>
