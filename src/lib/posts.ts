@@ -20,5 +20,6 @@ export async function getPosts(): Promise<Post[]> {
 
 export function related(all: Post[], p: Post, n = 2): Post[] {
   const same = all.filter((q) => q.id !== p.id && q.data.category === p.data.category);
-  return (same.length ? same : all.filter((q) => q.id !== p.id)).slice(0, n);
+  const rest = all.filter((q) => q.id !== p.id && q.data.category !== p.data.category);
+  return [...same, ...rest].slice(0, n);
 }

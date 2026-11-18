@@ -34,6 +34,8 @@ Professional photos, and drone shots if the lot or the view sells the house. I w
 
 We pick a launch day that catches the weekend. Showings get scheduled around your life, and you get feedback after each one.
 
+Want to know what you'll walk away with? Here's [what it costs to sell a house in Minnesota](/blog/cost-to-sell-a-house-in-minnesota/).
+
 ## When offers come in
 
 I lay out each offer side by side: price, financing, earnest money, contingencies, and closing date. The highest number isn't always the best offer. A clean offer from a strong buyer can be worth more than a bigger one that falls apart at the appraisal.

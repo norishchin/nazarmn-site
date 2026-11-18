@@ -32,6 +32,8 @@ When you find the one, I pull recent sales of similar homes nearby so the price 
 - **Contingencies**, like inspection and financing, that let you back out for specific reasons.
 - **Closing date** that lines up with your lease or your current home.
 
+If other buyers want the same house, here's [how to win a multiple-offer situation](/blog/how-to-win-a-multiple-offer-situation/).
+
 The seller can accept, counter or reject. I talk to the listing agent before and after we submit so we know where we stand.
 
 ## Stage 4: Inspection

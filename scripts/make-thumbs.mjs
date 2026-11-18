@@ -31,6 +31,12 @@ const ICONS = {
 ICONS.duplex = `<path d="M50 330V170l150-100 150 100v160z"/><path d="M200 70v260"/><path d="M90 230h60v60H90zM250 230h60v60h-60z"/>
     <circle cx="300" cy="120" r="22" stroke="${ACCENT}"/><path d="M322 120h40M348 120v18" stroke="${ACCENT}"/>`;
 
+ICONS.receipt = `<path d="M90 50h170v290l-28-18-28 18-28-18-28 18-28-18-30 18z"/><path d="M125 110h100M125 160h100M125 210h60"/>
+    <path d="M250 250l55-45 55 45M265 240v70h80v-70" stroke="${ACCENT}"/>`;
+ICONS.offers = `<rect x="120" y="70" width="170" height="220" rx="12" opacity=".45"/><rect x="95" y="95" width="170" height="220" rx="12" opacity=".7"/>
+    <rect x="70" y="120" width="170" height="220" rx="12"/><path d="M100 175h110M100 215h110M100 255h70"/>
+    <path d="M280 300l30 30 60-70" stroke="${ACCENT}"/>`;
+
 const THUMBS = {
   "your-first-step-before-buying-a-home": "checklist",
   "buying-your-first-home-in-minnesota": "key",
@@ -41,6 +47,8 @@ const THUMBS = {
   "how-off-market-commercial-deals-happen": "phone",
   "selling-in-spring-take-photos-in-fall": "camera",
   "buying-a-duplex-and-living-in-one-unit": "duplex",
+  "cost-to-sell-a-house-in-minnesota": "receipt",
+  "how-to-win-a-multiple-offer-situation": "offers",
 };
 
 function svg(category, icon) {
