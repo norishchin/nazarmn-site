@@ -3,6 +3,13 @@ import Base from "../../layouts/Base.astro";
 import NextStep from "../../components/NextStep.astro";
 import { TERMS } from "../../data/glossary";
 import { SITE } from "../../lib/site";
+const GUIDE_NAMES: Record<string, string> = {
+  "/blog/your-first-step-before-buying-a-home/": "your first step before buying a home",
+  "/blog/what-i-look-for-in-an-inspection-report/": "what I look for in an inspection report",
+  "/blog/buying-your-first-home-in-minnesota/": "buying a home in Minnesota, start to finish",
+  "/blog/contract-for-deed-minnesota/": "contract for deed in Minnesota",
+  "/blog/how-off-market-commercial-deals-happen/": "how off-market deals happen",
+};
 const id = (s: string) => s.toLowerCase().replace(/\(.*?\)/g, "").trim().replace(/[^a-z0-9]+/g, "-").replace(/-$/, "");
 const jsonld = [{
   "@context": "https://schema.org", "@type": "DefinedTermSet", name: "Real estate glossary, English and Ukrainian",
@@ -25,7 +32,7 @@ const jsonld = [{
     {TERMS.map((t) => (
       <div class="term" id={id(t.en)}>
         <dt><span>{t.en}</span><span class="uk" lang="uk">{t.uk}</span></dt>
-        <dd><p>{t.def}</p><p lang="uk" class="soft">{t.defUk}</p>{t.link && <p><a class="arrow" href={t.link}>{t.link === "/calculator/" ? "Try the calculator" : "Read the guide"}</a></p>}</dd>
+        <dd><p>{t.def}</p><p lang="uk" class="soft">{t.defUk}</p>{t.link && <p><a class="arrow" href={t.link}>{t.link === "/calculator/" ? "Try the investment calculator" : `Read: ${GUIDE_NAMES[t.link] ?? "the guide"}`}</a></p>}</dd>
       </div>
     ))}
   </dl>

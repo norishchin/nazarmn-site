@@ -1,24 +1,24 @@
 ---
 import Base from "../../layouts/Base.astro";
 import NextStep from "../../components/NextStep.astro";
-import { TOWNS, SOURCE, METRO, money } from "../../data/towns";
+import { TOWNS, SOURCE, METRO, YEAR, YEARS, UPDATED, money } from "../../data/towns";
 import { SITE } from "../../lib/site";
 const rows = [...TOWNS].sort((a, b) => b.medians[4] - a.medians[4]);
 const pct = (a: number, b: number) => Math.round(((a - b) / b) * 100);
 const top = rows[0], low = rows[rows.length - 1];
 const fastest = [...TOWNS].sort((a, b) => a.days - b.days)[0];
 const busiest = [...TOWNS].sort((a, b) => b.sales - a.sales)[0];
-const answer = `In 2024, median sale prices across these 11 west and south metro towns ranged from ${money(low.medians[4])} in ${low.name} to ${money(top.medians[4])} in ${top.name}. ${busiest.name} had the most sales (${busiest.sales.toLocaleString("en-US")}) and ${fastest.name} sold fastest (${fastest.days} days on average). The Twin Cities region median was ${money(METRO.median)}.`;
+const answer = `In ${YEAR}, median sale prices across these 11 west and south metro towns ranged from ${money(low.medians[4])} in ${low.name} to ${money(top.medians[4])} in ${top.name}. ${busiest.slug === fastest.slug ? `${busiest.name} had the most sales (${busiest.sales.toLocaleString("en-US")}) and sold fastest (${fastest.days} days on average).` : `${busiest.name} had the most sales (${busiest.sales.toLocaleString("en-US")}) and ${fastest.name} sold fastest (${fastest.days} days on average).`} The Twin Cities region median was ${money(METRO.median)}.`;
 const jsonld = [
-  { "@context": "https://schema.org", "@type": "Dataset", name: "2024 home sales by town, west and south Twin Cities metro",
+  { "@context": "https://schema.org", "@type": "Dataset", name: `${YEAR} home sales by town, west and south Twin Cities metro`,
     description: answer, url: SITE + "/towns/", creator: { "@id": SITE + "/#agent" },
-    isBasedOn: SOURCE.url, temporalCoverage: "2020/2024", spatialCoverage: "Minnesota, USA",
+    isBasedOn: SOURCE.url, temporalCoverage: `${YEARS[0]}/${YEAR}`, spatialCoverage: "Minnesota, USA",
     variableMeasured: ["Median sale price", "Closed sales", "Cumulative days on market", "Percent of original list price received"] },
   { "@context": "https://schema.org", "@type": "ItemList", itemListElement: rows.map((t, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/${t.slug}/`, name: `${t.name}, MN` })) },
 ];
 ---
-<Base title="West Metro Home Prices by Town, 2024 | Nazar Orishchin"
-  description="2024 median home prices, sales and days on market for Chaska, Chanhassen, Eden Prairie, Plymouth, Maple Grove and six more Minnesota towns."
+<Base title={`West Metro Home Prices by Town, ${YEAR} | Nazar Orishchin`}
+  description={`${YEAR} median home prices, sales and days on market for Chaska, Chanhassen, Eden Prairie, Plymouth, Maple Grove and six more Minnesota towns.`}
   jsonld={jsonld}>
 <div class="wrap page-hero stack lg">
   <p class="label">Town guides</p>
@@ -29,8 +29,8 @@ const jsonld = [
 <section class="rule"><div class="wrap section">
   <div class="table-wrap">
   <table class="data">
-    <caption>2024 full-year numbers, sorted by median sale price</caption>
-    <thead><tr><th scope="col">Town</th><th scope="col">Median price</th><th scope="col">Since 2020</th><th scope="col">Sales</th><th scope="col">Days on market</th><th scope="col">% of list price</th><th scope="col">New construction</th></tr></thead>
+    <caption>{YEAR} full-year numbers, sorted by median sale price. Updated {UPDATED}.</caption>
+    <thead><tr><th scope="col">Town</th><th scope="col">Median price</th><th scope="col">Since {YEARS[0]}</th><th scope="col">Sales</th><th scope="col">Days on market</th><th scope="col">% of list price</th><th scope="col">New construction</th></tr></thead>
     <tbody>
       {rows.map((t) => (
         <tr>

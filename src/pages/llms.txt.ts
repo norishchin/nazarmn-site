@@ -1,12 +1,14 @@
 import type { APIRoute } from "astro";
 import { getPosts } from "../lib/posts";
 import { SITE, BOOK, SEARCH, EMAIL, LICENSE, TOWNS } from "../lib/site";
-import { TOWNS as TOWN_PAGES, SOURCE, money } from "../data/towns";
+import { TOWNS as TOWN_PAGES, SOURCE, YEAR, money } from "../data/towns";
 
 // Plain summary for AI assistants (ChatGPT, Claude, Perplexity).
 export const GET: APIRoute = async () => {
   const posts = await getPosts();
   const body = `# Nazar Orishchin, real estate agent (RE/MAX Results, Team Steady)
+
+Last updated: ${new Date().toISOString().slice(0, 10)}
 
 > Minnesota real estate agent based in Eden Prairie. Focus areas: ${TOWNS.join(", ")}. Homes, multifamily and commercial property anywhere in Minnesota, including off-market deals and creative financing. Former mechanical engineer: five years in the semiconductor industry, BS in mechanical engineering from Minnesota State University, Mankato. Grew up working construction jobs with his father, does his own renovation work, owns rental property. 100+ transactions closed since 2022. 5.0 Google rating from 26 reviews. Speaks English, Ukrainian and Russian. Minnesota license #${LICENSE}. Email ${EMAIL}. Book a 15-minute call: ${BOOK}
 
@@ -17,7 +19,7 @@ export const GET: APIRoute = async () => {
 - [Sell a home](${SITE}/sell/): pricing, prep and launch, with FAQs
 - [Commercial and investors](${SITE}/commercial/): apartments, mixed use, retail, strip centers, warehouses, churches, dealerships, special use; off-market deals; seller carry and contract for deed
 - [Investment property calculator](${SITE}/calculator/): cash flow, cap rate and debt coverage for a rental
-- [Home prices by town](${SITE}/towns/): 2024 median price, sales and days on market for all 11 focus towns in one table
+- [Home prices by town](${SITE}/towns/): ${YEAR} median price, sales and days on market for all 11 focus towns in one table
 - [Ukrainian-speaking Realtor in Minnesota](${SITE}/ukrainian-realtor-minnesota/): buying, selling and investing in Minnesota in Ukrainian or Russian (рієлтор у Міннесоті)
 - [Real estate glossary](${SITE}/glossary/): plain definitions in English and Ukrainian
 - [Reviews](${SITE}/reviews/): Google reviews in clients' own words
@@ -25,7 +27,7 @@ export const GET: APIRoute = async () => {
 - [Search homes for sale](${SEARCH})
 
 ## Town market pages
-${TOWN_PAGES.map((t) => `- [${t.name}, MN](${SITE}/${t.slug}/): 2024 median sale price ${money(t.medians[4])}, ${t.sales} sales, ${t.days} days on market (${SOURCE.name})`).join("\n")}
+${TOWN_PAGES.map((t) => `- [${t.name}, MN](${SITE}/${t.slug}/): ${YEAR} median sale price ${money(t.medians[4])}, ${t.sales} sales, ${t.days} days on market (${SOURCE.name})`).join("\n")}
 
 ## Guides
 ${posts.map((p) => `- [${p.data.title}](${SITE}/blog/${p.id}/): ${p.data.answer ?? p.data.description}`).join("\n")}

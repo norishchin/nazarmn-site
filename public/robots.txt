@@ -25,4 +25,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://nazarmn.com/sitemap-index.xml
+Sitemap: https://nazarmn.com/sitemap.xml

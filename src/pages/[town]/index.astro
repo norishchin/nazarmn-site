@@ -2,7 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import NextStep from "../../components/NextStep.astro";
 import PostCard from "../../components/PostCard.astro";
-import { TOWNS, SOURCE, METRO, money, type Town } from "../../data/towns";
+import { TOWNS, SOURCE, METRO, YEAR, YEARS, UPDATED, money, type Town } from "../../data/towns";
 import { SITE, SEARCH } from "../../lib/site";
 
 export function getStaticPaths() {
@@ -12,18 +12,19 @@ export function getStaticPaths() {
 const { town, v, w } = Astro.props as { town: Town; v: number; w: number };
 const pick = <T,>(xs: T[]) => xs[v % xs.length]; // order, title, guides
 const say = <T,>(xs: T[]) => xs[w % xs.length]; // headings and wording
-const years = [2020, 2021, 2022, 2023, 2024];
+const years = YEARS;
+const first = YEARS[0], prev = YEAR - 1;
 const latest = town.medians[4];
 const max = Math.max(...town.medians);
 const growth = Math.round(((latest - town.medians[0]) / town.medians[0]) * 100);
 const vsMetro = latest - METRO.median;
 const nearby = town.nearby.map((s) => TOWNS.find((t) => t.slug === s)!);
-const fast = town.days <= 40, slow = town.days >= 50, tight = town.pctOrig >= 98.8;
+const fast = town.days <= 44, slow = town.days >= 52, tight = town.pctOrig >= 98.9;
 
 const answer = say([
-  `In 2024, the median sale price in ${town.name} was ${money(latest)}, up ${growth}% from ${money(town.medians[0])} in 2020. Homes took ${town.days} days on average to sell and got ${town.pctOrig}% of their original list price.`,
-  `${town.name}'s median sale price was ${money(latest)} in 2024, ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region. ${town.sales.toLocaleString("en-US")} homes sold, taking ${town.days} days on average.`,
-  `A typical ${town.name} home sold for ${money(latest)} in 2024 after ${town.days} days on the market, at ${town.pctOrig}% of its original list price. Prices are up ${growth}% since 2020.`,
+  `In ${YEAR}, the median sale price in ${town.name} was ${money(latest)}, up ${growth}% from ${money(town.medians[0])} in ${first}. Homes took ${town.days} days on average to sell and got ${town.pctOrig}% of their original list price.`,
+  `${town.name}'s median sale price was ${money(latest)} in ${YEAR}, ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region. ${town.sales.toLocaleString("en-US")} homes sold, taking ${town.days} days on average.`,
+  `A typical ${town.name} home sold for ${money(latest)} in ${YEAR} after ${town.days} days on the market, at ${town.pctOrig}% of its original list price. Prices are up ${growth}% since ${first}.`,
 ]);
 const lead = say([
   "It's one of the towns where I do the most work.",
@@ -31,8 +32,8 @@ const lead = say([
   "It's part of the area I cover most often.",
 ]);
 const h = {
-  chart: say(["Median price, 2020 to 2024", `How ${town.name} prices moved since 2020`, "Five years of prices"]),
-  meaning: say(["What the numbers mean", "If you're buying or selling here", "Reading the 2024 numbers"]),
+  chart: say([`Median price, ${first} to ${YEAR}`, `How ${town.name} prices moved since ${first}`, "Five years of prices"]),
+  meaning: say(["What the numbers mean", "If you're buying or selling here", `Reading the ${YEAR} numbers`]),
   pc: say([`Pros and cons of buying or selling in ${town.name}`, `${town.name}: what works and what to watch`, "The upside and the trade-offs"]),
   next: say(["Where to go next", "Keep going", `More for ${town.name} buyers and sellers`]),
 };
@@ -71,8 +72,8 @@ const order = pick([
 
 const faqs: [string, string][] = [
   [`What is the median home price in ${town.name}, MN?`, `${money(latest)} for ${SOURCE.period}, according to the ${SOURCE.name}. That is ${money(Math.abs(vsMetro))} ${vsMetro >= 0 ? "above" : "below"} the Twin Cities region median of ${money(METRO.median)}.`],
-  [`How fast do homes sell in ${town.name}?`, `${town.days} cumulative days on market on average in 2024, compared with ${METRO.days} days across the Twin Cities region. Sellers received ${town.pctOrig}% of their original list price on average.`],
-  [`How many homes sold in ${town.name} in 2024?`, `${town.sales.toLocaleString("en-US")} closed sales, ${town.salesChange} from 2023. ${town.newConstruction}% were new construction and ${town.townhouseCondo}% were townhouses or condos.`],
+  [`How fast do homes sell in ${town.name}?`, `${town.days} cumulative days on market on average in ${YEAR}, compared with ${METRO.days} days across the Twin Cities region. Sellers received ${town.pctOrig}% of their original list price on average.`],
+  [`How many homes sold in ${town.name} in ${YEAR}?`, `${town.sales.toLocaleString("en-US")} closed sales, ${town.salesChange} from ${prev}. ${town.newConstruction}% were new construction and ${town.townhouseCondo}% were townhouses or condos.`],
   [`Do you work in ${town.name}?`, `Yes. ${town.name} is one of my focus areas for buying and selling homes, and I work with investors anywhere in Minnesota.`],
 ];
 const jsonld = [
@@ -87,7 +88,7 @@ const jsonld = [
 const title = pick([
   `${town.name}, MN real estate: prices, sales and what to know`,
   `Buying or selling in ${town.name}, MN`,
-  `${town.name} home prices and market, 2024`,
+  `${town.name} home prices and market, ${YEAR}`,
 ]);
 ---
 <Base title={`${town.name}, MN Real Estate: Prices and Market Data | Nazar Orishchin`}
@@ -98,18 +99,19 @@ const title = pick([
   <h1>{title}</h1>
   <p class="lead">{town.intro} {lead}</p>
   <div class="answer"><p class="label">Short answer</p><p>{answer}</p></div>
+  <p class="soft small">Updated {UPDATED} with {SOURCE.period} data.</p>
 </div>
 
 <section class="rule" aria-label={`${town.name} at a glance`}><div class="wrap section tight stats">
-  <div class="stat"><b>{money(latest)}</b><span>Median sale price, 2024</span></div>
-  <div class="stat"><b>{town.sales.toLocaleString("en-US")}</b><span>Closed sales, {town.salesChange} from 2023</span></div>
+  <div class="stat"><b>{money(latest)}</b><span>Median sale price, {YEAR}</span></div>
+  <div class="stat"><b>{town.sales.toLocaleString("en-US")}</b><span>Closed sales, {town.salesChange} from {prev}</span></div>
   <div class="stat"><b>{town.days} days</b><span>Average time on market</span></div>
   <div class="stat"><b>{town.pctOrig}%</b><span>Of original list price received</span></div>
 </div></section>
 
 {order.map((k) => k === "chart" ? (
 <section class="rule"><div class="wrap section split">
-  <div class="stack"><h2>{h.chart}</h2><p class="soft">Up {growth}% in four years.</p></div>
+  <div class="stack"><h2>{h.chart}</h2><p class="soft">{growth >= 0 ? "Up" : "Down"} {Math.abs(growth)}% since {first}.</p></div>
   <div>
     <table class="bars">
       <caption class="sr-only">Median sale price in {town.name} by year</caption>
@@ -120,7 +122,7 @@ const title = pick([
         ))}
       </tbody>
     </table>
-    <p class="source">Source: <a href={SOURCE.url}>{SOURCE.name}</a>, {SOURCE.period}, published {SOURCE.published}. Twin Cities region median for 2024: {money(METRO.median)}.</p>
+    <p class="source">Source: <a href={SOURCE.url}>{SOURCE.name}</a>, {SOURCE.period}, published {SOURCE.published}. Twin Cities region median for {YEAR}: {money(METRO.median)}.</p>
   </div>
 </div></section>
 ) : k === "meaning" ? (
@@ -134,7 +136,7 @@ const title = pick([
 </div></section>
 ) : k === "pc" ? (town.pros && (
 <section class="rule"><div class="wrap section stack lg">
-  <div class="stack"><h2>{h.pc}</h2><p class="soft">From the 2024 numbers. About the homes and the market, not the people.</p></div>
+  <div class="stack"><h2>{h.pc}</h2><p class="soft">From the {YEAR} numbers. About the homes and the market, not the people.</p></div>
   <div class="grid g2 proscons">
     <div class="card"><p class="label">Pros</p><ul>{town.pros.map((x) => <li>{x}</li>)}</ul></div>
     <div class="card"><p class="label">Cons</p><ul>{town.cons?.map((x) => <li>{x}</li>)}</ul></div>

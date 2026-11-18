@@ -34,7 +34,7 @@ const total = z.totalSales.toLocaleString("en-US");
   </div>
   <details class="exp-note">
     <summary>{uk ? "Що входить у ці цифри" : "What these numbers include"}</summary>
-    {uk ? <p>«100+ угод» це угоди, які я особисто закрив з 2022 року. Цифри команди стосуються всієї Team Steady в RE/MAX Results, частиною якої я є. RealTrends Verified: рейтинги на основі даних про продажі за {rt.year} рік, перевірено {rt.checked}. Zillow: профіль команди, {total} продажів загалом і {z.last12} за останні 12 місяців, перевірено 18 листопада 2026 року.</p>
+    {uk ? <p>«100+ угод» це угоди, які я особисто закрив з 2022 року. Цифри команди стосуються всієї Team Steady в RE/MAX Results, частиною якої я є. RealTrends Verified: рейтинги на основі даних про продажі за {rt.year} рік, перевірено в листопаді 2026 року. Zillow: профіль команди, {total} продажів загалом і {z.last12} за останні 12 місяців, перевірено 18 листопада 2026 року.</p>
        : <p>"100+ transactions" is deals I've personally closed since 2022. The team numbers cover all of Team Steady at RE/MAX Results, which I'm part of. RealTrends Verified: rankings based on {rt.year} sales data, checked {rt.checked}. Zillow: team profile showing {total} total sales and {z.last12} in the last 12 months, checked {z.checked}.</p>}
   </details>
 </div></section>
