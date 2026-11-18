@@ -324,3 +324,6 @@ a.card:hover{border-color:var(--lake);transform:translateY(-2px)}
 .exp-rating{margin:14px 0 6px;padding-top:14px;border-top:1px solid rgba(220,235,239,.2)}
 .exp-rating b{font-family:var(--serif);font-size:22px;margin-right:4px}
 .exp-me a{color:var(--tint)}
+.exp-grid{grid-template-columns:repeat(3,1fr)}
+.exp-rating b{display:block}
+@media (max-width:600px){.exp-grid{grid-template-columns:repeat(2,1fr)}}
