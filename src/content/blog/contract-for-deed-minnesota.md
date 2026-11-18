@@ -38,4 +38,6 @@ A contract for deed is seller financing. The buyer makes payments to the seller,
 - Write down who pays taxes and insurance, and how the seller will get proof.
 - Underwrite the balloon. If the plan is to refinance in five years, talk to a lender now about what that will take.
 
+For the official version, read the [Minnesota Attorney General's contract for deed guide](https://www.ag.state.mn.us/Consumer/Publications/ContractForDeed.asp) and the [Minnesota Department of Commerce page on contracts for deed](https://mn.gov/commerce/business/real-estate/contract-deed/).
+
 <p class="note">This is general information, not legal advice. If you're weighing a contract for deed as a buyer or a seller, <a href="/book/">book a 15-minute call</a> and I'll walk through the numbers with you.</p>

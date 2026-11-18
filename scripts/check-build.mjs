@@ -40,6 +40,11 @@ for (const f of pages) {
     try { JSON.parse(m[1]); } catch { bad("invalid JSON-LD structured data"); }
   }
 
+  // Fair housing: never describe a place by who lives there, even inside a quoted review.
+  const text = visible.replace(/<[^>]+>/g, " ");
+  const fh = text.match(/\b(family[- ]friendly|good schools?|safe neighborhood|neighborhood full of kids|full of (kids|families|young families)|great for (kids|families)|perfect for (families|retirees|young professionals)|empty nesters)\b/i);
+  if (fh) bad(`fair housing wording: "${fh[0]}"`);
+
   // One H1.
   const h1 = (visible.match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1) bad(`${h1} H1 tags (need exactly 1)`);

@@ -1,7 +1,7 @@
 ---
 title: "Your first step before buying a home (it isn't looking at houses)"
 description: "The first step to buying a home in Minnesota: get clear on your timeline, payment and cash, then talk to a lender. A plain checklist."
-teaser: "Most people start on Zillow. The buyers who get the right house at the right price start somewhere else."
+teaser: "Before we look at houses, I want to know your monthly payment, your cash and your timing. That keeps the search grounded."
 answer: "Before you look at houses, write down why and when you're moving, pick a monthly payment you're comfortable with, count your cash, and get pre-approved. Then choose two or three towns."
 order: 1
 date: 2026-11-16
@@ -15,7 +15,7 @@ Here is the order I walk every buyer through. None of it costs anything, and mos
 
 ## 1. Write down your why and your when
 
-Two sentences. Why are you moving, and when do you need to be in? "Our lease ends in June and we want a yard for the kids" tells me more than a list of 20 features. Your timeline decides how patient we can be and how hard we push in a competitive offer.
+Two sentences. Why are you moving, and when do you need to be in? "Our lease ends in June and we want a fenced yard for the dog" tells me more than a list of 20 features. Your timeline decides how patient we can be and how hard we push in a competitive offer.
 
 ## 2. Pick a monthly payment, not a price
 

@@ -19,9 +19,9 @@ Commissions aren't set by law. They're negotiated and written into your listing 
 This one surprises people moving from other states. Minnesota charges a deed tax when the property changes hands, and the standard purchase agreement has the seller pay it.
 
 - **Most of Minnesota:** 0.33% of the sale price
-- **Hennepin and Ramsey counties:** 0.34% (an extra 0.01% for the county)
+- **Hennepin and Ramsey counties:** 0.34% total (the 0.33% state rate plus a 0.01% Environmental Response Fund tax)
 
-On a $450,000 sale, that's $1,485, or $1,530 in Eden Prairie, Hopkins, Plymouth or anywhere else in Hennepin County. The rate is set by the state, so it isn't negotiable. ([Minnesota Department of Revenue: deed tax rate](https://www.revenue.state.mn.us/mndor-pp/951?type=html))
+On a $450,000 sale, that's $1,485, or $1,530 in Eden Prairie, Hopkins, Plymouth or anywhere else in Hennepin County. The rate is set by the state, so it isn't negotiable. ([Minnesota Department of Revenue: deed tax rate](https://www.revenue.state.mn.us/deed-tax-rate))
 
 ## Title and closing fees
 

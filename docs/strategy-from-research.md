@@ -60,3 +60,29 @@ Muse read the site as plain text, so it couldn't see links and buttons. These we
 - **Heavy review widgets:** they slow the site. A short block of real reviews plus links to Google works as well.
 - **Copying out-of-state legal content:** Minnesota law has to be checked locally.
 - **One identical layout for all town pages:** Muse suggested it, but we varied them on purpose so they don't read as templated. The real fix is one or two local lines per town from you.
+
+---
+
+## Update after the second research report (November 18, 2026)
+
+Both reports agree. Merged priority list:
+
+1. **Proof you can check.** A "Selected deals" page (6 to 10 real deals: year, town, property type, your side, problem, what you did, result) and two longer case studies (one home deal, one multifamily or commercial deal). Also a one-line definition of what "100+ transactions since 2022" counts. **Needs you:** fill in `docs/recent-deals-template.md`.
+2. **Fix your outside profiles:** the RE/MAX, Results.net and Homes.com bios, and Google Business Profile. Use `docs/results-site-review-prompt.md` for Results.net. These are what AI tools read today.
+3. **An investor page for small apartment buildings and owner-users,** plus a due-diligence checklist. Note: report 2 suggested a "5 to 30 unit" page, but your rules say not to describe multifamily by unit count, so the page will describe building types and buyers instead.
+4. **Ukrainian and Russian guides** with human review, starting with the buying process, seller costs, contract for deed and the duplex guide. A separate Russian page only if it has enough original content.
+5. **Newsletter to site,** weekly. Add a "What happens on the 15-minute call?" note once you confirm how your calls go.
+
+### Fixed in this round (report 2)
+- **Fair housing:** the Reviews page no longer shows the review that described a neighborhood by family status. The client's wording wasn't edited, it just isn't displayed. The build check now blocks that kind of wording anywhere on the site.
+- **Neutral example:** the first-step guide's example changed from "a yard for the kids" to "a fenced yard for the dog", in English and Ukrainian.
+- **Sell page:** "fixes that pay for themselves" became "fixes worth doing before you list".
+- **Deed tax:** now explained as the 0.33% state rate plus the 0.01% Environmental Response Fund tax in Hennepin and Ramsey, with the current Department of Revenue link.
+- **Contract for deed guide:** now links to the Minnesota Attorney General and Commerce Department guides.
+- **Town pages:** now say medians move with the mix of homes sold and aren't an estimate of any one home's value.
+- **Generic lines replaced:** "Ready when you are", the Zillow teaser and the investing teaser.
+- **iCloud duplicates removed:** iCloud had created " 2" copies inside the project, and some were committed. They're removed, and the project now blocks them from being saved again. Long term, move the project out of the iCloud-synced Documents folder.
+
+### Disagreements with the reports, and our call
+- **FAQ markup:** Google rarely shows FAQ rich results for business sites anymore. We keep the FAQ markup because it's accurate and helps AI tools read the questions, but we don't count on it for rankings.
+- **llms.txt:** the AI summary file isn't a ranking tool. We keep it because it's cheap. The real work is proof, outside profiles and useful content.

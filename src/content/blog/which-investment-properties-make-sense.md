@@ -1,7 +1,7 @@
 ---
 title: "Which investment properties make sense, and which ones don't"
 description: "How to tell a good rental or small apartment building from a bad one: real expenses, cash flow, cap rate and debt coverage, with a worked fourplex example."
-teaser: "A building that looks great on the listing can lose money every month. How I tell the deals from the traps, with a worked example."
+teaser: "The rent roll is only the start. I rebuild the expenses, check taxes and insurance, and price the repairs before deciding what a building is worth. With a worked example."
 answer: "A rental makes sense when the rent covers every real cost (vacancy, repairs, management, taxes, insurance and the mortgage) with money left over. Check cash flow, cap rate and debt coverage. Price and terms decide whether the same building works."
 order: 4
 date: 2026-11-16

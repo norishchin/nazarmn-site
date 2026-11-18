@@ -55,8 +55,8 @@ export const UI = {
     next: "Next step", email_or: `Or email ${EMAIL}`, book_btn: "Book a 15-min call",
     read: "Read it", mins: "min read", all: "All guides", keep: "Keep reading",
     byline: "Real estate agent, RE/MAX Results, Team Steady.",
-    ns_head: "Ready when you are.",
-    ns_text: "Tell me what you're trying to do. One conversation, no pressure, and you'll leave with a plan.",
+    ns_head: "Have a move or a property in mind?",
+    ns_text: "Book 15 minutes and we'll work out the next step. No pressure, and you'll leave with a plan.",
     menu: "Open menu", short: "Short answer", other: "Українська",
   },
   uk: {
@@ -70,8 +70,8 @@ export const UI = {
     next: "Наступний крок", email_or: `Або напишіть на ${EMAIL}`, book_btn: "Запишіться на 15-хвилинну розмову",
     read: "Читати", mins: "хв читання", all: "Усі поради", keep: "Читайте також",
     byline: "Агент з нерухомості, RE/MAX Results, Team Steady.",
-    ns_head: "Коли будете готові.",
-    ns_text: "Розкажіть, що плануєте. Одна розмова без тиску, і ви матимете чіткий план.",
+    ns_head: "Плануєте переїзд чи маєте об'єкт на прикметі?",
+    ns_text: "Запишіться на 15 хвилин, і ми визначимо наступний крок. Без тиску, і ви матимете план.",
     menu: "Відкрити меню", short: "Коротка відповідь", other: "English",
   },
 } as const;
