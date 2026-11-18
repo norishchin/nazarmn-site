@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 // Pages that only redirect somewhere else stay out of the sitemap.
-const SKIP = ["/book/", "/search/", "/404"];
+const SKIP = ["/book/", "/search/", "/404", "/ukrainian-speaking-realtor/"];
 
 export default defineConfig({
   site: "https://nazarmn.com",
