@@ -379,3 +379,38 @@ html[lang=uk] .nav>a,html[lang=uk] .dd>button{padding:10px 9px;font-size:13.5px}
 .closings figcaption{font-size:13px;color:var(--soft);margin-top:8px}
 @media (max-width:760px){.closings-grid,.closings.n5 .closings-grid{grid-template-columns:repeat(2,1fr)}.closings.n5 img:last-child{display:none}}
 .family-photo{width:100%;max-width:420px;height:auto;border-radius:12px;margin-top:16px;display:block}
+
+/* ===================== polish: floating header, softer sections ===================== */
+html{scroll-padding-top:96px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* floating, rounded header */
+.site-header{top:12px;width:calc(100% - 24px);max-width:1240px;margin:12px auto 0;border-radius:18px;border:1px solid rgba(220,235,239,.10);
+  background:rgba(15,31,51,.93);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:0 8px 28px rgba(15,31,51,.16);transition:box-shadow .25s,top .25s,background .25s}
+.site-header .bar{padding-inline:6px}
+.site-header.scrolled{top:8px;background:rgba(15,31,51,.97);box-shadow:0 14px 36px rgba(15,31,51,.24)}
+.nav a.book{box-shadow:0 2px 10px rgba(27,106,133,.45)}
+.nav a.book:hover{transform:translateY(-1px)}
+@media (max-width:760px){.site-header{top:8px;width:calc(100% - 16px);margin-top:8px;border-radius:14px}}
+
+/* softer section rhythm: no hard rules, tighter spacing, gentle alternating bands */
+.rule{border-top:0}
+.section{padding-block:clamp(44px,6.5vw,84px)}
+.section.tight{padding-block:clamp(30px,4.5vw,52px)}
+main > section.rule:nth-of-type(even){background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.35))}
+.profile-strip .wrap{border-top:0}
+.page-hero{padding-block:clamp(36px,6vw,72px) clamp(24px,4vw,44px)}
+
+/* call-to-action band as a rounded card */
+.band{width:calc(100% - 24px);max-width:1240px;margin:clamp(24px,4vw,48px) auto;border-radius:24px;overflow:hidden;
+  background:radial-gradient(120% 140% at 100% 0%,#1b6a85 0%,var(--ink) 55%)}
+.note-strip{border-top:0}
+
+/* gentle motion on cards and photos */
+.card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+a.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,31,51,.10)}
+.closings img,.thumb{transition:transform .35s ease}
+.closings img:hover{transform:scale(1.02)}
+a.card:hover .thumb{transform:scale(1.015)}
+@media (prefers-reduced-motion:reduce){a.card:hover,.closings img:hover,a.card:hover .thumb,.nav a.book:hover{transform:none}}
