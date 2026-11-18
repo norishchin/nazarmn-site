@@ -26,7 +26,8 @@ for (const f of pages) {
   const bad = (msg) => problems.push(`${path}: ${msg}`);
 
   // No phone number anywhere. Calendly replaces it.
-  if (/846-?9173|9528469173|tel:/.test(html)) bad("phone number or tel: link found");
+  // The business line (612-440-6547) is allowed only in the Save contact card, never on a page.
+  if (/846-?9173|9528469173|440-?6547|6124406547|tel:/.test(html)) bad("phone number or tel: link found");
   if (redirect) continue;
 
   const visible = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "");
