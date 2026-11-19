@@ -14,7 +14,8 @@ const uk = lang === "uk";
 const townLink = (name: string) => TOWN_PAGES.find((t) => t.name === name);
 const person = {
   "@context": "https://schema.org", "@type": "Person", "@id": SITE + "/about/#person",
-  name: "Nazar Orishchin", jobTitle: "Real estate agent", url: SITE + "/about/", image: SITE + "/images/nazar-smiling.jpg",
+  name: "Nazar Orishchin", jobTitle: "Real estate agent",
+  description: `Minnesota real estate agent (license #${LICENSE}) with RE/MAX Results on Team Steady, based in Eden Prairie. 100+ transactions closed since 2022. Speaks English, Ukrainian and Russian. Works with buyers, sellers and investors across the Twin Cities, most often in ${TOWNS.join(", ")}. Former mechanical engineer.`, url: SITE + "/about/", image: SITE + "/images/nazar-smiling.jpg",
   email: EMAIL, knowsLanguage: ["en", "uk", "ru"], birthPlace: { "@type": "Country", name: "Ukraine" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Minnesota State University, Mankato" },
   knowsAbout: ["Residential real estate", "Multifamily investment property", "Commercial real estate", "Off-market sales", "Creative financing", "Contract for deed", "Home renovation and permits"],
@@ -37,10 +38,6 @@ const person = {
   </div>
   <div class="photo"><Picture src={photo} alt={uk ? "Назар Оріщин біля вікна" : "Nazar Orishchin standing by a window"} widths={[400, 640, 900]} sizes="(max-width: 900px) 92vw, 460px" formats={["avif", "webp"]} fetchpriority="high" loading="eager" /></div>
 </div>
-
-<section class="wrap" aria-label={uk ? "Коротко" : "In short"}><div class="answer"><p class="label">{uk ? "Коротко" : "In short"}</p><p>{uk
-  ? `Назар Оріщин є агентом з нерухомості в Міннесоті (ліцензія #${LICENSE}) у RE/MAX Results, команда Team Steady, з офісом в Eden Prairie. З 2022 року закрив понад 100 угод. Розмовляє англійською, українською та російською. Працює з покупцями, продавцями та інвесторами по всьому Twin Cities, найбільше в ${TOWNS.join(", ")}. До нерухомості п'ять років працював інженером-механіком.`
-  : `Nazar Orishchin is a Minnesota real estate agent (license #${LICENSE}) with RE/MAX Results on Team Steady, based in Eden Prairie. He has closed 100+ transactions since 2022, speaks English, Ukrainian and Russian, and works with buyers, sellers and investors across the Twin Cities, most often in ${TOWNS.join(", ")}. Before real estate, he was a mechanical engineer for five years.`}</p></div></section>
 
 <ProfileStrip lang={lang} jumps={uk ? [["#background", "Історія"], ["#experience", "Досвід"], ["#details", "Ліцензія"], ["#contact", "Поговорімо"]] : [["#background", "Background"], ["#experience", "Experience"], ["#details", "License and office"], ["#contact", "Let's talk"]]} />
 
@@ -85,7 +82,6 @@ const person = {
     <dt>{uk ? "Брокерська компанія" : "Brokerage"}</dt><dd>RE/MAX Results, Team Steady</dd>
     <dt>{uk ? "Офіс" : "Office"}</dt><dd>{OFFICE.street}, {OFFICE.city}, {OFFICE.region} {OFFICE.zip}</dd>
     <dt>{uk ? "Ліцензія" : "License"}</dt><dd>{uk ? "Міннесота" : "Minnesota"} #{LICENSE}</dd>
-    <dt>{uk ? "Мови" : "Languages"}</dt><dd>{uk ? "Українська, англійська, російська" : "English, Ukrainian, Russian"}</dd>
     <dt>Email</dt><dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
     <dt>{uk ? "Соцмережі" : "Social"}</dt><dd><a href={SOCIAL.linkedin}>LinkedIn</a> · <a href={SOCIAL.facebook}>Facebook</a> · <a href={SOCIAL.instagram}>Instagram</a></dd>
   </dl>
