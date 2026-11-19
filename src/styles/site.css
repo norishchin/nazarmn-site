@@ -304,7 +304,7 @@ a.card:hover{border-color:var(--lake);transform:translateY(-2px)}
 .exp-big{font-family:var(--serif);font-size:64px;line-height:1;margin:8px 0 4px;font-weight:600}
 .exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 24px;margin:12px 0 16px}
 .exp-grid b{display:block;font-family:var(--serif);font-size:30px;font-weight:600;color:var(--lake)}
-.exp-grid span{font-size:14px;color:var(--soft)}
+.exp-grid > div > span{font-size:14px;color:var(--soft)}
 .exp-note{border-top:1px solid var(--line);padding-top:12px}
 .exp-note summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none}
 .exp-note summary::after{content:" +";color:var(--lake)}
@@ -417,3 +417,7 @@ a.card:hover .thumb{transform:scale(1.015)}
 
 /* ---- count-up stat bar ---- */
 .countup{display:inline-block;font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+
+/* animated numbers keep the look of the number they sit in */
+.countup{font:inherit;color:inherit;letter-spacing:inherit;text-transform:none}
+.exp-grid b .countup{font-size:inherit}
