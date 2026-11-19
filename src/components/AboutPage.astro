@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import NextStep from "./NextStep.astro";
 import ProfileStrip from "./ProfileStrip.astro";
+import StatBar from "./StatBar.astro";
 import Experience from "./Experience.astro";
 import ClosingPhotos from "./ClosingPhotos.astro";
 import { Picture } from "astro:assets";
@@ -43,6 +44,8 @@ const person = {
   : `Nazar Orishchin is a Minnesota real estate agent (license #${LICENSE}) with RE/MAX Results on Team Steady, based in Eden Prairie. He has closed 100+ transactions since 2022, speaks English, Ukrainian and Russian, and works with buyers, sellers and investors across the Twin Cities, most often in ${TOWNS.join(", ")}. Before real estate, he was a mechanical engineer for five years.`}</p></div></section>
 
 <ProfileStrip lang={lang} jumps={uk ? [["#background", "Історія"], ["#experience", "Досвід"], ["#details", "Ліцензія"], ["#contact", "Поговорімо"]] : [["#background", "Background"], ["#experience", "Experience"], ["#details", "License and office"], ["#contact", "Let's talk"]]} />
+
+<StatBar lang={lang} />
 
 <section class="rule" id="background"><div class="wrap section split">
   <div class="stack"><p class="chapter">{uk ? "Історія" : "Background"}</p><h2>{uk ? "З України до Міннесоти" : "From Ukraine to Minnesota"}</h2>
