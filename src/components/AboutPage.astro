@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import NextStep from "./NextStep.astro";
 import ProfileStrip from "./ProfileStrip.astro";
-import StatBar from "./StatBar.astro";
 import Experience from "./Experience.astro";
 import ClosingPhotos from "./ClosingPhotos.astro";
 import { Picture } from "astro:assets";
@@ -45,7 +44,6 @@ const person = {
 
 <ProfileStrip lang={lang} jumps={uk ? [["#background", "Історія"], ["#experience", "Досвід"], ["#details", "Ліцензія"], ["#contact", "Поговорімо"]] : [["#background", "Background"], ["#experience", "Experience"], ["#details", "License and office"], ["#contact", "Let's talk"]]} />
 
-<StatBar lang={lang} />
 
 <section class="rule" id="background"><div class="wrap section split">
   <div class="stack"><p class="chapter">{uk ? "Історія" : "Background"}</p><h2>{uk ? "З України до Міннесоти" : "From Ukraine to Minnesota"}</h2>

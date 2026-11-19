@@ -132,5 +132,34 @@ document.documentElement.classList.add("js-reveal");
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.add("in");io.unobserve(t);setTimeout(function(){t.style.transitionDelay="";},1200);}});},{rootMargin:"0px 0px -6% 0px"});
 els.forEach(function(el){el.classList.add("reveal");var i=Array.prototype.indexOf.call(el.parentElement.children,el);el.style.transitionDelay=Math.min(i,5)*80+"ms";io.observe(el);});})();
 </script>
+<script is:inline>
+(function () {
+  var els = document.querySelectorAll(".countup");
+  if (!els.length || !("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var fmt = function (el, n) {
+    var d = +el.dataset.decimals;
+    return el.dataset.prefix + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) + el.dataset.suffix;
+  };
+  var run = function (el) {
+    var to = +el.dataset.to, start = null, dur = 1350, done = false;
+    var finish = function () { if (!done) { done = true; el.textContent = fmt(el, to); } };
+    var step = function (t) {
+      if (done) return;
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - p, 3); // ease-out
+      if (p >= 1) return finish();
+      el.textContent = fmt(el, to * e);
+      requestAnimationFrame(step);
+    };
+    el.textContent = fmt(el, 0); // start from zero only once the animation really begins
+    requestAnimationFrame(step);
+    setTimeout(finish, dur + 400); // always land on the real number
+  };
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); run(en.target); } });
+  }, { threshold: 0.5 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

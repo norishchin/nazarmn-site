@@ -1,0 +1,8 @@
+---
+// A number that counts up once when it scrolls into view (script in Base.astro).
+// The final number is always in the HTML, so search engines, AI tools and reduced-motion visitors see it as is.
+interface Props { value: number; decimals?: number; prefix?: string; suffix?: string }
+const { value, decimals = 0, prefix = "", suffix = "" } = Astro.props;
+const text = prefix + value.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+---
+<span class="countup" data-to={value} data-decimals={decimals} data-prefix={prefix} data-suffix={suffix} style={`min-width:${text.length}ch`}>{text}</span>

@@ -1,6 +1,7 @@
 ---
 import { TEAM, type Lang } from "../lib/site";
 import { getGoogleRating } from "../lib/google";
+import CountUp from "./CountUp.astro";
 const g = await getGoogleRating();
 const { lang = "en" } = Astro.props as { lang?: Lang };
 const uk = lang === "uk";
@@ -13,21 +14,21 @@ const total = z.totalSales.toLocaleString("en-US");
   <div class="exp">
     <div class="exp-me">
       <p class="label">{uk ? "Особисто" : "Me"}</p>
-      <p class="exp-big">100+</p>
+      <p class="exp-big"><CountUp value={100} suffix="+" /></p>
       <p>{uk ? "угод за кар'єру" : "career transactions"}</p>
-      <p class="exp-rating"><b>{g.rating.toFixed(1)}★</b>{uk ? `рейтинг Google, ${g.count} відгуків` : `Google rating from ${g.count} reviews`}</p>
+      <p class="exp-rating"><b><CountUp value={g.rating} decimals={1} suffix="★" /></b>{uk ? `рейтинг Google, ${g.count} відгуків` : `Google rating from ${g.count} reviews`}</p>
       <p><a href="/reviews/">{uk ? "Читати відгуки" : "Read the reviews"}</a></p>
       <p class="soft">{uk ? "Плюс 5 років інженером до нерухомості." : "Plus 5 years as an engineer before real estate."}</p>
     </div>
     <div class="exp-team">
       <p class="label">{uk ? "Моя команда: Team Steady, RE/MAX Results" : "My team: Team Steady, RE/MAX Results"}</p>
       <div class="exp-grid">
-        <div><b>{total}</b><span>{uk ? "продажів командою загалом" : "total team sales"}</span></div>
+        <div><b><CountUp value={z.totalSales} /></b><span>{uk ? "продажів командою загалом" : "total team sales"}</span></div>
         <div><b>No. {rt.mnRank}</b><span>{uk ? `команда в Міннесоті за кількістю угод і обсягом (${rt.year})` : `team in Minnesota by sides and volume (${rt.year})`}</span></div>
         <div><b>No. {rt.cityRank}</b><span>{uk ? `у ${rt.city} за кількістю угод і обсягом (${rt.year})` : `in ${rt.city} by sides and volume (${rt.year})`}</span></div>
-        <div><b>{rt.sides}</b><span>{uk ? `угод (sides) у ${rt.year} році` : `transaction sides in ${rt.year}`}</span></div>
-        <div><b>{rt.volume}</b><span>{uk ? `обсяг продажів у ${rt.year} році` : `sales volume in ${rt.year}`}</span></div>
-        <div><b>{z.rating.toFixed(1)}★</b><span>{uk ? `на Zillow, ${z.reviews} відгуків про команду` : `on Zillow from ${z.reviews} team reviews`}</span></div>
+        <div><b><CountUp value={rt.sides} /></b><span>{uk ? `угод (sides) у ${rt.year} році` : `transaction sides in ${rt.year}`}</span></div>
+        <div><b><CountUp value={rt.volumeM} decimals={2} prefix="$" suffix="M" /></b><span>{uk ? `обсяг продажів у ${rt.year} році` : `sales volume in ${rt.year}`}</span></div>
+        <div><b><CountUp value={z.rating} decimals={1} suffix="★" /></b><span>{uk ? `на Zillow, ${z.reviews} відгуків про команду` : `on Zillow from ${z.reviews} team reviews`}</span></div>
       </div>
       <p class="soft small">{uk ? "Джерела:" : "Sources:"} <a href={rt.url}>RealTrends Verified</a>, <a href={z.url}>Zillow</a>.</p>
     </div>

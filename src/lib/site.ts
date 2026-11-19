@@ -30,7 +30,7 @@ export const TOWNS = [
 export const TEAM = {
   realtrends: {
     url: "https://www.realtrends.com/team-profile/team-steady-minnesota-remax-results/",
-    year: 2025, sides: 364, volume: "$166.63M", mnRank: 2, cityRank: 1, city: "Minneapolis", checked: "November 2026",
+    year: 2025, sides: 364, volume: "$166.63M", volumeM: 166.63, mnRank: 2, cityRank: 1, city: "Minneapolis", checked: "November 2026",
   },
   zillow: {
     url: "https://www.zillow.com/profile/TeamSteady",

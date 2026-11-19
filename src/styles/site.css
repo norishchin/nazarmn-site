@@ -416,5 +416,4 @@ a.card:hover .thumb{transform:scale(1.015)}
 @media (prefers-reduced-motion:reduce){a.card:hover,.closings img:hover,a.card:hover .thumb,.nav a.book:hover{transform:none}}
 
 /* ---- count-up stat bar ---- */
-.statbar .stats{padding-block:clamp(24px,4vw,40px)}
 .countup{display:inline-block;font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}

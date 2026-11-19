@@ -1,5 +1,4 @@
 ---
-import StatBar from "../components/StatBar.astro";
 import ClosingPhotos from "../components/ClosingPhotos.astro";
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
@@ -26,7 +25,6 @@ const jsonld = [agentSchema({ inLanguage: "en" }), { "@context": "https://schema
 
 <ProfileStrip lang="en" jumps={[["#experience", "Experience"], ["#reviews", "Client reviews"], ["#areas", "Where I work"], ["#contact", "Let's talk"]]} />
 
-<StatBar lang="en" />
 
 <Experience lang="en" />
 
